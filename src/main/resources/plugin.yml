@@ -1,0 +1,10 @@
+name: FlyPerms
+version: ${project.version}
+main: com.benergy.flyperms.FlyPerms
+api-version: 1.15
+authors: [ benwoo1110 ]
+description: Toggle ability to fly based on permission
+permissions:
+  flyperms.allow:
+    default: false
+    description: Give players ability to fly!
