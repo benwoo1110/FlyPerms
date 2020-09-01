@@ -1,12 +1,22 @@
 # +----------+
 # | FlyPerms |
 # +----------+
-listener-priority: HIGHEST
+# Spigot resource:
+# Github repo: https://github.com/benwoo1110/FlyPerms
+# Discord:
 
-check-for-gamemode: true
+# If enabled, players will need flyperms.allow.world.WORLDNAME permission node to fly
 check-for-world: true
 
+# If enabled, players will need flyperms.allow.gamemode.GAMEMODE permission node to fly
+check-for-gamemode: false
+
+# FlyPerms will not effect these worlds
+# All perms and fly checks will not be present in these worlds
 ignore-in-worlds:
 #  - world2
 #  - world2_nether
 #  - world3_the_end
+
+# Used for development and troubleshooting purposes
+show-debug-info: false

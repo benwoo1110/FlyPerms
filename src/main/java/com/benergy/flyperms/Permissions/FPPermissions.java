@@ -1,6 +1,7 @@
 package com.benergy.flyperms.Permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -18,51 +19,83 @@ public class FPPermissions {
     }
 
     public boolean canFly(Player player) {
-        // Check gamemode
-        if (this.plugin.getFPConfig().isCheckGameMode()
-                && !player.hasPermission("flyperms.allow.gamemode." + player.getGameMode().toString().toLowerCase())) {
-            return false;
+        boolean fly = checkAllow(player)
+                && checkGameMode(player)
+                && checkWorld(player);
+
+        player.setAllowFlight(fly);
+        if (!fly) {
+            player.setFlying(false);
         }
 
-        // Check world
-        if (this.plugin.getFPConfig().isCheckWorld()
-                && !player.hasPermission("flyperms.allow.world." + player.getWorld().getName())) {
-            return false;
-        }
+        return fly;
+    }
 
-        // Just simple allow or disabled
-        if (!this.plugin.getFPConfig().isCheckGameMode()
-                && !this.plugin.getFPConfig().isCheckWorld()
-                && !player.hasPermission("flyperms.allow")) {
-            return false;
+    public boolean checkGameMode(Player player) {
+        return !this.plugin.getFPConfig().isCheckWorld()
+                || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
+    }
+
+    public boolean checkWorld(Player player) {
+        return !this.plugin.getFPConfig().isCheckWorld()
+               || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
+    }
+
+    public boolean checkAllow(Player player) {
+        return this.plugin.getFPConfig().isCheckGameMode()
+                || this.plugin.getFPConfig().isCheckWorld()
+                || player.hasPermission("flyperms.allow");
+    }
+
+    public void registerPerms() {
+        registerGameModePerms();
+        registerWorldsPerms();
+    }
+
+    public void registerGameModePerms() {
+        for (GameMode gameMode : GameMode.values()) {
+            if (!gameMode.equals(GameMode.SPECTATOR)) {
+                addGameModePerms(gameMode);
+            }
         }
-        return true;
+    }
+
+    public void addGameModePerms(GameMode gameMode) {
+        this.plugin.getServer().getPluginManager().addPermission(
+            new Permission(
+                "flyperms.allow.gamemode." + gameMode.toString().toLowerCase(),
+                "Allow you to fly in gamemode " + gameMode.toString().toLowerCase() + "!",
+                PermissionDefault.FALSE
+            )
+        );
     }
 
     public void registerWorldsPerms() {
         List<World> worlds = plugin.getServer().getWorlds();
         for (World world : worlds) {
-            addWorldPerm(world);
+            if (!this.plugin.ignoreWorld(world)) {
+                addWorldPerm(world);
+            }
         }
     }
 
     public void addWorldPerm(World world) {
         this.plugin.getServer().getPluginManager().addPermission(
-                new Permission(
-                        "flyperms.allow.world." + world.getName(),
-                        "Allow you to fly in world named " + world.getName() + "!",
-                        PermissionDefault.FALSE
-                )
+            new Permission(
+                "flyperms.allow.world." + world.getName(),
+                "Allow you to fly in world named " + world.getName() + "!",
+                PermissionDefault.FALSE
+            )
         );
     }
 
     public void removeWorldPerm(World world) {
         this.plugin.getServer().getPluginManager().removePermission(
-                new Permission(
-                        "flyperms.allow.world." + world.getName(),
-                        "Allow you to fly in world named " + world.getName() + "!",
-                        PermissionDefault.FALSE
-                )
+            new Permission(
+                "flyperms.allow.world." + world.getName(),
+                "Allow you to fly in world named " + world.getName() + "!",
+                PermissionDefault.FALSE
+            )
         );
     }
 }

@@ -31,19 +31,18 @@ public final class FlyPerms extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        // Get config
+        saveDefaultConfig();
+        this.FPConfig = new FlyPermsConfig(this.getConfig());
+
         // Register events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(this.flightListener, this);
         pm.registerEvents(this.playerListener, this);
         pm.registerEvents(this.worldListener, this);
 
-        // Get config
-        saveDefaultConfig();
-        this.FPConfig = new FlyPermsConfig(this.getConfig());
-
         // Register world permission nodes
-        this.FPPerms.registerWorldsPerms();
+        this.FPPerms.registerPerms();
     }
 
     @Override
@@ -61,5 +60,9 @@ public final class FlyPerms extends JavaPlugin {
 
     public FPPermissions getFPPerms() {
         return FPPerms;
+    }
+
+    public boolean ignoreWorld(World world) {
+        return (FPConfig.getDisabledWorlds().contains(world.getName()));
     }
 }
