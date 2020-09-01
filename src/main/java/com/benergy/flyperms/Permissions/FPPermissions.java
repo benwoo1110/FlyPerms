@@ -6,7 +6,6 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class FPPermissions {
                 && checkWorld(player);
 
         player.setAllowFlight(fly);
-        if (!fly) {
+        if (!fly && !player.isFlying()) {
             player.setFlying(false);
         }
 
@@ -33,12 +32,12 @@ public class FPPermissions {
 
     public boolean checkGameMode(Player player) {
         return !this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
+                || player.hasPermission("flyperms.allow.gamemode." + player.getGameMode().toString().toLowerCase());
     }
 
     public boolean checkWorld(Player player) {
         return !this.plugin.getFPConfig().isCheckWorld()
-               || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
+                || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
     }
 
     public boolean checkAllow(Player player) {
@@ -49,7 +48,7 @@ public class FPPermissions {
 
     public void registerPerms() {
         registerGameModePerms();
-        registerWorldsPerms();
+        registerWorldPerms();
     }
 
     public void registerGameModePerms() {
@@ -70,7 +69,7 @@ public class FPPermissions {
         );
     }
 
-    public void registerWorldsPerms() {
+    public void registerWorldPerms() {
         List<World> worlds = plugin.getServer().getWorlds();
         for (World world : worlds) {
             if (!this.plugin.ignoreWorld(world)) {

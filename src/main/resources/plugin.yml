@@ -1,8 +1,13 @@
 name: FlyPerms
 version: ${project.version}
+api-version: 1.15
 main: com.benergy.flyperms.FlyPerms
-authors: [ benwoo1110 ]
+author: benwoo1110
 description: Toggle ability to fly based on permission
+commands:
+  flyperms:
+    description: Generic FlyPerms Command
+    usage: /<command>
 permissions:
   flyperms.allow:
     default: false
