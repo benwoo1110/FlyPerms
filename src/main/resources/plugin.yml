@@ -1,10 +1,24 @@
 name: FlyPerms
 version: ${project.version}
 main: com.benergy.flyperms.FlyPerms
-api-version: 1.15
 authors: [ benwoo1110 ]
 description: Toggle ability to fly based on permission
 permissions:
   flyperms.allow:
     default: false
     description: Give players ability to fly!
+  flyperms.exempt:
+    default: false
+    description: Give players ability to fly!
+  flyperms.allow.gamemode.all:
+    default: false
+    description: Give players ability to fly in all gamemodes!
+  flyperms.allow.gamemode.survival:
+    default: false
+    description: Give players ability to fly in survival gamemode!
+  flyperms.allow.gamemode.adventure:
+    default: false
+    description: Give players ability to fly in adventure gamemode!
+  flyperms.allow.gamemode.creative:
+    default: false
+    description: Give players ability to fly in creative gamemode!

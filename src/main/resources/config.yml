@@ -1,0 +1,12 @@
+# +----------+
+# | FlyPerms |
+# +----------+
+listener-priority: HIGHEST
+
+check-for-gamemode: true
+check-for-world: true
+
+ignore-in-worlds:
+#  - world2
+#  - world2_nether
+#  - world3_the_end
