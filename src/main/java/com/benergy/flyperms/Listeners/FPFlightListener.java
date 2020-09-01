@@ -1,7 +1,6 @@
 package com.benergy.flyperms.Listeners;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.Permissions.FPPermissions;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

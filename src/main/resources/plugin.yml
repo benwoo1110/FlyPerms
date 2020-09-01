@@ -1,14 +1,23 @@
 name: FlyPerms
 version: ${project.version}
-api-version: 1.15
+api-version: 1.13
 main: com.benergy.flyperms.FlyPerms
 author: benwoo1110
 description: Toggle ability to fly based on permission
 commands:
   flyperms:
-    description: Generic FlyPerms Command
-    usage: /<command>
+    description: Manage fly abilities
+    aliases: [fp, fperms, flypermissions]
 permissions:
   flyperms.allow:
     default: false
     description: Give players ability to fly!
+  flyperms.info:
+    default: false
+    description: View info information about this plugin.
+  flyperms.seeallowed:
+    default: false
+    description: View the condition when you are allowed to fly.
+  flyperms.seeallowed.others:
+    default: false
+    description: View the condition when other players are allowed to fly.

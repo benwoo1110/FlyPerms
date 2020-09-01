@@ -1,4 +1,4 @@
-package com.benergy.flyperms.Permissions;
+package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.GameMode;
