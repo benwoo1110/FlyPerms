@@ -14,9 +14,8 @@ public class FlyPermsConfig {
     private List<String> disabledWorlds = new ArrayList<>();
     private boolean debugMode = false;
 
-    public FlyPermsConfig(FlyPerms plugin) {
+    public FlyPermsConfig(FlyPerms plugin, FileConfiguration config) {
         try {
-            FileConfiguration config = this.plugin.getConfig();
             this.checkGameMode = config.getBoolean("check-for-gamemode");
             this.checkWorld = config.getBoolean("check-for-world");
             this.disabledWorlds = config.getStringList("ignore-in-worlds");

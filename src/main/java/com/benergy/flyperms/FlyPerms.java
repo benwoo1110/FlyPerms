@@ -34,7 +34,7 @@ public final class FlyPerms extends JavaPlugin {
     public void onEnable() {
         // Get config
         saveDefaultConfig();
-        this.FPConfig = new FlyPermsConfig(this);
+        this.FPConfig = new FlyPermsConfig(this, this.getConfig());
 
         // Set log level
         if (this.FPConfig.isDebugMode()) {
