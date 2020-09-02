@@ -1,9 +1,8 @@
 # +----------+
 # | FlyPerms |
 # +----------+
-# Spigot resource:
 # Github repo: https://github.com/benwoo1110/FlyPerms
-# Discord:
+# Discord: https://discord.gg/Be59ehc
 
 # If enabled, players will need flyperms.allow.world.WORLDNAME permission node to fly
 check-for-world: true

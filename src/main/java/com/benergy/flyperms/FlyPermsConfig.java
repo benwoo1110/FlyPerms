@@ -2,20 +2,29 @@ package com.benergy.flyperms;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlyPermsConfig {
 
-    private final boolean checkGameMode;
-    private final boolean checkWorld;
-    private final List<String> disabledWorlds;
-    private final boolean debugMode;
+    private FlyPerms plugin;
 
-    public FlyPermsConfig(FileConfiguration config) {
-        this.checkGameMode = config.getBoolean("check-for-gamemode");
-        this.checkWorld = config.getBoolean("check-for-world");
-        this.disabledWorlds = config.getStringList("ignore-in-worlds");
-        this.debugMode = config.getBoolean("show-debug-info");
+    private boolean checkGameMode = true;
+    private boolean checkWorld = true;
+    private List<String> disabledWorlds = new ArrayList<>();
+    private boolean debugMode = false;
+
+    public FlyPermsConfig(FlyPerms plugin) {
+        try {
+            FileConfiguration config = this.plugin.getConfig();
+            this.checkGameMode = config.getBoolean("check-for-gamemode");
+            this.checkWorld = config.getBoolean("check-for-world");
+            this.disabledWorlds = config.getStringList("ignore-in-worlds");
+            this.debugMode = config.getBoolean("show-debug-info");
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.plugin.getLog().severe("Error loading config.yml!");
+        }
     }
 
     public boolean isCheckGameMode() {
@@ -24,6 +33,10 @@ public class FlyPermsConfig {
 
     public boolean isCheckWorld() {
         return checkWorld;
+    }
+
+    public boolean haveDisabledWorld() {
+        return disabledWorlds.size() > 0;
     }
 
     public List<String> getDisabledWorlds() {

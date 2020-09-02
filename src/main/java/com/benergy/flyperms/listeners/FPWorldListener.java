@@ -1,4 +1,4 @@
-package com.benergy.flyperms.Listeners;
+package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.event.EventHandler;

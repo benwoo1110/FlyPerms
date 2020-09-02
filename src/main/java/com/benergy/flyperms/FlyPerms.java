@@ -1,22 +1,16 @@
 package com.benergy.flyperms;
 
-import com.benergy.flyperms.Listeners.FPFlightListener;
-import com.benergy.flyperms.Listeners.FPPlayerListener;
-import com.benergy.flyperms.Listeners.FPWorldListener;
+import com.benergy.flyperms.listeners.FPFlightListener;
+import com.benergy.flyperms.listeners.FPPlayerListener;
+import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.commands.FlyPermsCommand;
 import com.benergy.flyperms.handlers.CommandHandler;
 import com.benergy.flyperms.permissions.FPPermissions;
-import com.mojang.brigadier.tree.LiteralCommandNode;
-import me.lucko.commodore.Commodore;
-import me.lucko.commodore.CommodoreProvider;
-import me.lucko.commodore.file.CommodoreFileFormat;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +20,7 @@ public final class FlyPerms extends JavaPlugin {
     private FlyPermsConfig FPConfig;
 
     // Permissions
-    FPPermissions FPPerms = new FPPermissions(this);;
+    FPPermissions FPPerms = new FPPermissions(this);
 
     // Listeners
     private final FPFlightListener flightListener = new FPFlightListener(this);
@@ -40,7 +34,7 @@ public final class FlyPerms extends JavaPlugin {
     public void onEnable() {
         // Get config
         saveDefaultConfig();
-        this.FPConfig = new FlyPermsConfig(this.getConfig());
+        this.FPConfig = new FlyPermsConfig(this);
 
         // Set log level
         if (this.FPConfig.isDebugMode()) {
@@ -60,7 +54,7 @@ public final class FlyPerms extends JavaPlugin {
 
         // Register commands
         PluginCommand pluginCommand = this.getCommand("flyperms");
-        pluginCommand.setExecutor(new FlyPermsCommand());
+        pluginCommand.setExecutor(new FlyPermsCommand(this));
         CommandHandler.registerCommands(this, pluginCommand);
     }
 

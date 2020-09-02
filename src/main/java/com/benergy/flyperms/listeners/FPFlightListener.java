@@ -1,4 +1,4 @@
-package com.benergy.flyperms.Listeners;
+package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.event.EventHandler;
@@ -22,15 +22,15 @@ public class FPFlightListener implements Listener {
 
         // If player is just stopping flight
         if (!event.isFlying()) {
-            this.plugin.getLog().info(event.getPlayer().getName() + " stopped flying!");
+            this.plugin.getLog().fine(event.getPlayer().getName() + " stopped flying!");
             return;
         }
 
         // Check if player allowed to fly
-        this.plugin.getLog().info("Starting flight for " + event.getPlayer().getName() + "...");
+        this.plugin.getLog().fine("Starting flight for " + event.getPlayer().getName() + "...");
         if (!this.plugin.getFPPerms().canFly(event.getPlayer())) {
             event.setCancelled(true);
-            this.plugin.getLog().info("Flight canceled for " + event.getPlayer().getName() + "!");
+            this.plugin.getLog().fine("Flight canceled for " + event.getPlayer().getName() + "!");
         }
     }
 }

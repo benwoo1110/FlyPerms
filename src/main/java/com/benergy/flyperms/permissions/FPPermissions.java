@@ -3,10 +3,12 @@ package com.benergy.flyperms.permissions;
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.GameMode;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FPPermissions {
@@ -17,7 +19,18 @@ public class FPPermissions {
         this.plugin = plugin;
     }
 
-    public boolean canFly(Player player) {
+    public boolean hasCommandPerms(CommandSender sender) {
+        if (!sender.getName().equalsIgnoreCase("CONSOLE")) {
+            return true;
+        }
+        return sender.hasPermission("flyperms.seeallowed")
+                || sender.hasPermission("flyperms.info");
+    }
+
+    public Boolean canFly(Player player) {
+        if (this.plugin.ignoreWorld(player.getWorld())) {
+            return null;
+        }
         boolean fly = checkAllow(player)
                 && checkGameMode(player)
                 && checkWorld(player);
@@ -31,13 +44,41 @@ public class FPPermissions {
     }
 
     public boolean checkGameMode(Player player) {
-        return !this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow.gamemode." + player.getGameMode().toString().toLowerCase());
+        return checkGameMode(player, player.getGameMode());
+    }
+
+    public boolean checkGameMode(Player player, GameMode gameMode) {
+        return !this.plugin.getFPConfig().isCheckGameMode()
+                || player.hasPermission("flyperms.allow.gamemode." + gameMode.name().toLowerCase());
+    }
+
+    public List<String> checkAllGameModes(Player player) {
+        List<String> gameModesAllowed = new ArrayList<>();
+        for (GameMode gameMode : GameMode.values()) {
+            if (gameMode != GameMode.SPECTATOR && checkGameMode(player, gameMode)) {
+                gameModesAllowed.add(gameMode.name().toLowerCase());
+            }
+        }
+        return gameModesAllowed;
     }
 
     public boolean checkWorld(Player player) {
+        return checkWorld(player, player.getWorld());
+    }
+
+    public boolean checkWorld(Player player, World world) {
         return !this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow.world." + player.getWorld().getName());
+                || player.hasPermission("flyperms.allow.world." + world.getName());
+    }
+
+    public List<String> checkAllWorlds(Player player) {
+        List<String> worldsAllowed = new ArrayList<>();
+        for (World world : plugin.getServer().getWorlds()) {
+            if (!this.plugin.ignoreWorld(world) && checkWorld(player, world)) {
+                worldsAllowed.add(world.getName());
+            }
+        }
+        return worldsAllowed;
     }
 
     public boolean checkAllow(Player player) {
@@ -70,8 +111,7 @@ public class FPPermissions {
     }
 
     public void registerWorldPerms() {
-        List<World> worlds = plugin.getServer().getWorlds();
-        for (World world : worlds) {
+        for (World world : plugin.getServer().getWorlds()) {
             if (!this.plugin.ignoreWorld(world)) {
                 addWorldPerm(world);
             }

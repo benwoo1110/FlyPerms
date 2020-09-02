@@ -1,7 +1,6 @@
-package com.benergy.flyperms.Listeners;
+package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -24,16 +23,13 @@ public class FPPlayerListener implements Listener {
             return;
         }
 
-        event.getPlayer().setAllowFlight(true);
-        this.plugin.getLog().info("[Join] Letting " + event.getPlayer().getName() + " fly.");
-
+        this.plugin.getFPPerms().canFly(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerChangeGameMode(PlayerGameModeChangeEvent event) {
         // Ignore this world
         if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            event.getPlayer().setAllowFlight(false);
             return;
         }
 
@@ -48,14 +44,13 @@ public class FPPlayerListener implements Listener {
             return;
         }
 
-        event.getPlayer().setAllowFlight(this.plugin.getFPPerms().canFly(event.getPlayer()));
+        this.plugin.getFPPerms().canFly(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerMovement(PlayerMoveEvent event) {
         // Ignore this world
         if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            event.getPlayer().setAllowFlight(false);
             return;
         }
 
