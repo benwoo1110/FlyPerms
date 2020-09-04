@@ -6,6 +6,7 @@ import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.commands.FlyPermsCommand;
 import com.benergy.flyperms.handlers.CommandHandler;
 import com.benergy.flyperms.permissions.FPPermissions;
+import com.benergy.flyperms.utils.MetricsUtil;
 import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
@@ -35,6 +36,9 @@ public final class FlyPerms extends JavaPlugin {
         // Get config
         saveDefaultConfig();
         this.FPConfig = new FlyPermsConfig(this, this.getConfig());
+
+        // Init bstats
+        MetricsUtil.configureMetrics(this);
 
         // Set log level
         if (this.FPConfig.isDebugMode()) {

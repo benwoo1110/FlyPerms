@@ -88,8 +88,12 @@ public class FPPermissions {
     }
 
     public void registerPerms() {
-        registerGameModePerms();
-        registerWorldPerms();
+        if (this.plugin.getFPConfig().isCheckGameMode()) {
+            registerGameModePerms();
+        }
+        if (this.plugin.getFPConfig().isCheckWorld()) {
+            registerWorldPerms();
+        }
     }
 
     public void registerGameModePerms() {
