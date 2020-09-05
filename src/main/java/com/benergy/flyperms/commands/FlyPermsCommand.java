@@ -54,9 +54,26 @@ public class FlyPermsCommand implements CommandExecutor {
             case "info":
                 info(sender);
                 break;
+            case "reload":
+                reload(sender);
+                break;
         }
 
         return true;
+    }
+
+    private void reload(CommandSender sender) {
+        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.reload")) {
+            noPerms(sender);
+            return;
+        }
+
+        // reload the config
+        if (!this.plugin.reload()) {
+            sender.sendMessage(ChatColor.RED + "Error reloading FlyPerms, see console for more details.");
+            return;
+        }
+        sender.sendMessage(ChatColor.GREEN + "Successfully reloaded FlyPerms!");
     }
 
     private void seeallowed(CommandSender sender, String[] args) {
@@ -104,7 +121,7 @@ public class FlyPermsCommand implements CommandExecutor {
         if (this.plugin.getFPConfig().isCheckGameMode()) {
             sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.formatList(this.plugin.getFPPerms().checkAllGameModes(player), ChatColor.WHITE));
         }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + FormatUtil.formatBoolean(this.plugin.getFPPerms().canFly(player)));
+        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPPerms().canFly(player).toString());
     }
 
     private void info(CommandSender sender) {
@@ -118,13 +135,14 @@ public class FlyPermsCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.AQUA + "FlyPerms version: " + ChatColor.GREEN + this.plugin.getDescription().getVersion());
         sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckWorld()));
         sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckGameMode()));
+        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isAllowCreative()));
         if (this.plugin.getFPConfig().haveDisabledWorld()) {
             sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + FormatUtil.formatList(this.plugin.getFPConfig().getDisabledWorlds(), ChatColor.RED));
         }
     }
 
     private void showPlugins() {
-
+        // TODO: Display plugins relevant to flyperms
     }
 
     private void noPerms(CommandSender sender) {

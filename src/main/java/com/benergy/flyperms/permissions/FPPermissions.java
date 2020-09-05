@@ -19,18 +19,28 @@ public class FPPermissions {
         this.plugin = plugin;
     }
 
-    public boolean hasCommandPerms(CommandSender sender) {
-        if (!sender.getName().equalsIgnoreCase("CONSOLE")) {
-            return true;
-        }
-        return sender.hasPermission("flyperms.seeallowed")
-                || sender.hasPermission("flyperms.info");
+    public boolean hasAnyCommandPerms(CommandSender sender) {
+        return sender.getName().equalsIgnoreCase("CONSOLE")
+                || sender.hasPermission("flyperms.seeallowed")
+                || sender.hasPermission("flyperms.info")
+                || sender.hasPermission("flyperms.reload");
     }
 
-    public Boolean canFly(Player player) {
+    public FlyState canFly(Player player) {
         if (this.plugin.ignoreWorld(player.getWorld())) {
-            return null;
+            return FlyState.IGNORED;
         }
+
+        if (player.getGameMode().equals(GameMode.SPECTATOR)) {
+            player.setAllowFlight(true);
+            return FlyState.SPECTATOR;
+        }
+
+        if (creativeBypass(player)) {
+            player.setAllowFlight(true);
+            return FlyState.CREATIVE_BYPASS;
+        }
+
         boolean fly = checkAllow(player)
                 && checkGameMode(player)
                 && checkWorld(player);
@@ -40,7 +50,15 @@ public class FPPermissions {
             player.setFlying(false);
         }
 
-        return fly;
+        if (!fly) {
+            return FlyState.NO;
+        }
+
+        return FlyState.YES;
+    }
+
+    public boolean creativeBypass(Player player) {
+        return this.plugin.getFPConfig().isAllowCreative() && player.getGameMode().equals(GameMode.CREATIVE);
     }
 
     public boolean checkGameMode(Player player) {

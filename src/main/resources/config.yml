@@ -4,11 +4,15 @@
 # Github repo: https://github.com/benwoo1110/FlyPerms
 # Discord: https://discord.gg/Be59ehc
 
-# If enabled, players will need flyperms.allow.world.WORLDNAME permission node to fly
+# If enabled, players will need flyperms.allow.world.WORLDNAME permission node to fly.
 check-for-world: true
 
-# If enabled, players will need flyperms.allow.gamemode.GAMEMODE permission node to fly
+# If enabled, players will need flyperms.allow.gamemode.GAMEMODE permission node to fly.
 check-for-gamemode: false
+
+# If set if true, players will always be allowed to fly in creative mode regardless of permissions.
+# Basically restores the vanilla behaviour that players can fly in gamemode creative.
+always-allow-in-creative: false
 
 # FlyPerms will not effect these worlds
 # All perms and fly checks will not be present in these worlds

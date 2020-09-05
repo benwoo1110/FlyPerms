@@ -15,9 +15,20 @@ permissions:
   flyperms.info:
     default: false
     description: View info information about this plugin.
+  flyperms.reload:
+    default: false
+    description: Reload the plugin's config.
   flyperms.seeallowed:
     default: false
     description: View the condition when you are allowed to fly.
   flyperms.seeallowed.others:
     default: false
     description: View the condition when other players are allowed to fly.
+  flyperms.admin:
+    default: false
+    description: Give Admins access to all FlyPerms commands.
+    children:
+      - flyperms.info
+      - flyperms.reload
+      - flyperms.seeallowed
+      - flyperms.seeallowed.others

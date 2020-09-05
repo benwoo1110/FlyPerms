@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public final class FlyPerms extends JavaPlugin {
 
     // Config
-    private FlyPermsConfig FPConfig;
+    private FlyPermsConfig FPConfig = new FlyPermsConfig(this);;
 
     // Permissions
     FPPermissions FPPerms = new FPPermissions(this);
@@ -35,7 +35,7 @@ public final class FlyPerms extends JavaPlugin {
     public void onEnable() {
         // Get config
         saveDefaultConfig();
-        this.FPConfig = new FlyPermsConfig(this, this.getConfig());
+        this.FPConfig.loadConfigValues();
 
         // Init bstats
         MetricsUtil.configureMetrics(this);
@@ -60,6 +60,17 @@ public final class FlyPerms extends JavaPlugin {
         PluginCommand pluginCommand = this.getCommand("flyperms");
         pluginCommand.setExecutor(new FlyPermsCommand(this));
         CommandHandler.registerCommands(this, pluginCommand);
+    }
+
+    public boolean reload() {
+        if (!this.FPConfig.reloadConfigValues()) {
+            this.log.severe("Error reloading config!");
+            return false;
+        }
+        // TODO: Handle perms and fly changes on reload
+
+        log.fine("FlyPerms was successfully reloaded!");
+        return true;
     }
 
     @Override
