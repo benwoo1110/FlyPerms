@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,18 +17,19 @@ public class FlyPermsCommand implements CommandExecutor {
 
     FlyPerms plugin;
 
-    private static final List<String> versionPlugins = Arrays.asList(
+    private final List<String> versionPlugins = Arrays.asList(
             "FlyPerms", // This plugin
-            "PlaceholderAPI", // API
-            "Worldguard", // API
+            "PlaceholderAPI", // API (TBA)
+            "WorldGuard", // API (TBA)
             "LuckPerms", // permissions (recommended)
-            "UltraPermissions",
+            "UltraPermissions", // permissions (not recommended)
+            "PowerRanks", // permissions (not recommended)
             "PermissionsEx", // permissions (unsupported)
             "GroupManager", // permissions (unsupported)
             "bPermissions" // permissions (unsupported)
     );
 
-    private static final List<String> unsupportedPlugins = Arrays.asList(
+    private final List<String> unsupportedPlugins = Arrays.asList(
             "PermissionsEx", // permissions (unsupported)
             "GroupManager", // permissions (unsupported)
             "bPermissions" // permissions (unsupported)
@@ -132,7 +134,7 @@ public class FlyPermsCommand implements CommandExecutor {
 
         // Show the info
         sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ FlyPerms Info ]====");
-        sender.sendMessage(ChatColor.AQUA + "FlyPerms version: " + ChatColor.GREEN + this.plugin.getDescription().getVersion());
+        showPlugins(sender);
         sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckWorld()));
         sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckGameMode()));
         sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isAllowCreative()));
@@ -141,8 +143,16 @@ public class FlyPermsCommand implements CommandExecutor {
         }
     }
 
-    private void showPlugins() {
-        // TODO: Display plugins relevant to flyperms
+    private void showPlugins(CommandSender sender) {
+        for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
+            if (this.versionPlugins.contains(versionPlugin.getName())) {
+                if (this.unsupportedPlugins.contains(versionPlugin.getName())) {
+                    sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
+                } else {
+                    sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.GREEN + versionPlugin.getDescription().getVersion());
+                }
+            }
+        }
     }
 
     private void noPerms(CommandSender sender) {
