@@ -23,6 +23,9 @@ public final class FlyPerms extends JavaPlugin {
     // Permissions
     FPPermissions FPPerms = new FPPermissions(this);
 
+    // Handlers
+    CommandHandler commandHandler = new CommandHandler(this);
+
     // Listeners
     private final FPFlightListener flightListener = new FPFlightListener(this);
     private final FPPlayerListener playerListener = new FPPlayerListener(this);
@@ -59,7 +62,9 @@ public final class FlyPerms extends JavaPlugin {
         // Register commands
         PluginCommand pluginCommand = this.getCommand("flyperms");
         pluginCommand.setExecutor(new FlyPermsCommand(this));
-        CommandHandler.registerCommands(this, pluginCommand);
+        if (!commandHandler.registerCommands(pluginCommand)) {
+            this.log.warning("Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
+        }
     }
 
     public boolean reload() {

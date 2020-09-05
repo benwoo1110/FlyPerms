@@ -6,7 +6,7 @@
 
     <groupId>com.benergy</groupId>
     <artifactId>FlyPerms</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>FlyPerms</name>
@@ -43,7 +43,9 @@
                             <artifactSet>
                                 <includes>
                                     <include>me.lucko:commodore</include>
+                                    <include>me.lucko:commodore-file</include>
                                     <include>org.bstats:bstats-bukkit</include>
+                                    <include>com.mojang:brigadier</include>
                                 </includes>
                             </artifactSet>
                             <relocations>
@@ -82,6 +84,10 @@
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -101,6 +107,12 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.13.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>7.0.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

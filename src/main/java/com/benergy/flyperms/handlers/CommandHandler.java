@@ -11,7 +11,13 @@ import org.bukkit.command.Command;
 
 public class CommandHandler {
 
-    public static void registerCommands(FlyPerms plugin, Command pluginCommand) {
+    FlyPerms plugin;
+
+    public CommandHandler(FlyPerms plugin) {
+        this.plugin = plugin;
+    }
+
+    public boolean registerCommands(Command pluginCommand) {
         // Register auto-complete
         // check if brigadier is supported
         if (CommodoreProvider.isSupported()) {
@@ -26,7 +32,9 @@ public class CommandHandler {
                     .build();
 
             commodore.register(pluginCommand, commandCompletion);
+            return true;
         }
+        return false;
     }
 
 
