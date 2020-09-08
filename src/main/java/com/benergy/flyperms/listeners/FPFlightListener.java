@@ -7,6 +7,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
+import java.util.logging.Level;
+
 public class FPFlightListener implements Listener {
     private final FlyPerms plugin;
 
@@ -16,22 +18,27 @@ public class FPFlightListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerFly(PlayerToggleFlightEvent event) {
-        // Ignore this world
-        if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            return;
-        }
-
-        // If player is just stopping flight
         if (!event.isFlying()) {
-            this.plugin.getLog().fine(event.getPlayer().getName() + " stopped flying!");
+            this.plugin.getLogger().log(Level.FINE,event.getPlayer().getName() + " stopped flying!");
             return;
         }
 
-        // Check if player allowed to fly
-        this.plugin.getLog().fine("Starting flight for " + event.getPlayer().getName() + "...");
-        if (this.plugin.getFPPerms().canFly(event.getPlayer()).equals(FlyState.NO)) {
-            event.setCancelled(true);
-            this.plugin.getLog().fine("Flight canceled for " + event.getPlayer().getName() + "!");
+        FlyState flyCheckResult = this.plugin.getFPFly().canFly(event.getPlayer());
+        switch (flyCheckResult) {
+            case CREATIVE_BYPASS:
+                this.plugin.getLogger().log(Level.FINE,"Allowing creative flight for " + event.getPlayer().getName() + " as defined in config.");
+                break;
+            case IGNORED:
+                this.plugin.getLogger().log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
+                        " at world " + event.getPlayer().getWorld().getName() + ".");
+                break;
+            case NO:
+                event.setCancelled(true);
+                this.plugin.getLogger().log(Level.FINE,"Flight canceled for " + event.getPlayer().getName() + "!");
+                break;
+            case YES:
+                this.plugin.getLogger().log(Level.FINE,"Starting flight for " + event.getPlayer().getName() + "...");
+                break;
         }
     }
 }

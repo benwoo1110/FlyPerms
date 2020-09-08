@@ -2,8 +2,8 @@ package com.benergy.flyperms;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class FlyPermsConfig {
 
@@ -24,7 +24,7 @@ public class FlyPermsConfig {
             this.plugin.reloadConfig();
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getLog().severe("Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            this.plugin.getLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             return false;
         }
         return this.loadConfigValues();
@@ -40,10 +40,11 @@ public class FlyPermsConfig {
             this.debugMode = config.getBoolean("show-debug-info", false);
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getLog().severe("Error loading config.yml!");
-            this.plugin.getLog().severe("If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
+            this.plugin.getLogger().log(Level.SEVERE, "Error loading config.yml!");
+            this.plugin.getLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
+        // this.plugin.getLogging().log(Level.INFO,"Loaded FlyPerms config.yml!");
         return true;
     }
 

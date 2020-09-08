@@ -3,31 +3,22 @@ package com.benergy.flyperms.permissions;
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.GameMode;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
-public class FPPermissions {
+public class PermsFly {
 
     FlyPerms plugin;
 
-    public FPPermissions(FlyPerms plugin) {
+    public PermsFly(FlyPerms plugin) {
         this.plugin = plugin;
     }
 
-    public boolean hasAnyCommandPerms(CommandSender sender) {
-        return sender.getName().equalsIgnoreCase("CONSOLE")
-                || sender.hasPermission("flyperms.seeallowed")
-                || sender.hasPermission("flyperms.info")
-                || sender.hasPermission("flyperms.reload");
-    }
-
     public FlyState canFly(Player player) {
-        if (this.plugin.ignoreWorld(player.getWorld())) {
+        if (this.plugin.isIgnoreWorld(player.getWorld())) {
             return FlyState.IGNORED;
         }
 
@@ -45,9 +36,17 @@ public class FPPermissions {
                 && checkGameMode(player)
                 && checkWorld(player);
 
-        player.setAllowFlight(fly);
-        if (!fly && !player.isFlying()) {
+        if (!player.getAllowFlight() && fly) {
+            player.setAllowFlight(true);
+            this.plugin.getLogger().log(Level.FINE, "Allowed flight for " + player.getName());
+        } else if (player.getAllowFlight() && !fly) {
+            player.setAllowFlight(false);
+            this.plugin.getLogger().log(Level.FINE,"Disallowed flight for " + player.getName());
+        }
+
+        if (player.isFlying() && !fly) {
             player.setFlying(false);
+            this.plugin.getLogger().log(Level.FINE,"Force stopped flying for " + player.getName());
         }
 
         if (!fly) {
@@ -92,7 +91,7 @@ public class FPPermissions {
     public List<String> checkAllWorlds(Player player) {
         List<String> worldsAllowed = new ArrayList<>();
         for (World world : plugin.getServer().getWorlds()) {
-            if (!this.plugin.ignoreWorld(world) && checkWorld(player, world)) {
+            if (!this.plugin.isIgnoreWorld(world) && checkWorld(player, world)) {
                 worldsAllowed.add(world.getName());
             }
         }
@@ -105,58 +104,4 @@ public class FPPermissions {
                 || player.hasPermission("flyperms.allow");
     }
 
-    public void registerPerms() {
-        if (this.plugin.getFPConfig().isCheckGameMode()) {
-            registerGameModePerms();
-        }
-        if (this.plugin.getFPConfig().isCheckWorld()) {
-            registerWorldPerms();
-        }
-    }
-
-    public void registerGameModePerms() {
-        for (GameMode gameMode : GameMode.values()) {
-            if (!gameMode.equals(GameMode.SPECTATOR)) {
-                addGameModePerms(gameMode);
-            }
-        }
-    }
-
-    public void addGameModePerms(GameMode gameMode) {
-        this.plugin.getServer().getPluginManager().addPermission(
-            new Permission(
-                "flyperms.allow.gamemode." + gameMode.toString().toLowerCase(),
-                "Allow you to fly in gamemode " + gameMode.toString().toLowerCase() + "!",
-                PermissionDefault.FALSE
-            )
-        );
-    }
-
-    public void registerWorldPerms() {
-        for (World world : plugin.getServer().getWorlds()) {
-            if (!this.plugin.ignoreWorld(world)) {
-                addWorldPerm(world);
-            }
-        }
-    }
-
-    public void addWorldPerm(World world) {
-        this.plugin.getServer().getPluginManager().addPermission(
-            new Permission(
-                "flyperms.allow.world." + world.getName(),
-                "Allow you to fly in world named " + world.getName() + "!",
-                PermissionDefault.FALSE
-            )
-        );
-    }
-
-    public void removeWorldPerm(World world) {
-        this.plugin.getServer().getPluginManager().removePermission(
-            new Permission(
-                "flyperms.allow.world." + world.getName(),
-                "Allow you to fly in world named " + world.getName() + "!",
-                PermissionDefault.FALSE
-            )
-        );
-    }
 }

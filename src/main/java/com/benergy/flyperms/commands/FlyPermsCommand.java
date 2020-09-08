@@ -118,12 +118,12 @@ public class FlyPermsCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.formatList(this.plugin.getFPPerms().checkAllWorlds(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.formatList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
         }
         if (this.plugin.getFPConfig().isCheckGameMode()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.formatList(this.plugin.getFPPerms().checkAllGameModes(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.formatList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
         }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPPerms().canFly(player).toString());
+        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
     }
 
     private void info(CommandSender sender) {
@@ -145,12 +145,13 @@ public class FlyPermsCommand implements CommandExecutor {
 
     private void showPlugins(CommandSender sender) {
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
-            if (this.versionPlugins.contains(versionPlugin.getName())) {
-                if (this.unsupportedPlugins.contains(versionPlugin.getName())) {
-                    sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
-                } else {
-                    sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.GREEN + versionPlugin.getDescription().getVersion());
-                }
+            if (!this.versionPlugins.contains(versionPlugin.getName())) {
+                continue;
+            }
+            if (this.unsupportedPlugins.contains(versionPlugin.getName())) {
+                sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
+            } else {
+                sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.GREEN + versionPlugin.getDescription().getVersion());
             }
         }
     }

@@ -5,34 +5,35 @@ import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.commands.FlyPermsCommand;
 import com.benergy.flyperms.handlers.CommandHandler;
-import com.benergy.flyperms.permissions.FPPermissions;
+import com.benergy.flyperms.permissions.PermsCommand;
+import com.benergy.flyperms.permissions.PermsFly;
+import com.benergy.flyperms.permissions.PermsRegister;
 import com.benergy.flyperms.utils.MetricsUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class FlyPerms extends JavaPlugin {
 
     // Config
-    private FlyPermsConfig FPConfig = new FlyPermsConfig(this);;
+    private final FlyPermsConfig FPConfig = new FlyPermsConfig(this);;
 
     // Permissions
-    FPPermissions FPPerms = new FPPermissions(this);
+    private final PermsRegister FPRegister = new PermsRegister(this);
+    private final PermsCommand FPCommand = new PermsCommand(this);
+    private final PermsFly FPFly = new PermsFly(this);
 
     // Handlers
-    CommandHandler commandHandler = new CommandHandler(this);
+    private final CommandHandler commandHandler = new CommandHandler(this);
 
     // Listeners
     private final FPFlightListener flightListener = new FPFlightListener(this);
     private final FPPlayerListener playerListener = new FPPlayerListener(this);
     private final FPWorldListener worldListener = new FPWorldListener(this);
-
-    // Logger
-    private final Logger log = Logger.getLogger(this.getName());
 
     @Override
     public void onEnable() {
@@ -40,15 +41,11 @@ public final class FlyPerms extends JavaPlugin {
         saveDefaultConfig();
         this.FPConfig.loadConfigValues();
 
+        // log
+        this.setLogLevel();
+
         // Init bstats
         MetricsUtil.configureMetrics(this);
-
-        // Set log level
-        if (this.FPConfig.isDebugMode()) {
-            log.setLevel(Level.FINEST);
-        } else {
-            log.setLevel(Level.INFO);
-        }
 
         // Register events
         PluginManager pm = getServer().getPluginManager();
@@ -57,45 +54,66 @@ public final class FlyPerms extends JavaPlugin {
         pm.registerEvents(this.worldListener, this);
 
         // Register permission nodes
-        this.FPPerms.registerPerms();
+        this.FPRegister.registerPerms();
 
         // Register commands
         PluginCommand pluginCommand = this.getCommand("flyperms");
         pluginCommand.setExecutor(new FlyPermsCommand(this));
         if (!commandHandler.registerCommands(pluginCommand)) {
-            this.log.warning("Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
+            this.getLogger().warning("Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
+        } else {
+            this.getLogger().info("Registered commodore auto-complete.");
         }
+
+        this.getLogger().info(ChatColor.GREEN.toString() + "Enabled FlyPerms v" + this.getDescription().getVersion() + "!");
     }
 
     public boolean reload() {
+        this.setLogLevel();
+
         if (!this.FPConfig.reloadConfigValues()) {
-            this.log.severe("Error reloading config!");
+            this.getLogger().info("Error reloading config!");
             return false;
         }
         // TODO: Handle perms and fly changes on reload
 
-        log.fine("FlyPerms was successfully reloaded!");
+        this.getLogger().info("FlyPerms was successfully reloaded!");
         return true;
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.getLogger().info("Disabled FlyPerms v" + this.getDescription().getVersion() + "!");
     }
 
-    public Logger getLog() {
-        return log;
+    private void setLogLevel() {
+        if (this.FPConfig.isDebugMode()) {
+            this.getLogger().setLevel(Level.FINEST);
+            this.getLogger().fine( "Logger set to finest.");
+        } else {
+            this.getLogger().setLevel(Level.INFO);
+            this.getLogger().info("Logger set to info.");
+        }
+    }
+
+    public boolean isIgnoreWorld(World world) {
+        return (FPConfig.getDisabledWorlds().contains(world.getName()));
     }
 
     public FlyPermsConfig getFPConfig() {
         return FPConfig;
     }
 
-    public FPPermissions getFPPerms() {
-        return FPPerms;
+    public PermsRegister getFPRegister() {
+        return FPRegister;
     }
 
-    public boolean ignoreWorld(World world) {
-        return (FPConfig.getDisabledWorlds().contains(world.getName()));
+    public PermsCommand getFPCommand() {
+        return FPCommand;
+    }
+
+    public PermsFly getFPFly() {
+        return FPFly;
     }
 }

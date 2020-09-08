@@ -24,7 +24,7 @@ public class CommandHandler {
             // register completions
             Commodore commodore = CommodoreProvider.getCommodore(plugin);
 
-            final LiteralCommandNode<?> commandCompletion = LiteralArgumentBuilder.literal("flyperms").requires(o -> plugin.getFPPerms().hasAnyCommandPerms(commodore.getBukkitSender(o)))
+            final LiteralCommandNode<?> commandCompletion = LiteralArgumentBuilder.literal("flyperms").requires(o -> plugin.getFPCommand().hasAnyPerms(commodore.getBukkitSender(o)))
                     .then(LiteralArgumentBuilder.literal("seeallowed").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.seeallowed"))
                             .then(RequiredArgumentBuilder.argument("user", StringArgumentType.string()).requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.seeallowed.others"))))
                     .then(LiteralArgumentBuilder.literal("info").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.info")))

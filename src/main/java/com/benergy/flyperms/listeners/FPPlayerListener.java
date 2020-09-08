@@ -17,43 +17,26 @@ public class FPPlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerJoin(PlayerJoinEvent event) {
-        // Ignore this world
-        if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            return;
-        }
-
-        this.plugin.getFPPerms().canFly(event.getPlayer());
+    public void join(PlayerJoinEvent event) {
+        this.plugin.getFPFly().canFly(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerChangeGameMode(PlayerGameModeChangeEvent event) {
-        // Ignore this world
-        if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            return;
-        }
-
-        this.plugin.getFPPerms().canFly(event.getPlayer());
+    public void changeGameMode(PlayerGameModeChangeEvent event) {
+        this.plugin.getFPFly().canFly(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerChangeWorld(PlayerChangedWorldEvent event) {
-        // Ignore this world
-        if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
+        if (this.plugin.isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
             return;
         }
-
-        this.plugin.getFPPerms().canFly(event.getPlayer());
+        this.plugin.getFPFly().canFly(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerMovement(PlayerMoveEvent event) {
-        // Ignore this world
-        if (this.plugin.ignoreWorld(event.getPlayer().getWorld())) {
-            return;
-        }
-
-        this.plugin.getFPPerms().canFly(event.getPlayer());
+    public void movement(PlayerMoveEvent event) {
+        this.plugin.getFPFly().canFly(event.getPlayer());
     }
 }

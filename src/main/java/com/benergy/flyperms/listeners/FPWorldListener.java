@@ -16,22 +16,22 @@ public class FPWorldListener implements Listener {
     @EventHandler
     public void worldLoaded(WorldLoadEvent event) {
         // Ignore this world
-        if (this.plugin.ignoreWorld(event.getWorld())) {
+        if (this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
 
         // Register new world perms
-        this.plugin.getFPPerms().addWorldPerm(event.getWorld());
+        this.plugin.getFPRegister().addWorldPerm(event.getWorld());
     }
 
     @EventHandler
     public void worldUnloaded(WorldUnloadEvent event) {
         // Ignore this world
-        if (this.plugin.ignoreWorld(event.getWorld())) {
+        if (this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
 
         // Remove perms when world unloads
-        this.plugin.getFPPerms().removeWorldPerm(event.getWorld());
+        this.plugin.getFPRegister().removeWorldPerm(event.getWorld());
     }
 }
