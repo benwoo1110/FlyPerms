@@ -44,6 +44,7 @@ public class FlyPermsConfig {
             this.plugin.getFPLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
+        this.plugin.setLogLevel();
         this.plugin.getFPLogger().log(Level.FINE, this.toString());
         return true;
     }

@@ -43,9 +43,6 @@ public final class FlyPerms extends JavaPlugin {
         saveDefaultConfig();
         this.FPConfig.loadConfigValues();
 
-        // log
-        this.setLogLevel();
-
         // Init bstats
         MetricsUtil.configureMetrics(this);
 
@@ -73,7 +70,6 @@ public final class FlyPerms extends JavaPlugin {
         if (!this.FPConfig.reloadConfigValues()) {
             return false;
         }
-        this.setLogLevel();
         // TODO: Handle perms and fly changes on reload
 
         this.getFPLogger().log(Level.INFO, "FlyPerms was successfully reloaded!");
@@ -85,7 +81,7 @@ public final class FlyPerms extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    private void setLogLevel() {
+    public void setLogLevel() {
         if (this.FPConfig.isDebugMode()) {
             this.getFPLogger().setLogLevel(Level.FINEST);
             this.getFPLogger().log(Level.FINE, "Debug logging enabled.");
