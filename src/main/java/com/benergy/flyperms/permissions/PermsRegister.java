@@ -8,7 +8,7 @@ import org.bukkit.permissions.PermissionDefault;
 
 public class PermsRegister {
 
-    FlyPerms plugin;
+    private final FlyPerms plugin;
 
     public PermsRegister(FlyPerms plugin) {
         this.plugin = plugin;

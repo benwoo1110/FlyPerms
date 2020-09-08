@@ -1,15 +1,16 @@
 package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.permissions.FlyState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
+
+import java.util.logging.Level;
 
 public class FPPlayerListener implements Listener {
+
     private final FlyPerms plugin;
 
     public FPPlayerListener(FlyPerms plugin) {
@@ -30,6 +31,8 @@ public class FPPlayerListener implements Listener {
     public void playerChangeWorld(PlayerChangedWorldEvent event) {
         if (this.plugin.isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
+            this.plugin.getFPLogger().log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
+                    " at world " + event.getPlayer().getWorld().getName() + ".");
             return;
         }
         this.plugin.getFPFly().canFly(event.getPlayer());
@@ -39,4 +42,32 @@ public class FPPlayerListener implements Listener {
     public void movement(PlayerMoveEvent event) {
         this.plugin.getFPFly().canFly(event.getPlayer());
     }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void PlayerFly(PlayerToggleFlightEvent event) {
+        if (!event.isFlying()) {
+            this.plugin.getFPLogger().log(Level.FINE,event.getPlayer().getName() + " stopped flying!");
+            return;
+        }
+
+        FlyState flyCheckResult = this.plugin.getFPFly().canFly(event.getPlayer());
+        switch (flyCheckResult) {
+            case CREATIVE_BYPASS:
+                this.plugin.getFPLogger().log(Level.FINE,"Allowing creative flight for " +
+                        event.getPlayer().getName() + " as defined in config.");
+                break;
+            case IGNORED:
+                this.plugin.getFPLogger().log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
+                        " at world " + event.getPlayer().getWorld().getName() + ".");
+                break;
+            case NO:
+                event.setCancelled(true);
+                this.plugin.getFPLogger().log(Level.FINE,"Flight canceled for " + event.getPlayer().getName() + "!");
+                break;
+            case YES:
+                this.plugin.getFPLogger().log(Level.FINE,"Starting flight for " + event.getPlayer().getName() + "...");
+                break;
+        }
+    }
+
 }

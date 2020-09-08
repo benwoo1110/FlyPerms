@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 
 public class PermsCommand {
 
-    FlyPerms plugin;
+    private final FlyPerms plugin;
 
     public PermsCommand(FlyPerms plugin) {
         this.plugin = plugin;

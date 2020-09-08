@@ -40,11 +40,11 @@ public class FlyPermsConfig {
             this.debugMode = config.getBoolean("show-debug-info", false);
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getLogger().log(Level.SEVERE, "Error loading config.yml!");
-            this.plugin.getLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
+            this.plugin.getLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            this.plugin.getFPLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
-        // this.plugin.getLogging().log(Level.INFO,"Loaded FlyPerms config.yml!");
+        this.plugin.getFPLogger().log(Level.FINE, this.toString());
         return true;
     }
 
@@ -70,5 +70,16 @@ public class FlyPermsConfig {
 
     public boolean isDebugMode() {
         return debugMode;
+    }
+
+    @Override
+    public String toString() {
+        return "FlyPermsConfig{" +
+                "checkGameMode=" + checkGameMode +
+                ", checkWorld=" + checkWorld +
+                ", allowCreative=" + allowCreative +
+                ", disabledWorlds=" + disabledWorlds +
+                ", debugMode=" + debugMode +
+                '}';
     }
 }

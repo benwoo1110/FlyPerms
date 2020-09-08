@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 public class PermsFly {
 
-    FlyPerms plugin;
+    private final FlyPerms plugin;
 
     public PermsFly(FlyPerms plugin) {
         this.plugin = plugin;
@@ -38,15 +38,15 @@ public class PermsFly {
 
         if (!player.getAllowFlight() && fly) {
             player.setAllowFlight(true);
-            this.plugin.getLogger().log(Level.FINE, "Allowed flight for " + player.getName());
+            this.plugin.getFPLogger().log(Level.FINE, "Allowing flight for " + player.getName());
         } else if (player.getAllowFlight() && !fly) {
             player.setAllowFlight(false);
-            this.plugin.getLogger().log(Level.FINE,"Disallowed flight for " + player.getName());
+            this.plugin.getFPLogger().log(Level.FINE,"Disallowing flight for " + player.getName());
         }
 
         if (player.isFlying() && !fly) {
             player.setFlying(false);
-            this.plugin.getLogger().log(Level.FINE,"Force stopped flying for " + player.getName());
+            this.plugin.getFPLogger().log(Level.FINE,"Force stopped flying for " + player.getName());
         }
 
         if (!fly) {
