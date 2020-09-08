@@ -24,7 +24,7 @@ public class FlyPermsConfig {
             this.plugin.reloadConfig();
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            this.plugin.getFPLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             return false;
         }
         return this.loadConfigValues();
@@ -40,7 +40,7 @@ public class FlyPermsConfig {
             this.debugMode = config.getBoolean("show-debug-info", false);
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            this.plugin.getFPLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             this.plugin.getFPLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }

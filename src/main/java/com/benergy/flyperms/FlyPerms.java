@@ -23,7 +23,7 @@ public final class FlyPerms extends JavaPlugin {
     private final LoggerUtil logger = new LoggerUtil(this);
 
     // Config
-    private final FlyPermsConfig FPConfig = new FlyPermsConfig(this);;
+    private final FlyPermsConfig FPConfig = new FlyPermsConfig(this);
 
     // Permissions
     private final PermsRegister FPRegister = new PermsRegister(this);
