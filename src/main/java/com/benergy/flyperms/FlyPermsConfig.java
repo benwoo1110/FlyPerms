@@ -1,5 +1,6 @@
 package com.benergy.flyperms;
 
+import com.benergy.flyperms.utils.FormatUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.logging.Level;
 
 public class FlyPermsConfig {
 
-    private FlyPerms plugin;
+    private final FlyPerms plugin;
 
     private boolean checkGameMode;
     private boolean checkWorld;
@@ -40,7 +41,7 @@ public class FlyPermsConfig {
             this.debugMode = config.getBoolean("show-debug-info", false);
         } catch (Exception e) {
             e.printStackTrace();
-            this.plugin.getFPLogger().log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            this.plugin.getFPLogger().log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             this.plugin.getFPLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
@@ -76,11 +77,11 @@ public class FlyPermsConfig {
     @Override
     public String toString() {
         return "FlyPermsConfig{" +
-                "checkGameMode=" + checkGameMode +
-                ", checkWorld=" + checkWorld +
-                ", allowCreative=" + allowCreative +
+                "checkGameMode=" + FormatUtil.parseBoolean(checkGameMode) +
+                ", checkWorld=" + FormatUtil.parseBoolean(checkWorld) +
+                ", allowCreative=" + FormatUtil.parseBoolean(allowCreative) +
                 ", disabledWorlds=" + disabledWorlds +
-                ", debugMode=" + debugMode +
+                ", debugMode=" + FormatUtil.parseBoolean(debugMode) +
                 '}';
     }
 }

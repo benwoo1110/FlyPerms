@@ -118,10 +118,10 @@ public class FlyPermsCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.formatList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
         }
         if (this.plugin.getFPConfig().isCheckGameMode()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.formatList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
         }
         sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
     }
@@ -135,11 +135,11 @@ public class FlyPermsCommand implements CommandExecutor {
         // Show the info
         sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ FlyPerms Info ]====");
         showPlugins(sender);
-        sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckWorld()));
-        sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isCheckGameMode()));
-        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + FormatUtil.formatBoolean(this.plugin.getFPConfig().isAllowCreative()));
+        sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
+        sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
+        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
         if (this.plugin.getFPConfig().haveDisabledWorld()) {
-            sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + FormatUtil.formatList(this.plugin.getFPConfig().getDisabledWorlds(), ChatColor.RED));
+            sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + FormatUtil.parseList(this.plugin.getFPConfig().getDisabledWorlds(), ChatColor.RED));
         }
     }
 
