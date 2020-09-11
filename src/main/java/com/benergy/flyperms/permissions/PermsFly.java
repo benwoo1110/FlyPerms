@@ -1,6 +1,7 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.handlers.FPCoolDownHandler;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -12,9 +13,11 @@ import java.util.logging.Level;
 public class PermsFly {
 
     private final FlyPerms plugin;
+    private final FPCoolDownHandler flyCoolDown;
 
     public PermsFly(FlyPerms plugin) {
         this.plugin = plugin;
+        this.flyCoolDown = new FPCoolDownHandler(plugin);
     }
 
     public FlyState canFly(Player player) {
@@ -32,27 +35,27 @@ public class PermsFly {
             return FlyState.CREATIVE_BYPASS;
         }
 
-        boolean fly = checkAllow(player)
+        boolean allowedToFly = checkBasicAllow(player)
                 && checkGameMode(player)
                 && checkWorld(player);
 
-        if (!player.getAllowFlight() && fly) {
+        if (player.isFlying() && !allowedToFly) {
+            flyCoolDown.stopFly(player);
+            return FlyState.NO;
+        }
+
+        if (!player.getAllowFlight() && allowedToFly) {
             player.setAllowFlight(true);
             this.plugin.getFPLogger().log(Level.FINE, "Allowing flight for " + player.getName());
-        } else if (player.getAllowFlight() && !fly) {
+        }
+        else if (player.getAllowFlight() && !allowedToFly) {
             player.setAllowFlight(false);
             this.plugin.getFPLogger().log(Level.FINE,"Disallowing flight for " + player.getName());
         }
 
-        if (player.isFlying() && !fly) {
-            player.setFlying(false);
-            this.plugin.getFPLogger().log(Level.FINE,"Force stopped flying for " + player.getName());
-        }
-
-        if (!fly) {
+        if (!allowedToFly) {
             return FlyState.NO;
         }
-
         return FlyState.YES;
     }
 
@@ -98,7 +101,7 @@ public class PermsFly {
         return worldsAllowed;
     }
 
-    public boolean checkAllow(Player player) {
+    public boolean checkBasicAllow(Player player) {
         return this.plugin.getFPConfig().isCheckGameMode()
                 || this.plugin.getFPConfig().isCheckWorld()
                 || player.hasPermission("flyperms.allow");

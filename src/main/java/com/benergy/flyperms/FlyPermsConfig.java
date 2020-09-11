@@ -13,6 +13,7 @@ public class FlyPermsConfig {
     private boolean checkGameMode;
     private boolean checkWorld;
     private boolean allowCreative;
+    private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
 
@@ -37,6 +38,7 @@ public class FlyPermsConfig {
             this.checkGameMode = config.getBoolean("check-for-gamemode", true);
             this.checkWorld = config.getBoolean("check-for-world", true);
             this.allowCreative = config.getBoolean("always-allow-in-creative", false);
+            this.coolDown = config.getInt("cooldown", 5000);
             this.disabledWorlds = config.getStringList("ignore-in-worlds");
             this.debugMode = config.getBoolean("show-debug-info", false);
         } catch (Exception e) {
@@ -62,6 +64,10 @@ public class FlyPermsConfig {
         return allowCreative;
     }
 
+    public int getCoolDown() {
+        return coolDown;
+    }
+
     public boolean haveDisabledWorld() {
         return disabledWorlds.size() > 0;
     }
@@ -84,4 +90,5 @@ public class FlyPermsConfig {
                 ", debugMode=" + FormatUtil.parseBoolean(debugMode) +
                 '}';
     }
+
 }

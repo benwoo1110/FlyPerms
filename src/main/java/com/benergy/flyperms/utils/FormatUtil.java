@@ -19,4 +19,13 @@ public class FormatUtil {
         }
         return color + String.join(", ", list);
     }
+
+    public static long millisecondsToTicks(int ms) {
+        return (long) ms / 50;
+    }
+
+    public static float millisecondsToSeconds(int ms) {
+        return (float) ms / 1000;
+    }
+
 }
