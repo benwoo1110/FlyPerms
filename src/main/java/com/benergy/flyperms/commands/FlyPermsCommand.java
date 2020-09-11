@@ -85,7 +85,7 @@ public class FlyPermsCommand implements CommandExecutor {
         }
 
         // Get the player we want to see
-        String senderName = sender.getName();
+        String playerNameToCheck = sender.getName();
         switch (args.length) {
             case 1:
                 break;
@@ -94,36 +94,36 @@ public class FlyPermsCommand implements CommandExecutor {
                     noPerms(sender);
                     return;
                 }
-                senderName = args[1];
+                playerNameToCheck = args[1];
                 break;
             default:
                 return;
         }
 
         // Ensure we are not checking for console
-        if (senderName.equalsIgnoreCase("CONSOLE")) {
+        if (playerNameToCheck.equalsIgnoreCase("CONSOLE")) {
             sender.sendMessage("You must enter a player to see from the console!");
             return;
         }
 
         // Ensure player exist
-        Player player = Bukkit.getPlayer(senderName);
-        if (player == null) {
-            sender.sendMessage(ChatColor.RED + "Invalid player '"+ senderName +"'");
+        Player playerToCheck = Bukkit.getPlayer(playerNameToCheck);
+        if (playerToCheck == null) {
+            sender.sendMessage(ChatColor.RED + "Invalid player '"+ playerNameToCheck +"'");
             return;
         }
 
         // Show the info
-        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ "+ senderName + " Flight Info ]====");
-        sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
-        sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
+        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ "+ playerNameToCheck + " Flight Info ]====");
+        sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + playerToCheck.getWorld().getName());
+        sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + playerToCheck.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllWorlds(playerToCheck), ChatColor.WHITE));
         }
         if (this.plugin.getFPConfig().isCheckGameMode()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllGameModes(playerToCheck), ChatColor.WHITE));
         }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
+        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(playerToCheck).toString());
     }
 
     private void info(CommandSender sender) {
