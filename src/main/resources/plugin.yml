@@ -26,7 +26,7 @@ permissions:
     default: false
     description: View the condition when other players are allowed to fly.
   flyperms.admin:
-    default: false
+    default: op
     description: Give Admins access to all FlyPerms commands.
     children:
       - flyperms.info
