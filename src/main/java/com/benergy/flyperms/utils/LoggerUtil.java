@@ -1,9 +1,9 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.permissions.FlyState;
-import sun.rmi.runtime.Log;
+import org.bukkit.Bukkit;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +35,16 @@ public class LoggerUtil {
 
     public void setLogLevel(Level logLevel) {
         this.logLevel = logLevel;
+    }
+
+    public void startUpText() {
+        String[] startupText = {
+                "§2    ___§3  __",
+                "§2   /__§3  /__)   §aFlyPerms - v" + this.plugin.getDescription().getVersion(),
+                "§2  /  §3  /       §bbenwoo1110",
+                ""
+        };
+        Arrays.stream(startupText).forEach(Bukkit.getServer().getConsoleSender()::sendMessage);
     }
 
 }

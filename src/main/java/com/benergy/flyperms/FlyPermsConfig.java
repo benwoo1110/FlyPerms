@@ -49,6 +49,7 @@ public class FlyPermsConfig {
         }
         this.plugin.setLogLevel();
         this.plugin.getFPLogger().log(Level.FINE, this.toString());
+        this.plugin.getFPLogger().log(Level.INFO, "Loaded config.yml");
         return true;
     }
 

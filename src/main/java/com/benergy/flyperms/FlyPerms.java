@@ -9,6 +9,7 @@ import com.benergy.flyperms.permissions.PermsFly;
 import com.benergy.flyperms.permissions.PermsRegister;
 import com.benergy.flyperms.utils.LoggerUtil;
 import com.benergy.flyperms.utils.MetricsUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
@@ -39,8 +40,10 @@ public final class FlyPerms extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        logger.startUpText();
+
         // Get config
-        saveDefaultConfig();
+        this.saveDefaultConfig();
         this.FPConfig.loadConfigValues();
 
         // Init bstats
@@ -60,25 +63,25 @@ public final class FlyPerms extends JavaPlugin {
         if (!commandHandler.registerCommands(pluginCommand)) {
             this.getFPLogger().log(Level.WARNING, "Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
         } else {
-            this.getFPLogger().log(Level.WARNING, "Registered commodore auto-complete.");
+            this.getFPLogger().log(Level.INFO, "Registered commodore auto-complete.");
         }
 
-        this.getFPLogger().log(Level.INFO, ChatColor.GREEN.toString() + "Enabled FlyPerms v" + this.getDescription().getVersion() + "!");
+        this.getFPLogger().log(Level.INFO, "Started!");
     }
 
     public boolean reload() {
         if (!this.FPConfig.reloadConfigValues()) {
             return false;
         }
-        // TODO: Handle perms and fly changes on reload
-
-        this.getFPLogger().log(Level.INFO, "FlyPerms was successfully reloaded!");
+        Bukkit.getOnlinePlayers().forEach(FPFly::canFly);
+        this.getFPLogger().log(Level.FINE, "FlyPerms was successfully reloaded!");
         return true;
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.getFPLogger().log(Level.INFO, "Stopped. Happy flying!");
     }
 
     public void setLogLevel() {
