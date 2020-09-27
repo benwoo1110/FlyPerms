@@ -22,6 +22,10 @@ public class FormatUtil {
         return color + String.join(", ", list);
     }
 
+    public static void header(CommandSender sender, String title) {
+        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ " + title + " ]====");
+    }
+
     public static void commandUsage(CommandSender sender, String command, String description) {
         sender.sendMessage(ChatColor.GREEN + command + ChatColor.GRAY + " -> " + ChatColor.AQUA + description);
     }

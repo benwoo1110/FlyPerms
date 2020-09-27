@@ -119,7 +119,7 @@ public class FlyPermsCommand implements CommandExecutor {
         }
 
         // Show the info
-        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ "+ playerNameToCheck + " Flight Info ]====");
+        FormatUtil.header(sender, playerNameToCheck + " Flight Info");
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + playerToCheck.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + playerToCheck.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
@@ -138,7 +138,7 @@ public class FlyPermsCommand implements CommandExecutor {
         }
 
         // Show the info
-        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ FlyPerms Info ]====");
+        FormatUtil.header(sender, "FlyPerms Info");
         showPlugins(sender);
         sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
         sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
@@ -154,7 +154,7 @@ public class FlyPermsCommand implements CommandExecutor {
                 continue;
             }
             if (this.unsupportedPlugins.contains(versionPlugin.getName())) {
-                sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
+                sender.sendMessage(ChatColor.DARK_AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
             } else {
                 sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.GREEN + versionPlugin.getDescription().getVersion());
             }
@@ -166,6 +166,9 @@ public class FlyPermsCommand implements CommandExecutor {
             noPerms(sender);
             return;
         }
+
+        // show command info
+        FormatUtil.header(sender, "FlyPerms Usage");
         FormatUtil.commandUsage(sender, "/fp info", "Displays basic information of the plugin");
         FormatUtil.commandUsage(sender, "/fp seeallowed [player]", "Displays player's ability to fly");
         FormatUtil.commandUsage(sender, "/fp reload", "Reloads the plugin config and fly access check");
