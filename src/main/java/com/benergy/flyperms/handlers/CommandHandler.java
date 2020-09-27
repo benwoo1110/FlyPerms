@@ -29,6 +29,7 @@ public class CommandHandler {
                             .then(RequiredArgumentBuilder.argument("user", StringArgumentType.string()).requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.seeallowed.others"))))
                     .then(LiteralArgumentBuilder.literal("info").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.info")))
                     .then(LiteralArgumentBuilder.literal("reload").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.reload")))
+                    .then(LiteralArgumentBuilder.literal("help").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.help")))
                     .build();
 
             commodore.register(pluginCommand, commandCompletion);

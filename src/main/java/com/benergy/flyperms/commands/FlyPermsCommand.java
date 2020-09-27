@@ -59,6 +59,11 @@ public class FlyPermsCommand implements CommandExecutor {
             case "reload":
                 reload(sender);
                 break;
+            case "help":
+                help(sender);
+                break;
+            default:
+                unknownCommand(sender);
         }
 
         return true;
@@ -156,7 +161,22 @@ public class FlyPermsCommand implements CommandExecutor {
         }
     }
 
+    private void help(CommandSender sender) {
+        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.help")) {
+            noPerms(sender);
+            return;
+        }
+        FormatUtil.commandUsage(sender, "/fp info", "Displays basic information of the plugin");
+        FormatUtil.commandUsage(sender, "/fp seeallowed [player]", "Displays player's ability to fly");
+        FormatUtil.commandUsage(sender, "/fp reload", "Reloads the plugin config and fly access check");
+        FormatUtil.commandUsage(sender, "/fp help", "It's this command ;)");
+    }
+
     private void noPerms(CommandSender sender) {
         sender.sendMessage(ChatColor.RED + "You do not have permission to run this command!");
+    }
+
+    private void unknownCommand(CommandSender sender) {
+        sender.sendMessage(ChatColor.RED + "Unknown FlyPerms command. See " + ChatColor.AQUA + "/fp help" + ChatColor.RED + " for command usage.");
     }
 }
