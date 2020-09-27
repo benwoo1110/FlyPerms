@@ -70,7 +70,7 @@ public class FlyPermsCommand implements CommandExecutor {
     }
 
     private void reload(CommandSender sender) {
-        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.reload")) {
+        if (!plugin.getFPCommand().canExecute(sender, "flyperms.reload")) {
             noPerms(sender);
             return;
         }
@@ -84,7 +84,7 @@ public class FlyPermsCommand implements CommandExecutor {
     }
 
     private void seeallowed(CommandSender sender, String[] args) {
-        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.seeallowed")) {
+        if (!plugin.getFPCommand().canExecute(sender, "flyperms.seeallowed")) {
             noPerms(sender);
             return;
         }
@@ -95,7 +95,7 @@ public class FlyPermsCommand implements CommandExecutor {
             case 1:
                 break;
             case 2:
-                if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.seeallowed.others")) {
+                if (!plugin.getFPCommand().canExecute(sender, "flyperms.seeallowed.others")) {
                     noPerms(sender);
                     return;
                 }
@@ -132,7 +132,7 @@ public class FlyPermsCommand implements CommandExecutor {
     }
 
     private void info(CommandSender sender) {
-        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.info")) {
+        if (!plugin.getFPCommand().canExecute(sender, "flyperms.info")) {
             noPerms(sender);
             return;
         }
@@ -162,7 +162,7 @@ public class FlyPermsCommand implements CommandExecutor {
     }
 
     private void help(CommandSender sender) {
-        if (!sender.getName().equalsIgnoreCase("CONSOLE") && !sender.hasPermission("flyperms.help")) {
+        if (!plugin.getFPCommand().canExecute(sender, "flyperms.help")) {
             noPerms(sender);
             return;
         }

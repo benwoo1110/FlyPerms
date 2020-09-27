@@ -19,6 +19,9 @@ permissions:
   flyperms.reload:
     default: false
     description: Reload the plugin's config.
+  flyperms.help:
+    default: false
+    description: Reload the plugin's config.
   flyperms.seeallowed:
     default: false
     description: View the condition when you are allowed to fly.
@@ -31,5 +34,6 @@ permissions:
     children:
       - flyperms.info
       - flyperms.reload
+      - flyperms.help
       - flyperms.seeallowed
       - flyperms.seeallowed.others
