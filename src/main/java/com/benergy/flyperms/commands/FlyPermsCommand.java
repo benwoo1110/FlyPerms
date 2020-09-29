@@ -19,8 +19,8 @@ public class FlyPermsCommand implements CommandExecutor {
 
     private final List<String> versionPlugins = Arrays.asList(
             "FlyPerms", // This plugin
-            "PlaceholderAPI", // API (TBA)
-            "WorldGuard", // API (TBA)
+            // "PlaceholderAPI", // API (TBA)
+            // "WorldGuard", // API (TBA)
             "LuckPerms", // permissions (recommended)
             "UltraPermissions", // permissions (not recommended)
             "PowerRanks", // permissions (not recommended)
