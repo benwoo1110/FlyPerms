@@ -11,7 +11,7 @@ import org.bukkit.command.Command;
 
 public class CommandHandler {
 
-    FlyPerms plugin;
+    private final FlyPerms plugin;
 
     public CommandHandler(FlyPerms plugin) {
         this.plugin = plugin;

@@ -5,15 +5,14 @@ import org.bstats.bukkit.Metrics;
 
 public class MetricsUtil {
 
+    private final FlyPerms plugin;
+    private final Metrics metrics;
     private static final int PLUGIN_ID = 8745;
 
     public static void configureMetrics(FlyPerms plugin) {
         MetricsUtil configurator = new MetricsUtil(plugin);
         configurator.initMetrics();
     }
-
-    private final FlyPerms plugin;
-    private final Metrics metrics;
 
     private MetricsUtil(FlyPerms plugin) {
         this.plugin = plugin;

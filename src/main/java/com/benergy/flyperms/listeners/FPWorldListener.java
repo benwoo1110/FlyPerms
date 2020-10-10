@@ -7,6 +7,7 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
 public class FPWorldListener implements Listener {
+
     private final FlyPerms plugin;
 
     public FPWorldListener(FlyPerms plugin) {
