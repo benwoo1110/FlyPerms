@@ -5,17 +5,21 @@ import com.benergy.flyperms.utils.FormatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FlyPermsCommand implements CommandExecutor {
+public class FlyPermsCommand implements TabExecutor {
 
-    FlyPerms plugin;
+    private final FlyPerms plugin;
+    private final List<String> commands = new ArrayList<>(Arrays.asList("seeallowed", "info", "reload", "help"));
 
     private final List<String> versionPlugins = Arrays.asList(
             "FlyPerms", // This plugin
@@ -40,7 +44,7 @@ public class FlyPermsCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, String[] args) {
         // Nothing to the command
         if (args.length == 0) {
             sender.sendMessage(ChatColor.AQUA + "Running FlyPerms " + ChatColor.GREEN +
@@ -67,6 +71,16 @@ public class FlyPermsCommand implements CommandExecutor {
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
+        switch (args.length) {
+            case 1:
+                return commands;
+            default:
+                return null;
+        }
     }
 
     private void reload(CommandSender sender) {
