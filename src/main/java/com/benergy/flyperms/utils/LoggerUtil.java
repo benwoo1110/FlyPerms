@@ -9,13 +9,21 @@ import java.util.logging.Logger;
 
 public class LoggerUtil {
 
+    private final String[] startupText;
+
     private final FlyPerms plugin;
     private final Logger debugLogger;
     private Level logLevel = Level.INFO;
 
     public LoggerUtil(FlyPerms plugin) {
         this.plugin = plugin;
-        debugLogger = Logger.getLogger(this.plugin.getName() + "-debug");
+        this.debugLogger = Logger.getLogger(this.plugin.getName() + "-debug");
+        this.startupText = new String[]{
+                "§2    ___§3  __",
+                "§2   /__§3  /__)   §aFlyPerms - v" + this.plugin.getDescription().getVersion(),
+                "§2  /  §3  /       §bbenwoo1110",
+                ""
+        };
     }
 
     public void log(Level level, String msg) {
@@ -23,10 +31,10 @@ public class LoggerUtil {
             return;
         }
         if (this.plugin.getFPConfig().isDebugMode() && level.intValue() < Level.INFO.intValue()) {
-            debugLogger.info(msg);
+            this.debugLogger.info(msg);
             return;
         }
-        this.plugin.getLogger().info(msg);
+        this.plugin.getLogger().log(level, msg);
     }
 
     public Level getLogLevel() {
@@ -38,13 +46,7 @@ public class LoggerUtil {
     }
 
     public void startUpText() {
-        String[] startupText = {
-                "§2    ___§3  __",
-                "§2   /__§3  /__)   §aFlyPerms - v" + this.plugin.getDescription().getVersion(),
-                "§2  /  §3  /       §bbenwoo1110",
-                ""
-        };
-        Arrays.stream(startupText).forEach(Bukkit.getServer().getConsoleSender()::sendMessage);
+        Arrays.stream(this.startupText).forEach(Bukkit.getServer().getConsoleSender()::sendMessage);
     }
 
 }
