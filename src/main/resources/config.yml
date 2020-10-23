@@ -18,12 +18,21 @@ always-allow-in-creative: false
 # This serves as a warning to players and can prevents sudden fall without warning
 cooldown: 5000
 
-# FlyPerms will not effect these worlds
-# All perms and fly checks will not be present in these worlds
+# FlyPerms will not effect these worlds.
+# All perms and fly checks will not be present in these worlds.
 ignore-in-worlds:
 #  - world2
 #  - world2_nether
 #  - world3_the_end
+
+# Allow players to change their fly speed, from -10 to 10. Negative values indicate reverse directions.
+# Permission to give users the speed group is "flyperms.speed.<groupname>", which will give them access to the
+# range of speed as defined.
+# Command to change speed is "/fp speed <speed>".
+speed-group:
+  - default: [0.0, 2.0]
+  - special: [0.0, 5.0]
+  - admin: [-10.0, 10.0]
 
 # Used for development and troubleshooting purposes
 show-debug-info: false

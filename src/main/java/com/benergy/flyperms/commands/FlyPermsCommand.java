@@ -13,12 +13,13 @@ import org.bukkit.plugin.Plugin;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FlyPermsCommand implements TabExecutor {
 
     private final FlyPerms plugin;
-    private final List<String> commands = new ArrayList<>(Arrays.asList("seeallowed", "info", "reload", "help"));
+    private final List<String> commands = new ArrayList<>(Arrays.asList("seeallowed", "info", "reload", "help", "speed"));
 
     private final List<String> versionPlugins = Arrays.asList(
             "FlyPerms", // This plugin
@@ -65,6 +66,9 @@ public class FlyPermsCommand implements TabExecutor {
             case "help":
                 help(sender);
                 break;
+            case "speed":
+                speed(sender, args);
+                break;
             default:
                 unknownCommand(sender);
         }
@@ -78,7 +82,7 @@ public class FlyPermsCommand implements TabExecutor {
             case 1:
                 return commands;
             default:
-                return null;
+                return Collections.emptyList();
         }
     }
 
@@ -186,6 +190,32 @@ public class FlyPermsCommand implements TabExecutor {
         FormatUtil.commandUsage(sender, "/fp seeallowed [player]", "Displays player's ability to fly");
         FormatUtil.commandUsage(sender, "/fp reload", "Reloads the plugin config and fly access check");
         FormatUtil.commandUsage(sender, "/fp help", "It's this command ;)");
+        FormatUtil.commandUsage(sender, "/fp speed <speed>", "Changes fly speed, from -10 to 10.");
+    }
+
+    private void speed(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("You need to be a player to run this command!");
+            return;
+        }
+        if (args.length > 2) {
+            unknownCommand(sender);
+            return;
+        }
+
+        Player player = (Player) sender;
+        double speed;
+        try {
+            speed = Double.parseDouble(args[1]);
+        } catch (Exception e) {
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a valid number!");
+            return;
+        }
+        if (!this.plugin.getFPCommand().inSpeedGroupRange(player, speed)) {
+            noPerms(sender);
+            return;
+        }
+        player.setFlySpeed((float) speed / 10);
     }
 
     private void noPerms(CommandSender sender) {

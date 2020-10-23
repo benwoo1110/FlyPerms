@@ -30,6 +30,7 @@ public class CommandHandler {
                     .then(LiteralArgumentBuilder.literal("info").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.info")))
                     .then(LiteralArgumentBuilder.literal("reload").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.reload")))
                     .then(LiteralArgumentBuilder.literal("help").requires(o -> commodore.getBukkitSender(o).hasPermission("flyperms.help")))
+                    .then(LiteralArgumentBuilder.literal("speed").requires(o -> this.plugin.getFPCommand().inAnySpeedGroup(commodore.getBukkitSender(o))))
                     .build();
 
             commodore.register(pluginCommand, commandCompletion);

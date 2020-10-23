@@ -1,9 +1,12 @@
 package com.benergy.flyperms;
 
 import com.benergy.flyperms.utils.FormatUtil;
+import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class FlyPermsConfig {
@@ -16,6 +19,7 @@ public class FlyPermsConfig {
     private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
+    private Map<String, List<Double>> speedGroup = new Hashtable<>();
 
     public FlyPermsConfig(FlyPerms plugin) {
         this.plugin = plugin;
@@ -41,6 +45,18 @@ public class FlyPermsConfig {
             this.coolDown = config.getInt("cooldown", 5000);
             this.disabledWorlds = config.getStringList("ignore-in-worlds");
             this.debugMode = config.getBoolean("show-debug-info", false);
+            this.speedGroup.clear();
+            List<Map<?, ?>> configSpeedGroup = config.getMapList("speed-group");
+            for (Map<?, ?> group : configSpeedGroup) {
+                for (Object groupName : group.keySet()) {
+                    List<Double> speedValue = (List<Double>) group.get(groupName);
+                    if (speedValue == null || speedValue.size() != 2) {
+                        this.plugin.getFPLogger().log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
+                        continue;
+                    }
+                    speedGroup.put(String.valueOf(groupName), speedValue);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             this.plugin.getFPLogger().log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
@@ -81,15 +97,21 @@ public class FlyPermsConfig {
         return debugMode;
     }
 
+    public Map<String, List<Double>> getSpeedGroup() {
+        return speedGroup;
+    }
+
     @Override
     public String toString() {
         return "FlyPermsConfig{" +
-                "checkGameMode=" + FormatUtil.parseBoolean(checkGameMode) +
-                ", checkWorld=" + FormatUtil.parseBoolean(checkWorld) +
-                ", allowCreative=" + FormatUtil.parseBoolean(allowCreative) +
+                "plugin=" + plugin +
+                ", checkGameMode=" + checkGameMode +
+                ", checkWorld=" + checkWorld +
+                ", allowCreative=" + allowCreative +
+                ", coolDown=" + coolDown +
                 ", disabledWorlds=" + disabledWorlds +
-                ", debugMode=" + FormatUtil.parseBoolean(debugMode) +
+                ", debugMode=" + debugMode +
+                ", speedGroup=" + speedGroup +
                 '}';
     }
-
 }
