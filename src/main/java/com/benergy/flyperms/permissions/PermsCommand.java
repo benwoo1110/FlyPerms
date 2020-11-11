@@ -1,11 +1,11 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
 import java.util.Map;
 
 public class PermsCommand {
@@ -33,10 +33,9 @@ public class PermsCommand {
         return sender instanceof ConsoleCommandSender;
     }
 
-    public boolean inSpeedGroupRange(Player player, double speed) {
-        for (Map.Entry<String, List<Double>> group : this.plugin.getFPConfig().getSpeedGroup().entrySet()) {
-            if (player.hasPermission("flyperms.speed." + group.getKey().toLowerCase())
-                    && (group.getValue().get(0) <= speed && group.getValue().get(1) >= speed)) {
+    public boolean canChangeSpeedTo(Player player, double speed) {
+        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
+            if (player.hasPermission("flyperms.speed." + speedRange.getName()) && speedRange.isInRange(speed)) {
                 return true;
             }
         }
@@ -44,8 +43,8 @@ public class PermsCommand {
     }
 
     public boolean inAnySpeedGroup(CommandSender sender) {
-        for (Map.Entry<String, List<Double>> group : this.plugin.getFPConfig().getSpeedGroup().entrySet()) {
-            if (sender.hasPermission("flyperms.speed." + group.getKey().toLowerCase())) {
+        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
+            if (sender.hasPermission("flyperms.speed." + speedRange.getName())) {
                 return true;
             }
         }

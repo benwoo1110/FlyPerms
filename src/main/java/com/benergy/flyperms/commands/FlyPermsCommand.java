@@ -198,6 +198,10 @@ public class FlyPermsCommand implements TabExecutor {
             sender.sendMessage("You need to be a player to run this command!");
             return;
         }
+        if (args.length == 1) {
+            sender.sendMessage("You need to specify a speed!");
+            return;
+        }
         if (args.length > 2) {
             unknownCommand(sender);
             return;
@@ -211,7 +215,7 @@ public class FlyPermsCommand implements TabExecutor {
             sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a valid number!");
             return;
         }
-        if (!this.plugin.getFPCommand().inSpeedGroupRange(player, speed)) {
+        if (!this.plugin.getFPCommand().canChangeSpeedTo(player, speed)) {
             noPerms(sender);
             return;
         }

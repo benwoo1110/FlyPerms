@@ -1,6 +1,7 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
@@ -20,6 +21,19 @@ public class PermsRegister {
         }
         if (this.plugin.getFPConfig().isCheckWorld()) {
             registerWorldPerms();
+        }
+        registerSpeedGroupPerms();
+    }
+
+    private void registerSpeedGroupPerms() {
+        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
+            this.plugin.getServer().getPluginManager().addPermission(
+                    new Permission(
+                            "flyperms.speed." + speedRange.getName(),
+                            "Give you access to speed range for group " + speedRange.getName() + "defined in config.",
+                            PermissionDefault.FALSE
+                    )
+            );
         }
     }
 

@@ -1,10 +1,9 @@
 package com.benergy.flyperms;
 
-import com.benergy.flyperms.utils.FormatUtil;
-import com.google.common.collect.Maps;
+import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -19,7 +18,7 @@ public class FlyPermsConfig {
     private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
-    private Map<String, List<Double>> speedGroup = new Hashtable<>();
+    private final List<SpeedRange> speedGroups = new ArrayList<SpeedRange>();
 
     public FlyPermsConfig(FlyPerms plugin) {
         this.plugin = plugin;
@@ -45,28 +44,38 @@ public class FlyPermsConfig {
             this.coolDown = config.getInt("cooldown", 5000);
             this.disabledWorlds = config.getStringList("ignore-in-worlds");
             this.debugMode = config.getBoolean("show-debug-info", false);
-            this.speedGroup.clear();
-            List<Map<?, ?>> configSpeedGroup = config.getMapList("speed-group");
-            for (Map<?, ?> group : configSpeedGroup) {
-                for (Object groupName : group.keySet()) {
-                    List<Double> speedValue = (List<Double>) group.get(groupName);
-                    if (speedValue == null || speedValue.size() != 2) {
-                        this.plugin.getFPLogger().log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
-                        continue;
-                    }
-                    speedGroup.put(String.valueOf(groupName), speedValue);
-                }
-            }
-        } catch (Exception e) {
+            loadSpeedGroups(config.getMapList("speed-group"));
+        }
+        catch (Exception e) {
             e.printStackTrace();
             this.plugin.getFPLogger().log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             this.plugin.getFPLogger().log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
+
         this.plugin.setLogLevel();
         this.plugin.getFPLogger().log(Level.FINE, this.toString());
         this.plugin.getFPLogger().log(Level.INFO, "Loaded config.yml");
         return true;
+    }
+
+    private void loadSpeedGroups(List<Map<?, ?>> speedGroupConfig) {
+        if (speedGroupConfig == null) {
+            return;
+        }
+
+        this.speedGroups.clear();
+
+        for (Map<?, ?> group : speedGroupConfig) {
+            for (Object groupName : group.keySet()) {
+                List<Double> speedValue = (List<Double>) group.get(groupName);
+                if (speedValue == null || speedValue.size() != 2) {
+                    this.plugin.getFPLogger().log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
+                    continue;
+                }
+                speedGroups.add(new SpeedRange(String.valueOf(groupName), speedValue.get(0), speedValue.get(1)));
+            }
+        }
     }
 
     public boolean isCheckGameMode() {
@@ -97,8 +106,8 @@ public class FlyPermsConfig {
         return debugMode;
     }
 
-    public Map<String, List<Double>> getSpeedGroup() {
-        return speedGroup;
+    public List<SpeedRange> getSpeedGroups() {
+        return speedGroups;
     }
 
     @Override
@@ -111,7 +120,7 @@ public class FlyPermsConfig {
                 ", coolDown=" + coolDown +
                 ", disabledWorlds=" + disabledWorlds +
                 ", debugMode=" + debugMode +
-                ", speedGroup=" + speedGroup +
+                ", speedGroup=" + speedGroups +
                 '}';
     }
 }
