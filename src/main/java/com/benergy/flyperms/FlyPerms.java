@@ -7,10 +7,9 @@ import com.benergy.flyperms.handlers.CommandHandler;
 import com.benergy.flyperms.permissions.PermsCommand;
 import com.benergy.flyperms.permissions.PermsFly;
 import com.benergy.flyperms.permissions.PermsRegister;
-import com.benergy.flyperms.utils.LoggerUtil;
+import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.MetricsUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
@@ -19,10 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
 public final class FlyPerms extends JavaPlugin {
-
-    // Logging
-    private final LoggerUtil logger = new LoggerUtil(this);
-
     // Config
     private final FlyPermsConfig FPConfig = new FlyPermsConfig(this);
 
@@ -40,7 +35,8 @@ public final class FlyPerms extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        logger.startUpText();
+        FPLogger.setup(this);
+        FPLogger.showStartUpText();
 
         // Get config
         this.saveDefaultConfig();
@@ -61,12 +57,12 @@ public final class FlyPerms extends JavaPlugin {
         PluginCommand pluginCommand = this.getCommand("flyperms");
         pluginCommand.setExecutor(new FlyPermsCommand(this));
         if (!commandHandler.registerCommands(pluginCommand)) {
-            this.getFPLogger().log(Level.WARNING, "Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
+            FPLogger.log(Level.WARNING, "Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
         } else {
-            this.getFPLogger().log(Level.INFO, "Registered commodore auto-complete.");
+            FPLogger.log(Level.INFO, "Registered commodore auto-complete.");
         }
 
-        this.getFPLogger().log(Level.INFO, "Started!");
+        FPLogger.log(Level.INFO, "Started!");
     }
 
     public boolean reload() {
@@ -74,24 +70,14 @@ public final class FlyPerms extends JavaPlugin {
             return false;
         }
         Bukkit.getOnlinePlayers().forEach(FPFly::canFly);
-        this.getFPLogger().log(Level.FINE, "FlyPerms was successfully reloaded!");
+        FPLogger.log(Level.FINE, "FlyPerms was successfully reloaded!");
         return true;
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        this.getFPLogger().log(Level.INFO, "Stopped. Happy flying!");
-    }
-
-    public void setLogLevel() {
-        if (this.FPConfig.isDebugMode()) {
-            this.getFPLogger().setLogLevel(Level.FINEST);
-            this.getFPLogger().log(Level.FINE, "Debug logging enabled.");
-        } else {
-            this.getFPLogger().log(Level.FINE, "Debug logging disabled.");
-            this.getFPLogger().setLogLevel(Level.INFO);
-        }
+        FPLogger.log(Level.INFO, "Stopped. Happy flying!");
     }
 
     public boolean isIgnoreWorld(World world) {
@@ -113,9 +99,4 @@ public final class FlyPerms extends JavaPlugin {
     public PermsFly getFPFly() {
         return FPFly;
     }
-
-    public LoggerUtil getFPLogger() {
-        return logger;
-    }
-
 }

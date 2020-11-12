@@ -2,6 +2,7 @@ package com.benergy.flyperms.handlers;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.permissions.FlyState;
+import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.FormatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -39,7 +40,7 @@ public class FPCoolDownHandler {
     }
 
     private void stopFlyRunnable(Player player) {
-        this.plugin.getFPLogger().log(Level.FINE, "Running scheduled stop fly for " + player.getName());
+        FPLogger.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
         if (!player.isOnline()) {
             return;
         }

@@ -2,6 +2,7 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.handlers.FPCoolDownHandler;
+import com.benergy.flyperms.utils.FPLogger;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -46,11 +47,11 @@ public class PermsFly {
 
         if (!player.getAllowFlight() && allowedToFly) {
             player.setAllowFlight(true);
-            this.plugin.getFPLogger().log(Level.FINE, "Allowing flight for " + player.getName());
+            FPLogger.log(Level.FINE, "Allowing flight for " + player.getName());
         }
         else if (player.getAllowFlight() && !allowedToFly) {
             player.setAllowFlight(false);
-            this.plugin.getFPLogger().log(Level.FINE,"Disallowing flight for " + player.getName());
+            FPLogger.log(Level.FINE,"Disallowing flight for " + player.getName());
         }
 
         if (!allowedToFly) {
