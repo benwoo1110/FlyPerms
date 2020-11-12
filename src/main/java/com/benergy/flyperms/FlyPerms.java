@@ -1,9 +1,14 @@
 package com.benergy.flyperms;
 
+import co.aikar.commands.PaperCommandManager;
+import com.benergy.flyperms.commands.InfoCommand;
+import com.benergy.flyperms.commands.ReloadCommand;
+import com.benergy.flyperms.commands.SeeAllowedCommand;
+import com.benergy.flyperms.commands.SpeedCommand;
+import com.benergy.flyperms.commands.UsageCommand;
 import com.benergy.flyperms.handlers.FlyCheckScheduler;
 import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
-import com.benergy.flyperms.commands.FlyPermsCommand;
 import com.benergy.flyperms.handlers.CommandHandler;
 import com.benergy.flyperms.permissions.PermsCommand;
 import com.benergy.flyperms.permissions.PermsFly;
@@ -12,7 +17,6 @@ import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.MetricsUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,7 +56,12 @@ public final class FlyPerms extends JavaPlugin {
         this.FPRegister.registerPerms();
 
         // Register commands
-        this.getCommand("flyperms").setExecutor(new FlyPermsCommand(this));
+        PaperCommandManager commandManager = new PaperCommandManager(this);
+        commandManager.registerCommand(new InfoCommand(this));
+        commandManager.registerCommand(new ReloadCommand(this));
+        commandManager.registerCommand(new SeeAllowedCommand(this));
+        commandManager.registerCommand(new SpeedCommand(this));
+        commandManager.registerCommand(new UsageCommand(this));
 
         flyCheckScheduler.startFlyChecker();
 

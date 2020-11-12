@@ -7,7 +7,7 @@ description: Toggle ability to fly based on permissions!
 softdepend: [WorldGuard]
 commands:
   flyperms:
-    description: Manage fly abilities
+    description: Base FlyPerms command.
     aliases: [fp, fperms, flypermissions]
 permissions:
   flyperms.allow:
