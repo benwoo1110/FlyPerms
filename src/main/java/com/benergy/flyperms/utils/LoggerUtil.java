@@ -21,7 +21,7 @@ public class LoggerUtil {
         this.startupText = new String[]{
                 "§2    ___§3  __",
                 "§2   /__§3  /__)   §aFlyPerms - v" + this.plugin.getDescription().getVersion(),
-                "§2  /  §3  /       §bbenwoo1110",
+                "§2  /  §3  /       §bEnabled by - benwoo1110",
                 ""
         };
     }
