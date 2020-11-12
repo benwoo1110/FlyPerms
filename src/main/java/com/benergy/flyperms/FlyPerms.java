@@ -52,13 +52,7 @@ public final class FlyPerms extends JavaPlugin {
         this.FPRegister.registerPerms();
 
         // Register commands
-        PluginCommand pluginCommand = this.getCommand("flyperms");
-        pluginCommand.setExecutor(new FlyPermsCommand(this));
-        if (!commandHandler.registerCommands(pluginCommand)) {
-            FPLogger.log(Level.WARNING, "Unable to register commodore auto complete. You can ignore this if you are using <1.13.");
-        } else {
-            FPLogger.log(Level.INFO, "Registered commodore auto-complete.");
-        }
+        this.getCommand("flyperms").setExecutor(new FlyPermsCommand(this));
 
         flyCheckScheduler.startFlyChecker();
 
@@ -72,7 +66,6 @@ public final class FlyPerms extends JavaPlugin {
         }
         Bukkit.getOnlinePlayers().forEach(FPFly::canFly);
         flyCheckScheduler.startFlyChecker();
-        FPLogger.log(Level.FINE, "FlyPerms was successfully reloaded!");
         return true;
     }
 
