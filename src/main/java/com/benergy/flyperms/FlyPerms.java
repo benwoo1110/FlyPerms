@@ -1,5 +1,6 @@
 package com.benergy.flyperms;
 
+import com.benergy.flyperms.handlers.FlyCheckScheduler;
 import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.commands.FlyPermsCommand;
@@ -28,10 +29,7 @@ public final class FlyPerms extends JavaPlugin {
 
     // Handlers
     private final CommandHandler commandHandler = new CommandHandler(this);
-
-    // Listeners
-    private final FPPlayerListener playerListener = new FPPlayerListener(this);
-    private final FPWorldListener worldListener = new FPWorldListener(this);
+    private final FlyCheckScheduler flyCheckScheduler = new FlyCheckScheduler(this);
 
     @Override
     public void onEnable() {
@@ -47,8 +45,8 @@ public final class FlyPerms extends JavaPlugin {
 
         // Register events
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(this.playerListener, this);
-        pm.registerEvents(this.worldListener, this);
+        pm.registerEvents(new FPPlayerListener(this), this);
+        pm.registerEvents(new FPWorldListener(this), this);
 
         // Register permission nodes
         this.FPRegister.registerPerms();
@@ -62,14 +60,18 @@ public final class FlyPerms extends JavaPlugin {
             FPLogger.log(Level.INFO, "Registered commodore auto-complete.");
         }
 
+        flyCheckScheduler.startFlyChecker();
+
         FPLogger.log(Level.INFO, "Started!");
     }
 
     public boolean reload() {
+        flyCheckScheduler.stopFlyChecker();
         if (!this.FPConfig.reloadConfigValues()) {
             return false;
         }
         Bukkit.getOnlinePlayers().forEach(FPFly::canFly);
+        flyCheckScheduler.startFlyChecker();
         FPLogger.log(Level.FINE, "FlyPerms was successfully reloaded!");
         return true;
     }
@@ -77,6 +79,7 @@ public final class FlyPerms extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        flyCheckScheduler.stopFlyChecker();
         FPLogger.log(Level.INFO, "Stopped. Happy flying!");
     }
 
@@ -98,5 +101,9 @@ public final class FlyPerms extends JavaPlugin {
 
     public PermsFly getFPFly() {
         return FPFly;
+    }
+
+    public FlyCheckScheduler getFlyCheckScheduler() {
+        return flyCheckScheduler;
     }
 }

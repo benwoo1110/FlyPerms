@@ -29,7 +29,7 @@ public class FPPlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerChangeWorld(PlayerChangedWorldEvent event) {
+    public void changeWorld(PlayerChangedWorldEvent event) {
         if (this.plugin.isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
             FPLogger.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
@@ -40,19 +40,13 @@ public class FPPlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void movement(PlayerMoveEvent event) {
-        this.plugin.getFPFly().canFly(event.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void PlayerFly(PlayerToggleFlightEvent event) {
+    public void fly(PlayerToggleFlightEvent event) {
         if (!event.isFlying()) {
             FPLogger.log(Level.FINE,event.getPlayer().getName() + " stopped flying!");
             return;
         }
 
-        FlyState flyCheckResult = this.plugin.getFPFly().canFly(event.getPlayer());
-        switch (flyCheckResult) {
+        switch (this.plugin.getFPFly().canFly(event.getPlayer())) {
             case CREATIVE_BYPASS:
                 FPLogger.log(Level.FINE,"Allowing creative flight for " + event.getPlayer().getName() + " as defined in config.");
                 break;

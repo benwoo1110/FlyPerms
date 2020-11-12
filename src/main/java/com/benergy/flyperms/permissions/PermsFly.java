@@ -1,7 +1,6 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.handlers.FPCoolDownHandler;
 import com.benergy.flyperms.utils.FPLogger;
 import org.bukkit.GameMode;
 import org.bukkit.World;
@@ -14,11 +13,9 @@ import java.util.logging.Level;
 public class PermsFly {
 
     private final FlyPerms plugin;
-    private final FPCoolDownHandler flyCoolDown;
 
     public PermsFly(FlyPerms plugin) {
         this.plugin = plugin;
-        this.flyCoolDown = new FPCoolDownHandler(plugin);
     }
 
     public FlyState canFly(Player player) {
@@ -41,7 +38,7 @@ public class PermsFly {
                 && checkWorld(player);
 
         if (player.isFlying() && !allowedToFly) {
-            flyCoolDown.stopFly(player);
+            this.plugin.getFlyCheckScheduler().stopFly(player);
             return FlyState.NO;
         }
 
@@ -54,14 +51,17 @@ public class PermsFly {
             FPLogger.log(Level.FINE,"Disallowing flight for " + player.getName());
         }
 
-        if (!allowedToFly) {
-            return FlyState.NO;
-        }
-        return FlyState.YES;
+        return allowedToFly ? FlyState.YES : FlyState.NO;
     }
 
     public boolean creativeBypass(Player player) {
         return this.plugin.getFPConfig().isAllowCreative() && player.getGameMode().equals(GameMode.CREATIVE);
+    }
+
+    public boolean checkBasicAllow(Player player) {
+        return this.plugin.getFPConfig().isCheckGameMode()
+                || this.plugin.getFPConfig().isCheckWorld()
+                || player.hasPermission("flyperms.allow");
     }
 
     public boolean checkGameMode(Player player) {
@@ -101,11 +101,4 @@ public class PermsFly {
         }
         return worldsAllowed;
     }
-
-    public boolean checkBasicAllow(Player player) {
-        return this.plugin.getFPConfig().isCheckGameMode()
-                || this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow");
-    }
-
 }
