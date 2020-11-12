@@ -3,27 +3,20 @@ package com.benergy.flyperms.permissions;
 import org.bukkit.ChatColor;
 
 public enum FlyState {
-    YES,
-    NO,
-    IGNORED,
-    CREATIVE_BYPASS,
-    SPECTATOR;
+    YES(ChatColor.GREEN + "Yes"),
+    NO(ChatColor.RED + "No"),
+    IGNORED(ChatColor.GRAY + "Ignored"),
+    CREATIVE_BYPASS(ChatColor.GRAY + "Creative bypass"),
+    SPECTATOR(ChatColor.GRAY + "Spectator mode");
+
+    private final String state;
+
+    FlyState(String state) {
+        this.state = state;
+    }
 
     @Override
     public String toString() {
-        switch (this) {
-            case YES:
-                return ChatColor.GREEN + "Yes";
-            case NO:
-                return ChatColor.RED + "No";
-            case IGNORED:
-                return ChatColor.GRAY + "Ignored";
-            case CREATIVE_BYPASS:
-                return ChatColor.GRAY + "Creative bypass";
-            case SPECTATOR:
-                return ChatColor.GRAY + "Spectator mode";
-        }
-        // Fallback
-        return super.toString();
+        return state;
     }
 }
