@@ -2,6 +2,7 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.utils.FPLogger;
+import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -100,5 +101,14 @@ public class PermsFly {
             }
         }
         return worldsAllowed;
+    }
+
+    public boolean canChangeSpeedTo(Player player, double speed) {
+        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
+            if (player.hasPermission("flyperms.speed." + speedRange.getName()) && speedRange.isInRange(speed)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

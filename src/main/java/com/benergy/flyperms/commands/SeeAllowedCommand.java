@@ -6,7 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.utils.FormatUtil;
+import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -39,14 +39,14 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     }
 
     private void showAllowedInfo(CommandSender sender, Player player) {
-        FormatUtil.header(player, player.getName() + " Flight Info");
+        Formatter.header(player, player.getName() + " Flight Info");
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + Formatter.parseList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
         }
         if (this.plugin.getFPConfig().isCheckGameMode()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + FormatUtil.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
         }
         sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
     }

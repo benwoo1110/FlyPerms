@@ -4,7 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.utils.FormatUtil;
+import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -41,7 +41,7 @@ public class InfoCommand extends FlyPermsCommand {
     @CommandPermission("flyperms.info")
     public void onInfo(CommandSender sender) {
         // Show the info
-        FormatUtil.header(sender, "FlyPerms Info");
+        Formatter.header(sender, "FlyPerms Info");
 
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
             if (!this.versionPlugins.contains(versionPlugin.getName())) {
@@ -54,11 +54,11 @@ public class InfoCommand extends FlyPermsCommand {
             }
         }
 
-        sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
-        sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
-        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + FormatUtil.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
+        sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + Formatter.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
+        sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + Formatter.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
+        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + Formatter.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
         if (this.plugin.getFPConfig().haveDisabledWorld()) {
-            sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + FormatUtil.parseList(this.plugin.getFPConfig().getDisabledWorlds(), ChatColor.RED));
+            sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + Formatter.parseList(this.plugin.getFPConfig().getDisabledWorlds(), ChatColor.RED));
         }
     }
 }

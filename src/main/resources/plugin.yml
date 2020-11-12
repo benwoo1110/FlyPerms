@@ -13,6 +13,9 @@ permissions:
   flyperms.allow:
     default: false
     description: Give players ability to fly!
+  flyperms.speed:
+    default: false
+    description: Ability to change fly speed.
   flyperms.info:
     default: false
     description: View info information about this plugin.

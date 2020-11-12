@@ -1,12 +1,9 @@
-package com.benergy.flyperms.handlers;
+package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.permissions.FlyState;
-import com.benergy.flyperms.utils.FPLogger;
-import com.benergy.flyperms.utils.FormatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashSet;
@@ -30,7 +27,7 @@ public class FlyCheckScheduler {
                 this.plugin,
                 flyCheckRunnable(),
                 0L,
-                FormatUtil.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
+                Formatter.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
         );
         FPLogger.log(Level.INFO, "Started fly check task...");
     }
@@ -65,11 +62,11 @@ public class FlyCheckScheduler {
         this.playersToStopFly.add(player.getUniqueId());
 
         int coolDown = this.plugin.getFPConfig().getCoolDown();
-        player.sendMessage("You have lost your ability to fly. Dropping in " + FormatUtil.millisecondsToSeconds(coolDown) + "sec...");
+        player.sendMessage("You have lost your ability to fly. Dropping in " + Formatter.millisecondsToSeconds(coolDown) + "sec...");
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
                 stopFlyRunnable(player),
-                FormatUtil.millisecondsToTicks(coolDown)
+                Formatter.millisecondsToTicks(coolDown)
         );
     }
 
