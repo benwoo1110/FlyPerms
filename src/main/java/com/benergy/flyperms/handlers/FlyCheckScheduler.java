@@ -30,7 +30,7 @@ public class FlyCheckScheduler {
                 this.plugin,
                 flyCheckRunnable(),
                 0L,
-                20L
+                FormatUtil.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
         );
         FPLogger.log(Level.INFO, "Started fly check task...");
     }

@@ -16,6 +16,7 @@ public class FlyPermsConfig {
     private boolean checkGameMode;
     private boolean checkWorld;
     private boolean allowCreative;
+    private int checkInterval;
     private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
@@ -42,6 +43,7 @@ public class FlyPermsConfig {
             this.checkGameMode = config.getBoolean("check-for-gamemode", true);
             this.checkWorld = config.getBoolean("check-for-world", true);
             this.allowCreative = config.getBoolean("always-allow-in-creative", false);
+            this.checkInterval = config.getInt("check-interval", 1000);
             this.coolDown = config.getInt("cooldown", 5000);
             this.disabledWorlds = config.getStringList("ignore-in-worlds");
             this.debugMode = config.getBoolean("show-debug-info", false);
@@ -79,7 +81,7 @@ public class FlyPermsConfig {
         }
     }
 
-    public void setLogLevel() {
+    private void setLogLevel() {
         if (debugMode) {
             FPLogger.setLogLevel(Level.FINEST);
             FPLogger.log(Level.FINE, "Debug logging enabled.");
@@ -100,6 +102,10 @@ public class FlyPermsConfig {
 
     public boolean isAllowCreative() {
         return allowCreative;
+    }
+
+    public int getCheckInterval() {
+        return checkInterval;
     }
 
     public int getCoolDown() {
@@ -129,10 +135,11 @@ public class FlyPermsConfig {
                 ", checkGameMode=" + checkGameMode +
                 ", checkWorld=" + checkWorld +
                 ", allowCreative=" + allowCreative +
+                ", checkInterval=" + checkInterval +
                 ", coolDown=" + coolDown +
                 ", disabledWorlds=" + disabledWorlds +
                 ", debugMode=" + debugMode +
-                ", speedGroup=" + speedGroups +
+                ", speedGroups=" + speedGroups +
                 '}';
     }
 }

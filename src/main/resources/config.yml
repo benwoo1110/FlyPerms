@@ -15,8 +15,12 @@ check-for-gamemode: false
 # Basically restores the vanilla behaviour that players can fly in gamemode creative.
 always-allow-in-creative: false
 
-# Amount of time (in milliseconds) before a player flight is disabled after their permission is removed
-# This serves as a warning to players and can prevents sudden fall without warning
+# Amount of time (in milliseconds) between each check if player still has permission to fly.
+# NOTE: too large a number may cause significant delay in allow/disallowing flying on permission change.
+check-interval: 1000
+
+# Amount of time (in milliseconds) before a player flight is disabled after their permission is removed.
+# This serves as a warning to players and can prevents sudden fall without warning.
 cooldown: 5000
 
 # FlyPerms will not effect these worlds.
@@ -35,5 +39,5 @@ speed-group:
   - special: [0.0, 5.0]
   - admin: [-10.0, 10.0]
 
-# Used for development and troubleshooting purposes
+# Used for development and troubleshooting purposes.
 show-debug-info: false
