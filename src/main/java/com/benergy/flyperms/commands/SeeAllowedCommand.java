@@ -3,6 +3,7 @@ package com.benergy.flyperms.commands;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
@@ -12,7 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandAlias("flyperms|fp|fperms|flypermissions")
+@CommandAlias("fp|flyperms|fperms|flypermissions")
 public class SeeAllowedCommand extends FlyPermsCommand {
 
     public SeeAllowedCommand(FlyPerms plugin) {
@@ -21,6 +22,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
 
     @Subcommand("seeallowed")
     @CommandPermission("flyperms.seeallowed")
+    @Description("Displays ability to fly.")
     public void onSeeAllowedSelf(Player player) {
         showAllowedInfo(player, player);
     }
@@ -29,6 +31,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     @CommandPermission("flyperms.seeallowed.others")
     @CommandCompletion("@players")
     @Syntax("[player]")
+    @Description("Displays ability to fly for another player.")
     public void onSeeAllowedOthers(CommandSender sender, String playerName) {
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {

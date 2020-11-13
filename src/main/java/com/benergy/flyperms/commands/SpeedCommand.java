@@ -2,13 +2,14 @@ package com.benergy.flyperms.commands;
 
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-@CommandAlias("flyperms|fp|fperms|flypermissions")
+@CommandAlias("fp|flyperms|fperms|flypermissions")
 public class SpeedCommand extends FlyPermsCommand {
 
     public SpeedCommand(FlyPerms plugin) {
@@ -18,6 +19,7 @@ public class SpeedCommand extends FlyPermsCommand {
     @Subcommand("speed")
     @CommandPermission("flyperms.speed")
     @Syntax("<speed>")
+    @Description("Changes fly speed, from -10 to 10.")
     public void onSpeed(Player player, int speed) {
         if (!this.plugin.getFPFly().canChangeSpeedTo(player, speed)) {
             player.sendMessage(ChatColor.RED + "You are not allowed to set fly to this speed!");
