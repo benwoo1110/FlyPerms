@@ -5,6 +5,7 @@ Have you ever wanted a plugin where players can fly based on permission and not 
 * Per world fly permissions with
 * Per gamemode fly permissions with
 * Able to disable this plugin per world
+* Change your fly speed with speed groups
 * Supports all modern permission plugins (Recommended LuckPerms)
 * Supports minecraft version 1.8+
 
