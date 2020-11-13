@@ -35,7 +35,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     public void onSeeAllowedOthers(CommandSender sender, String playerName) {
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
-            sender.sendMessage(ChatColor.RED + "Invalid player '"+ playerName +"'");
+            sender.sendMessage(ChatColor.RED + "Unknown player '"+ playerName +"'");
             return;
         }
         showAllowedInfo(sender, targetPlayer);

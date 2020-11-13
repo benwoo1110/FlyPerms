@@ -14,7 +14,6 @@ import com.benergy.flyperms.permissions.PermsFly;
 import com.benergy.flyperms.permissions.PermsRegister;
 import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.BstatsMetrics;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,7 +44,7 @@ public final class FlyPerms extends JavaPlugin {
         BstatsMetrics.configureMetrics(this);
 
         // Register events
-        PluginManager pm = getServer().getPluginManager();
+        PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new FPPlayerListener(this), this);
         pm.registerEvents(new FPWorldListener(this), this);
 

@@ -8,7 +8,6 @@ import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.command.CommandSender;
 
 @CommandAlias("fp|flyperms|fperms|flypermissions")

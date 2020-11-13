@@ -7,9 +7,10 @@ import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class PermsFly {
 
@@ -75,13 +76,10 @@ public class PermsFly {
     }
 
     public List<String> checkAllGameModes(Player player) {
-        List<String> gameModesAllowed = new ArrayList<>();
-        for (GameMode gameMode : GameMode.values()) {
-            if (gameMode != GameMode.SPECTATOR && checkGameMode(player, gameMode)) {
-                gameModesAllowed.add(gameMode.name().toLowerCase());
-            }
-        }
-        return gameModesAllowed;
+        return Arrays.stream(GameMode.values())
+                .filter(mode -> mode != GameMode.SPECTATOR && checkGameMode(player, mode))
+                .map(mode -> mode.name().toLowerCase())
+                .collect(Collectors.toList());
     }
 
     public boolean checkWorld(Player player) {
@@ -94,21 +92,24 @@ public class PermsFly {
     }
 
     public List<String> checkAllWorlds(Player player) {
-        List<String> worldsAllowed = new ArrayList<>();
-        for (World world : plugin.getServer().getWorlds()) {
-            if (!this.plugin.isIgnoreWorld(world) && checkWorld(player, world)) {
-                worldsAllowed.add(world.getName());
-            }
-        }
-        return worldsAllowed;
+        return this.plugin.getServer().getWorlds()
+                .stream()
+                .filter(world -> !this.plugin.isIgnoreWorld(world) && checkWorld(player, world))
+                .map(World::getName)
+                .collect(Collectors.toList());
     }
 
     public boolean canChangeSpeedTo(Player player, double speed) {
-        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
-            if (player.hasPermission("flyperms.speed." + speedRange.getName()) && speedRange.isInRange(speed)) {
-                return true;
-            }
-        }
-        return false;
+        return this.plugin.getFPConfig().getSpeedGroups()
+                .stream()
+                .anyMatch(group -> player.hasPermission(group.permission()) && group.isInRange(speed));
+    }
+
+    public List<String> inSpeedGroups(Player player) {
+        return this.plugin.getFPConfig().getSpeedGroups()
+                .stream()
+                .filter(group -> player.hasPermission(group.permission()))
+                .map(SpeedRange::getName)
+                .collect(Collectors.toList());
     }
 }

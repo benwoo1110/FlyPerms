@@ -1,9 +1,9 @@
 package com.benergy.flyperms.utils;
 
 public class SpeedRange {
-    private String name;
-    private double lowerLimit;
-    private double upperLimit;
+    private final String name;
+    private final double lowerLimit;
+    private final double upperLimit;
 
     public SpeedRange(String name, double lowerLimit, double upperLimit) {
         this.name = name.toLowerCase();
@@ -17,6 +17,10 @@ public class SpeedRange {
 
     public String getName() {
         return name;
+    }
+
+    public String permission() {
+        return "flyperms.speed." + this.name;
     }
 
     public double getLowerLimit() {

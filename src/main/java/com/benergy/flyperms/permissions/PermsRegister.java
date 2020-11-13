@@ -6,13 +6,16 @@ import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.PluginManager;
 
 public class PermsRegister {
 
     private final FlyPerms plugin;
+    private final PluginManager pm;
 
     public PermsRegister(FlyPerms plugin) {
         this.plugin = plugin;
+        this.pm = plugin.getServer().getPluginManager();
     }
 
     public void registerPerms() {
@@ -27,7 +30,7 @@ public class PermsRegister {
 
     private void registerSpeedGroupPerms() {
         for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
-            this.plugin.getServer().getPluginManager().addPermission(
+            this.pm.addPermission(
                     new Permission(
                             "flyperms.speed." + speedRange.getName(),
                             "Give you access to speed range for group " + speedRange.getName() + "defined in config.",
@@ -46,7 +49,7 @@ public class PermsRegister {
     }
 
     private void addGameModePerms(GameMode gameMode) {
-        this.plugin.getServer().getPluginManager().addPermission(
+        this.pm.addPermission(
                 new Permission(
                         "flyperms.allow.gamemode." + gameMode.toString().toLowerCase(),
                         "Allow you to fly in gamemode " + gameMode.toString().toLowerCase() + "!",
@@ -64,7 +67,7 @@ public class PermsRegister {
     }
 
     public void addWorldPerm(World world) {
-        this.plugin.getServer().getPluginManager().addPermission(
+        this.pm.addPermission(
                 new Permission(
                         "flyperms.allow.world." + world.getName(),
                         "Allow you to fly in world named " + world.getName() + "!",
@@ -74,7 +77,7 @@ public class PermsRegister {
     }
 
     public void removeWorldPerm(World world) {
-        this.plugin.getServer().getPluginManager().removePermission(
+        this.pm.removePermission(
                 new Permission(
                         "flyperms.allow.world." + world.getName(),
                         "Allow you to fly in world named " + world.getName() + "!",

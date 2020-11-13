@@ -1,7 +1,6 @@
 package com.benergy.flyperms.utils;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;

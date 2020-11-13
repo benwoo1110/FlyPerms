@@ -2,7 +2,6 @@ package com.benergy.flyperms.commands;
 
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Private;
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.command.CommandSender;
 
