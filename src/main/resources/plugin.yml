@@ -19,6 +19,9 @@ permissions:
   flyperms.info:
     default: false
     description: View info information about this plugin.
+  flyperms.listgroups:
+    default: false
+    description: Show all the speed groups available.
   flyperms.reload:
     default: false
     description: Reload the plugin's config.
@@ -36,6 +39,7 @@ permissions:
     description: Give Admins access to all FlyPerms commands.
     children:
       - flyperms.info
+      - flyperms.listgroups
       - flyperms.reload
       - flyperms.help
       - flyperms.seeallowed

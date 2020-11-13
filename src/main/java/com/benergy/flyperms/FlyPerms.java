@@ -3,6 +3,7 @@ package com.benergy.flyperms;
 import co.aikar.commands.PaperCommandManager;
 import com.benergy.flyperms.commands.FPCommand;
 import com.benergy.flyperms.commands.InfoCommand;
+import com.benergy.flyperms.commands.ListGroupsCommand;
 import com.benergy.flyperms.commands.ReloadCommand;
 import com.benergy.flyperms.commands.SeeAllowedCommand;
 import com.benergy.flyperms.commands.SpeedCommand;
@@ -51,6 +52,7 @@ public final class FlyPerms extends JavaPlugin {
         // Register permission nodes
         this.FPRegister.registerPerms();
 
+
         // Register commands
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
@@ -59,6 +61,7 @@ public final class FlyPerms extends JavaPlugin {
         commandManager.registerCommand(new ReloadCommand(this));
         commandManager.registerCommand(new SeeAllowedCommand(this));
         commandManager.registerCommand(new SpeedCommand(this));
+        commandManager.registerCommand(new ListGroupsCommand(this));
         commandManager.registerCommand(new UsageCommand(this));
 
         flyCheckScheduler.startFlyChecker();
