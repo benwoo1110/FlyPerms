@@ -42,7 +42,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     }
 
     private void showAllowedInfo(CommandSender sender, Player player) {
-        Formatter.header(player, player.getName() + " Flight Info");
+        Formatter.header(sender, player.getName() + " Flight Info");
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
@@ -52,5 +52,6 @@ public class SeeAllowedCommand extends FlyPermsCommand {
             sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
         }
         sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
+        sender.sendMessage(ChatColor.AQUA + "In speed groups: " + Formatter.parseList(this.plugin.getFPFly().inSpeedGroups(player), ChatColor.WHITE));
     }
 }
