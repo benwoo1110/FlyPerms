@@ -40,9 +40,9 @@ public class FlyPermsConfig {
     public boolean loadConfigValues() {
         try {
             FileConfiguration config = this.plugin.getConfig();
-            this.checkGameMode = config.getBoolean("check-for-gamemode", true);
             this.checkWorld = config.getBoolean("check-for-world", true);
-            this.allowCreative = config.getBoolean("always-allow-in-creative", false);
+            this.checkGameMode = config.getBoolean("check-for-gamemode", false);
+            this.allowCreative = config.getBoolean("always-allow-in-creative", true);
             this.checkInterval = config.getInt("check-interval", 1000);
             this.coolDown = config.getInt("cooldown", 5000);
             this.disabledWorlds = config.getStringList("ignore-in-worlds");
@@ -72,7 +72,7 @@ public class FlyPermsConfig {
         for (Map<?, ?> group : speedGroupConfig) {
             for (Object groupName : group.keySet()) {
                 List<Double> speedValue = (List<Double>) group.get(groupName);
-                if (speedValue == null || speedValue.size() != 2) {
+                if (speedValue == null || speedValue.size() != 2 || speedValue.get(0) > speedValue.get(1)) {
                     FPLogger.log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
                     continue;
                 }

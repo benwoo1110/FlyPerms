@@ -13,7 +13,7 @@ check-for-gamemode: false
 
 # If set if true, players will always be allowed to fly in creative mode regardless of permissions.
 # Basically restores the vanilla behaviour that players can fly in gamemode creative.
-always-allow-in-creative: false
+always-allow-in-creative: true
 
 # Amount of time (in milliseconds) between each check if player still has permission to fly.
 # NOTE: too large a number may cause significant delay in allow/disallowing flying on permission change.
