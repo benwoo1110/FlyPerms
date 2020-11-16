@@ -31,7 +31,9 @@ public class PermsFly {
         }
 
         if (creativeBypass(player)) {
-            player.setAllowFlight(true);
+            if (!player.getAllowFlight()) {
+                player.setAllowFlight(true);
+            }
             return FlyState.CREATIVE_BYPASS;
         }
 
