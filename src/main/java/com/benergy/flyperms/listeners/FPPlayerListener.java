@@ -3,6 +3,8 @@ package com.benergy.flyperms.listeners;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.permissions.FlyState;
 import com.benergy.flyperms.utils.FPLogger;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,21 +20,18 @@ public class FPPlayerListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
-        logFlyState(event.getPlayer().getName() + " changed joined.", this.plugin.getFPFly().canFly(event.getPlayer()));
+        logFlyState("joined", event.getPlayer());
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void changeGameMode(PlayerGameModeChangeEvent event) {
-        logFlyState(event.getPlayer().getName() + " changed gamemode.", this.plugin.getFPFly().canFly(event.getPlayer()));
+        logFlyState("changed gamemode to " + event.getNewGameMode(), event.getPlayer(), event.getNewGameMode());
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void changeWorld(PlayerChangedWorldEvent event) {
-        FPLogger.log(Level.FINEST, event.getPlayer().getName() + " changed from world '" + event.getFrom().getName() +
-                "' to world '" + event.getPlayer().getWorld().getName() + "'");
-
         if (this.plugin.isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
             FPLogger.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
@@ -40,7 +39,7 @@ public class FPPlayerListener implements Listener {
             return;
         }
 
-        logFlyState(event.getPlayer().getName() + " changed world.", this.plugin.getFPFly().canFly(event.getPlayer()));
+        logFlyState("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -67,7 +66,12 @@ public class FPPlayerListener implements Listener {
         }
     }
 
-    private void logFlyState(String actionInfo, FlyState flyState) {
-        FPLogger.log(Level.FINE, actionInfo + " Fly state is now: " + flyState.toString());
+    private void logFlyState(String actionInfo, Player player) {
+        logFlyState(actionInfo, player, player.getGameMode());
+    }
+
+    private void logFlyState(String actionInfo, Player player, GameMode gameMode) {
+        FPLogger.log(Level.FINE, player.getName() + " " + actionInfo +
+                ". Fly state is now: " + this.plugin.getFPFly().canFly(player, gameMode));
     }
 }

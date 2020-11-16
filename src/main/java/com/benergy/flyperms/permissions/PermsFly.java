@@ -21,16 +21,20 @@ public class PermsFly {
     }
 
     public FlyState canFly(Player player) {
+        return canFly(player, player.getGameMode());
+    }
+
+    public FlyState canFly(Player player, GameMode gameMode) {
         if (this.plugin.isIgnoreWorld(player.getWorld())) {
             return FlyState.IGNORED;
         }
 
-        if (player.getGameMode().equals(GameMode.SPECTATOR)) {
+        if (gameMode.equals(GameMode.SPECTATOR)) {
             player.setAllowFlight(true);
             return FlyState.SPECTATOR;
         }
 
-        if (creativeBypass(player)) {
+        if (this.plugin.getFPConfig().isAllowCreative() && gameMode.equals(GameMode.CREATIVE)) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
             }
