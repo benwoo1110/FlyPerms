@@ -1,5 +1,6 @@
 package com.benergy.flyperms;
 
+import com.benergy.flyperms.api.FPConfig;
 import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-public class FlyPermsConfig {
+public class FlyPermsConfig implements FPConfig {
 
     private final FlyPerms plugin;
 

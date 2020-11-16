@@ -1,6 +1,7 @@
 package com.benergy.flyperms;
 
 import co.aikar.commands.PaperCommandManager;
+import com.benergy.flyperms.api.FPPlugin;
 import com.benergy.flyperms.commands.FPCommand;
 import com.benergy.flyperms.commands.InfoCommand;
 import com.benergy.flyperms.commands.ListGroupsCommand;
@@ -21,7 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
 
-public final class FlyPerms extends JavaPlugin {
+public final class FlyPerms extends JavaPlugin implements FPPlugin {
     // Config
     private final FlyPermsConfig FPConfig = new FlyPermsConfig(this);
 

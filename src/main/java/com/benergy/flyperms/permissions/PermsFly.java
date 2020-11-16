@@ -1,6 +1,8 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.FPPerms;
+import com.benergy.flyperms.enums.FlyState;
 import com.benergy.flyperms.utils.FPLogger;
 import com.benergy.flyperms.utils.SpeedRange;
 import org.bukkit.GameMode;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class PermsFly {
+public class PermsFly implements FPPerms {
 
     private final FlyPerms plugin;
 

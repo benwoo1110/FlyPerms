@@ -1,7 +1,6 @@
 package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.permissions.FlyState;
 import com.benergy.flyperms.utils.FPLogger;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

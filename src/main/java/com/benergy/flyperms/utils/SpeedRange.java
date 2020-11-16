@@ -1,6 +1,8 @@
 package com.benergy.flyperms.utils;
 
-public class SpeedRange {
+import com.benergy.flyperms.api.SpeedGroup;
+
+public class SpeedRange implements SpeedGroup {
     private final String name;
     private final double lowerLimit;
     private final double upperLimit;

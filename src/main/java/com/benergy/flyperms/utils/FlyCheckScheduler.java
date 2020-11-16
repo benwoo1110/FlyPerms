@@ -1,7 +1,7 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.permissions.FlyState;
+import com.benergy.flyperms.enums.FlyState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
