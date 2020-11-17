@@ -9,6 +9,7 @@ import com.benergy.flyperms.commands.ReloadCommand;
 import com.benergy.flyperms.commands.SeeAllowedCommand;
 import com.benergy.flyperms.commands.SpeedCommand;
 import com.benergy.flyperms.commands.UsageCommand;
+import com.benergy.flyperms.permissions.SpeedChecker;
 import com.benergy.flyperms.utils.FlyCheckScheduler;
 import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
@@ -29,6 +30,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     // Permissions
     private final PermissionTools permissionTools = new PermissionTools(this);
     private final FlyChecker flyChecker = new FlyChecker(this);
+    private final SpeedChecker speedChecker = new SpeedChecker(this);
 
     // Handlers
     private final FlyCheckScheduler flyCheckScheduler = new FlyCheckScheduler(this);
@@ -99,6 +101,10 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public FlyChecker getFlyChecker() {
         return flyChecker;
+    }
+
+    public SpeedChecker getSpeedChecker() {
+        return speedChecker;
     }
 
     public FlyCheckScheduler getFlyCheckScheduler() {

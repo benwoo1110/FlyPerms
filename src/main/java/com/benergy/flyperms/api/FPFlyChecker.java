@@ -21,8 +21,4 @@ public interface FPFlyChecker {
     List<String> allowInGameModes(Player player);
 
     List<String> allowInWorlds(Player player);
-
-    boolean canChangeSpeedTo(Player player, double speed);
-
-    List<String> inSpeedGroups(Player player);
 }

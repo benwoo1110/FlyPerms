@@ -110,18 +110,4 @@ public class FlyChecker implements FPFlyChecker {
         return !this.plugin.getFPConfig().isCheckWorld()
                 || player.hasPermission("flyperms.allow.world." + world.getName());
     }
-
-    public boolean canChangeSpeedTo(Player player, double speed) {
-        return this.plugin.getFPConfig().getSpeedGroups()
-                .stream()
-                .anyMatch(group -> player.hasPermission(group.permission()) && group.isInRange(speed));
-    }
-
-    public List<String> inSpeedGroups(Player player) {
-        return this.plugin.getFPConfig().getSpeedGroups()
-                .stream()
-                .filter(group -> player.hasPermission(group.permission()))
-                .map(SpeedGroup::getName)
-                .collect(Collectors.toList());
-    }
 }
