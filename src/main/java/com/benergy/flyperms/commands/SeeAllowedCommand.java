@@ -46,12 +46,12 @@ public class SeeAllowedCommand extends FlyPermsCommand {
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + Formatter.parseList(this.plugin.getFPFly().checkAllWorlds(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + Formatter.parseList(this.plugin.getFlyChecker().allowInWorlds(player), ChatColor.WHITE));
         }
         if (this.plugin.getFPConfig().isCheckGameMode()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.plugin.getFPFly().checkAllGameModes(player), ChatColor.WHITE));
+            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.plugin.getFlyChecker().allowInGameModes(player), ChatColor.WHITE));
         }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFPFly().canFly(player).toString());
-        sender.sendMessage(ChatColor.AQUA + "In speed groups: " + Formatter.parseList(this.plugin.getFPFly().inSpeedGroups(player), ChatColor.WHITE));
+        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFlyChecker().canFly(player).toString());
+        sender.sendMessage(ChatColor.AQUA + "In speed groups: " + Formatter.parseList(this.plugin.getFlyChecker().inSpeedGroups(player), ChatColor.WHITE));
     }
 }

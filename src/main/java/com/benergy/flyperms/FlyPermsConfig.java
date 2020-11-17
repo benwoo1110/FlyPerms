@@ -1,8 +1,8 @@
 package com.benergy.flyperms;
 
 import com.benergy.flyperms.api.FPConfig;
-import com.benergy.flyperms.utils.FPLogger;
-import com.benergy.flyperms.utils.SpeedRange;
+import com.benergy.flyperms.utils.Logging;
+import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class FlyPermsConfig implements FPConfig {
     private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
-    private final List<SpeedRange> speedGroups = new ArrayList<SpeedRange>();
+    private final List<SpeedGroup> speedGroups = new ArrayList<SpeedGroup>();
 
     public FlyPermsConfig(FlyPerms plugin) {
         this.plugin = plugin;
@@ -32,7 +32,7 @@ public class FlyPermsConfig implements FPConfig {
             this.plugin.reloadConfig();
         } catch (Exception e) {
             e.printStackTrace();
-            FPLogger.log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            Logging.log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             return false;
         }
         return this.loadConfigValues();
@@ -52,14 +52,14 @@ public class FlyPermsConfig implements FPConfig {
         }
         catch (Exception e) {
             e.printStackTrace();
-            FPLogger.log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
-            FPLogger.log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
+            Logging.log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            Logging.log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
 
         setLogLevel();
-        FPLogger.log(Level.FINE, this.toString());
-        FPLogger.log(Level.INFO, "Loaded config.yml");
+        Logging.log(Level.FINE, this.toString());
+        Logging.log(Level.INFO, "Loaded config.yml");
         return true;
     }
 
@@ -74,22 +74,22 @@ public class FlyPermsConfig implements FPConfig {
             for (Object groupName : group.keySet()) {
                 List<Double> speedValue = (List<Double>) group.get(groupName);
                 if (speedValue == null || speedValue.size() != 2 || speedValue.get(0) > speedValue.get(1)) {
-                    FPLogger.log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
+                    Logging.log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
                     continue;
                 }
-                speedGroups.add(new SpeedRange(String.valueOf(groupName), speedValue.get(0), speedValue.get(1)));
+                speedGroups.add(new SpeedGroup(String.valueOf(groupName), speedValue.get(0), speedValue.get(1)));
             }
         }
     }
 
     private void setLogLevel() {
         if (debugMode) {
-            FPLogger.setLogLevel(Level.FINEST);
-            FPLogger.log(Level.FINE, "Debug logging enabled.");
+            Logging.setLogLevel(Level.FINEST);
+            Logging.log(Level.FINE, "Debug logging enabled.");
         }
         else {
-            FPLogger.log(Level.FINE, "Debug logging disabled.");
-            FPLogger.setLogLevel(Level.INFO);
+            Logging.log(Level.FINE, "Debug logging disabled.");
+            Logging.setLogLevel(Level.INFO);
         }
     }
 
@@ -125,7 +125,7 @@ public class FlyPermsConfig implements FPConfig {
         return debugMode;
     }
 
-    public List<SpeedRange> getSpeedGroups() {
+    public List<SpeedGroup> getSpeedGroups() {
         return speedGroups;
     }
 

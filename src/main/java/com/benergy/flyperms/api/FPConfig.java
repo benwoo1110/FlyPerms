@@ -1,6 +1,6 @@
 package com.benergy.flyperms.api;
 
-import com.benergy.flyperms.utils.SpeedRange;
+import com.benergy.flyperms.utils.SpeedGroup;
 
 import java.util.List;
 
@@ -23,5 +23,5 @@ public interface FPConfig {
 
     List<String> getDisabledWorlds();
 
-    List<SpeedRange> getSpeedGroups();
+    List<SpeedGroup> getSpeedGroups();
 }

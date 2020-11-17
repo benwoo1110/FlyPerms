@@ -5,9 +5,9 @@ import co.aikar.commands.annotation.Description;
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.command.CommandSender;
 
-public class FPCommand extends FlyPermsCommand {
+public class RootCommand extends FlyPermsCommand {
 
-    public FPCommand(FlyPerms plugin) {
+    public RootCommand(FlyPerms plugin) {
         super(plugin);
     }
 

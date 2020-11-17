@@ -21,7 +21,7 @@ public class SpeedCommand extends FlyPermsCommand {
     @Syntax("<speed>")
     @Description("Changes fly speed, from -10 to 10.")
     public void onSpeed(Player player, int speed) {
-        if (!this.plugin.getFPFly().canChangeSpeedTo(player, speed)) {
+        if (!this.plugin.getFlyChecker().canChangeSpeedTo(player, speed)) {
             player.sendMessage(ChatColor.RED + "You are not allowed to set fly to this speed!");
             return;
         }

@@ -19,7 +19,7 @@ public class FPWorldListener implements Listener {
         if (this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
-        this.plugin.getFPRegister().addWorldPerm(event.getWorld());
+        this.plugin.getPermissionTools().addWorldPerm(event.getWorld());
     }
 
     @EventHandler
@@ -27,6 +27,6 @@ public class FPWorldListener implements Listener {
         if (this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
-        this.plugin.getFPRegister().removeWorldPerm(event.getWorld());
+        this.plugin.getPermissionTools().removeWorldPerm(event.getWorld());
     }
 }

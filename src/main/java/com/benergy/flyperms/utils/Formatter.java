@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class Formatter {
+public final class Formatter {
 
     public static String parseBoolean(Boolean bool) {
         if (bool == null) {

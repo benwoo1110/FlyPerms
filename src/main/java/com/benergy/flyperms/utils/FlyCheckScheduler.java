@@ -29,18 +29,18 @@ public class FlyCheckScheduler {
                 0L,
                 Formatter.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
         );
-        FPLogger.log(Level.INFO, "Started fly check task...");
+        Logging.log(Level.INFO, "Started fly check task...");
     }
 
     public void stopFlyChecker() {
         if (this.flyCheckTask == null) {
-            FPLogger.log(Level.WARNING, "Unable to stop fly check task. Fly check task has not started!");
+            Logging.log(Level.WARNING, "Unable to stop fly check task. Fly check task has not started!");
             return;
         }
 
         this.flyCheckTask.cancel();
         this.flyCheckTask = null;
-        FPLogger.log(Level.INFO, "Stopped fly check task...");
+        Logging.log(Level.INFO, "Stopped fly check task...");
     }
 
     public boolean isFlyCheckRunning() {
@@ -48,7 +48,7 @@ public class FlyCheckScheduler {
     }
 
     private Runnable flyCheckRunnable() {
-        return () -> Bukkit.getOnlinePlayers().forEach(p -> this.plugin.getFPFly().canFly(p));
+        return () -> Bukkit.getOnlinePlayers().forEach(p -> this.plugin.getFlyChecker().canFly(p));
     }
 
     public void stopFly(Player player) {
@@ -68,10 +68,10 @@ public class FlyCheckScheduler {
 
     private Runnable stopFlyRunnable(Player player) {
         return () -> {
-            FPLogger.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
+            Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
                     || !player.isFlying()
-                    || !this.plugin.getFPFly().canFly(player).equals(FlyState.NO)) {
+                    || !this.plugin.getFlyChecker().canFly(player).equals(FlyState.NO)) {
                 return;
             }
 

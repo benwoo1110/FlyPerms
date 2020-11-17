@@ -1,13 +1,13 @@
 package com.benergy.flyperms.utils;
 
-import com.benergy.flyperms.api.SpeedGroup;
+import com.benergy.flyperms.api.FPSpeedGroup;
 
-public class SpeedRange implements SpeedGroup {
+public class SpeedGroup implements FPSpeedGroup {
     private final String name;
     private final double lowerLimit;
     private final double upperLimit;
 
-    public SpeedRange(String name, double lowerLimit, double upperLimit) {
+    public SpeedGroup(String name, double lowerLimit, double upperLimit) {
         this.name = name.toLowerCase();
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;

@@ -2,20 +2,25 @@ package com.benergy.flyperms.api;
 
 import com.benergy.flyperms.enums.FlyState;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public interface FPPerms {
+public interface FPFlyChecker {
     FlyState canFly(Player player);
 
     FlyState canFly(Player player, GameMode gameMode);
 
-    boolean checkBasicAllow(Player player);
+    FlyState canFly(Player player, World world);
 
-    List<String> checkAllGameModes(Player player);
+    FlyState canFly(Player player, GameMode gameMode, World world);
 
-    List<String> checkAllWorlds(Player player);
+    boolean baseAllow(Player player);
+
+    List<String> allowInGameModes(Player player);
+
+    List<String> allowInWorlds(Player player);
 
     boolean canChangeSpeedTo(Player player, double speed);
 

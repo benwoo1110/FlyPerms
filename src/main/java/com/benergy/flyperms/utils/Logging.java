@@ -5,18 +5,17 @@ import org.bukkit.Bukkit;
 
 import java.util.Arrays;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class FPLogger {
+public class Logging {
     private static boolean doneSetup;
     private static String[] startupText;
-    private static Logger logger;
-    private static Logger debugLogger;
+    private static java.util.logging.Logger logger;
+    private static java.util.logging.Logger debugLogger;
     private static Level logLevel = Level.ALL;
 
     public static void setup(FlyPerms plugin) {
-        logger = Logger.getLogger(plugin.getName());
-        debugLogger = Logger.getLogger(plugin.getName() + "-debug");
+        logger = java.util.logging.Logger.getLogger(plugin.getName());
+        debugLogger = java.util.logging.Logger.getLogger(plugin.getName() + "-debug");
         startupText = new String[]{
                 "§2    ___§3  __",
                 "§2   /__§3  /__)   §aFlyPerms - v" + plugin.getDescription().getVersion(),

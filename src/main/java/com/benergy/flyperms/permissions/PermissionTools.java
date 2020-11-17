@@ -1,19 +1,19 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.utils.SpeedRange;
+import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 
-public class PermsRegister {
+public class PermissionTools {
 
     private final FlyPerms plugin;
     private final PluginManager pm;
 
-    public PermsRegister(FlyPerms plugin) {
+    public PermissionTools(FlyPerms plugin) {
         this.plugin = plugin;
         this.pm = plugin.getServer().getPluginManager();
     }
@@ -29,7 +29,7 @@ public class PermsRegister {
     }
 
     private void registerSpeedGroupPerms() {
-        for (SpeedRange speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
+        for (SpeedGroup speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
             this.pm.addPermission(
                     new Permission(
                             "flyperms.speed." + speedRange.getName(),
@@ -58,7 +58,7 @@ public class PermsRegister {
         );
     }
 
-    public void registerWorldPerms() {
+    private void registerWorldPerms() {
         for (World world : plugin.getServer().getWorlds()) {
             if (!this.plugin.isIgnoreWorld(world)) {
                 addWorldPerm(world);
