@@ -39,23 +39,29 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     public void onEnable() {
         Logging.setup(this);
         Logging.showStartUpText();
+        Logging.log(Level.INFO, "Starting...");
 
         // Get config
+        Logging.log(Level.FINE, "Setting up config...");
         this.saveDefaultConfig();
         this.config.loadConfigValues();
 
         // Init bstats
+        Logging.log(Level.FINE, "Setting up bstats...");
         BstatsMetrics.configureMetrics(this);
 
         // Register events
+        Logging.log(Level.FINE, "Registering events...");
         PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new FPPlayerListener(this), this);
         pm.registerEvents(new FPWorldListener(this), this);
 
         // Register permission nodes
+        Logging.log(Level.FINE, "Registering permissions...");
         this.permissionTools.registerPerms();
 
         // Register commands
+        Logging.log(Level.FINE, "Registering commands...");
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
         commandManager.registerCommand(new RootCommand(this));
