@@ -2,7 +2,7 @@ package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.utils.Logging;
-import org.bukkit.GameMode;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,12 +21,12 @@ public class FPPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
-        logFlyState("joined", event.getPlayer());
+        doFlyCheck("joined", event.getPlayer(), 1L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeGameMode(PlayerGameModeChangeEvent event) {
-        logFlyState("changed gamemode to " + event.getNewGameMode(), event.getPlayer(), event.getNewGameMode());
+        doFlyCheck("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),1L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -38,7 +38,7 @@ public class FPPlayerListener implements Listener {
             return;
         }
 
-        logFlyState("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer());
+        doFlyCheck("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -65,12 +65,11 @@ public class FPPlayerListener implements Listener {
         }
     }
 
-    private void logFlyState(String actionInfo, Player player) {
-        logFlyState(actionInfo, player, player.getGameMode());
-    }
-
-    private void logFlyState(String actionInfo, Player player, GameMode gameMode) {
-        Logging.log(Level.FINE, player.getName() + " " + actionInfo +
-                ". Fly state is now: " + this.plugin.getFlyChecker().canFly(player, gameMode));
+    private void doFlyCheck(String actionInfo, Player player, long delay) {
+        Bukkit.getScheduler().runTaskLater(
+                this.plugin,
+                () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: " + this.plugin.getFlyChecker().canFly(player)),
+                delay
+        );
     }
 }
