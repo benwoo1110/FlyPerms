@@ -4,7 +4,6 @@ import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPFlyChecker;
 import com.benergy.flyperms.enums.FlyState;
 import com.benergy.flyperms.utils.Logging;
-import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -14,12 +13,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class FlyChecker implements FPFlyChecker {
-
-    private final FlyPerms plugin;
+public class FlyChecker extends Checker implements FPFlyChecker {
 
     public FlyChecker(FlyPerms plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     public FlyState canFly(Player player) {

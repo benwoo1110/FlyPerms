@@ -8,12 +8,10 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpeedChecker implements FPSpeedChecker {
-
-    private final FlyPerms plugin;
+public class SpeedChecker extends Checker implements FPSpeedChecker {
 
     public SpeedChecker(FlyPerms plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     public boolean canChangeSpeedTo(Player player, double speed) {
