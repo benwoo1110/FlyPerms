@@ -2,79 +2,85 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Permissions;
-import com.benergy.flyperms.utils.SpeedGroup;
+import com.benergy.flyperms.utils.Logging;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class PermissionTools {
 
     private final FlyPerms plugin;
     private final PluginManager pm;
 
-    private final ArrayList<Permission> cachedSpeedGroup;
+    private final Map<String, Permission> cachedPerms;
 
     public PermissionTools(FlyPerms plugin) {
         this.plugin = plugin;
         this.pm = plugin.getServer().getPluginManager();
-        cachedSpeedGroup = new ArrayList<>(10);
+        cachedPerms = new HashMap<>(50);
     }
 
     public void registerPerms() {
-        if (this.plugin.getFPConfig().isCheckGameMode()) {
-            registerGameModePerms();
-        }
-        if (this.plugin.getFPConfig().isCheckWorld()) {
-            registerWorldPerms();
-        }
+        registerGameModePerms();
+        registerWorldPerms();
         registerSpeedGroupPerms();
     }
 
-    public void registerSpeedGroupPerms() {
-        for (SpeedGroup group : this.plugin.getFPConfig().getSpeedGroups()) {
-            Permission newGroupPerm = new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE);
-            this.pm.addPermission(newGroupPerm);
-            cachedSpeedGroup.add(newGroupPerm);
-        }
-    }
-
-    public void removeSpeedGroupPerms() {
-        cachedSpeedGroup.forEach(this.pm::removePermission);
-        cachedSpeedGroup.clear();
-    }
-
-    private void registerGameModePerms() {
-        for (GameMode gameMode : GameMode.values()) {
-            if (gameMode.equals(GameMode.SPECTATOR)) {
-                continue;
-            }
-            this.pm.addPermission(new Permission(Permissions.ALLOW_GAMEMODE + gameMode.name().toLowerCase(), PermissionDefault.FALSE));
-        }
-    }
-
-    private void registerWorldPerms() {
-        for (World world : plugin.getServer().getWorlds()) {
-            if (this.plugin.isIgnoreWorld(world)) {
-                continue;
-            }
-            addWorldPerm(world);
-        }
+    public void removeAllPerms() {
+        cachedPerms.values().forEach(this.pm::removePermission);
+        cachedPerms.clear();
     }
 
     public void addWorldPerm(World world) {
-        this.pm.addPermission(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
+        addPerm(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
     }
 
     public void removeWorldPerm(World world) {
-        this.pm.removePermission(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
+        removePerm(Permissions.ALLOW_WORLD + world.getName());
     }
 
+    private void registerSpeedGroupPerms() {
+        this.plugin.getFPConfig()
+                .getSpeedGroups()
+                .forEach(group -> addPerm(new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE)));
+    }
+
+    private void registerGameModePerms() {
+        if (!this.plugin.getFPConfig().isCheckGameMode()) {
+            return;
+        }
+        Arrays.stream(GameMode.values())
+                .filter(gm -> !gm.equals(GameMode.SPECTATOR))
+                .forEach(gm -> addPerm(new Permission(Permissions.ALLOW_GAMEMODE + gm.name().toLowerCase(), PermissionDefault.FALSE)));
+    }
+
+    private void registerWorldPerms() {
+        if (!this.plugin.getFPConfig().isCheckWorld()) {
+            return;
+        }
+
+        this.plugin.getServer()
+                .getWorlds()
+                .stream()
+                .filter(world -> !this.plugin.isIgnoreWorld(world))
+                .forEach(this::addWorldPerm);
+    }
+
+    private void addPerm(Permission perm) {
+        this.pm.addPermission(perm);
+        cachedPerms.put(perm.getName(), perm);
+        Logging.log(Level.INFO, perm.getName());
+    }
+
+    private void removePerm(String perm) {
+        this.pm.removePermission(cachedPerms.get(perm));
+        cachedPerms.remove(perm);
+    }
 }

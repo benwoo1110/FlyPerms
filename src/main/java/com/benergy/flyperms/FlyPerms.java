@@ -79,13 +79,13 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public boolean reload() {
         flyCheckScheduler.stopFlyChecker();
-        permissionTools.removeSpeedGroupPerms();
+        permissionTools.removeAllPerms();
 
         if (!this.config.reloadConfigValues()) {
             return false;
         }
 
-        permissionTools.registerSpeedGroupPerms();
+        permissionTools.registerPerms();
         flyCheckScheduler.startFlyChecker();
 
         return true;
@@ -95,11 +95,12 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         flyCheckScheduler.stopFlyChecker();
+        permissionTools.removeAllPerms();
         Logging.log(Level.INFO, "Stopped. Happy flying!");
     }
 
     public boolean isIgnoreWorld(World world) {
-        return (config.getDisabledWorlds().contains(world.getName()));
+        return config.getDisabledWorlds().contains(world.getName());
     }
 
     public FlyPermsConfig getFPConfig() {
