@@ -11,7 +11,7 @@ public final class Permissions {
     public static final String ALLOW_GAMEMODE = ALLOW_BASE + ".gamemode.";
 
     // speed
-    public static final String SPEED_GROUP = ROOT + ".speedgroup.";
+    public static final String SPEED_GROUP = ROOT + "speedgroup.";
 
     // commands
     public static final String USAGE = ROOT + "help";
