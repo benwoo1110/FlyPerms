@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.enums.Permissions;
 import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -40,7 +41,7 @@ public class InfoCommand extends FlyPermsCommand {
     }
 
     @Subcommand(Commands.INFO)
-    @CommandPermission("flyperms.info")
+    @CommandPermission(Permissions.INFO)
     @Description("Displays basic information of the plugin.")
     public void onInfo(CommandSender sender) {
         // Show the info

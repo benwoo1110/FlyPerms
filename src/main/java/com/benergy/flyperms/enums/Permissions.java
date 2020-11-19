@@ -14,6 +14,7 @@ public final class Permissions {
     public static final String SPEED_GROUP = ROOT + ".speedgroup.";
 
     // commands
+    public static final String USAGE = ROOT + "help";
     public static final String INFO = ROOT + "info";
     public static final String LIST_GROUPS = ROOT + "listgroups";
     public static final String RELOAD = ROOT + "reload";

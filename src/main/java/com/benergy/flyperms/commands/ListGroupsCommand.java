@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.enums.Permissions;
 import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.command.CommandSender;
 
@@ -17,7 +18,7 @@ public class ListGroupsCommand extends FlyPermsCommand {
     }
 
     @Subcommand(Commands.LIST_GROUPS)
-    @CommandPermission("flyperms.listgroups")
+    @CommandPermission(Permissions.LIST_GROUPS)
     @Description("Show all the speed groups available.")
     public void onListGroups(CommandSender sender) {
         Formatter.header(sender, "Speed Groups");

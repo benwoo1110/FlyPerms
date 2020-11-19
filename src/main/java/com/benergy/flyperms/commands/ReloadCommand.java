@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.enums.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -17,7 +18,7 @@ public class ReloadCommand extends FlyPermsCommand {
     }
 
     @Subcommand(Commands.RELOAD)
-    @CommandPermission("flyperms.reload")
+    @CommandPermission(Permissions.RELOAD)
     @Description("Reloads configuration.")
     public void onReload(CommandSender sender) {
         if (!this.plugin.reload()) {

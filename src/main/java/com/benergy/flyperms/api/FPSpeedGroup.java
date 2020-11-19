@@ -5,7 +5,7 @@ public interface FPSpeedGroup {
 
     String getName();
 
-    String permission();
+    String getPermission();
 
     double getLowerLimit();
 

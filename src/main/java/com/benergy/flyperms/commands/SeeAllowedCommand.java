@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.enums.Permissions;
 import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,14 +23,14 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     }
 
     @Subcommand(Commands.SEE_ALLOWED)
-    @CommandPermission("flyperms.seeallowed")
+    @CommandPermission(Permissions.SEE_ALLOWED)
     @Description("Displays ability to fly.")
     public void onSeeAllowedSelf(Player player) {
         showAllowedInfo(player, player);
     }
 
     @Subcommand(Commands.SEE_ALLOWED)
-    @CommandPermission("flyperms.seeallowed.others")
+    @CommandPermission(Permissions.SEE_ALLOWED_OTHERS)
     @CommandCompletion("@players")
     @Syntax("[player]")
     @Description("Displays ability to fly for another player.")

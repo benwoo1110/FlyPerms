@@ -19,13 +19,13 @@ public class SpeedChecker implements FPSpeedChecker {
     public boolean canChangeSpeedTo(Player player, double speed) {
         return this.plugin.getFPConfig().getSpeedGroups()
                 .stream()
-                .anyMatch(group -> player.hasPermission(group.permission()) && group.isInRange(speed));
+                .anyMatch(group -> player.hasPermission(group.getPermission()) && group.isInRange(speed));
     }
 
     public List<String> inSpeedGroups(Player player) {
         return this.plugin.getFPConfig().getSpeedGroups()
                 .stream()
-                .filter(group -> player.hasPermission(group.permission()))
+                .filter(group -> player.hasPermission(group.getPermission()))
                 .map(SpeedGroup::getName)
                 .collect(Collectors.toList());
     }

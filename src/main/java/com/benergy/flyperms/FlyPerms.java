@@ -79,10 +79,15 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public boolean reload() {
         flyCheckScheduler.stopFlyChecker();
+        permissionTools.removeSpeedGroupPerms();
+
         if (!this.config.reloadConfigValues()) {
             return false;
         }
+
+        permissionTools.registerSpeedGroupPerms();
         flyCheckScheduler.startFlyChecker();
+
         return true;
     }
 

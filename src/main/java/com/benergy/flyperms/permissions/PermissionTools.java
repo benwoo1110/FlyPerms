@@ -1,6 +1,7 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.enums.Permissions;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.GameMode;
 import org.bukkit.World;
@@ -8,14 +9,23 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 public class PermissionTools {
 
     private final FlyPerms plugin;
     private final PluginManager pm;
 
+    private final ArrayList<Permission> cachedSpeedGroup;
+
     public PermissionTools(FlyPerms plugin) {
         this.plugin = plugin;
         this.pm = plugin.getServer().getPluginManager();
+        cachedSpeedGroup = new ArrayList<>(10);
     }
 
     public void registerPerms() {
@@ -28,62 +38,43 @@ public class PermissionTools {
         registerSpeedGroupPerms();
     }
 
-    private void registerSpeedGroupPerms() {
-        for (SpeedGroup speedRange : this.plugin.getFPConfig().getSpeedGroups()) {
-            this.pm.addPermission(
-                    new Permission(
-                            "flyperms.speed." + speedRange.getName(),
-                            "Give you access to speed range for group " + speedRange.getName() + "defined in config.",
-                            PermissionDefault.FALSE
-                    )
-            );
+    public void registerSpeedGroupPerms() {
+        for (SpeedGroup group : this.plugin.getFPConfig().getSpeedGroups()) {
+            Permission newGroupPerm = new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE);
+            this.pm.addPermission(newGroupPerm);
+            cachedSpeedGroup.add(newGroupPerm);
         }
+    }
+
+    public void removeSpeedGroupPerms() {
+        cachedSpeedGroup.forEach(this.pm::removePermission);
+        cachedSpeedGroup.clear();
     }
 
     private void registerGameModePerms() {
         for (GameMode gameMode : GameMode.values()) {
-            if (!gameMode.equals(GameMode.SPECTATOR)) {
-                addGameModePerms(gameMode);
+            if (gameMode.equals(GameMode.SPECTATOR)) {
+                continue;
             }
+            this.pm.addPermission(new Permission(Permissions.ALLOW_GAMEMODE + gameMode.name().toLowerCase(), PermissionDefault.FALSE));
         }
-    }
-
-    private void addGameModePerms(GameMode gameMode) {
-        this.pm.addPermission(
-                new Permission(
-                        "flyperms.allow.gamemode." + gameMode.toString().toLowerCase(),
-                        "Allow you to fly in gamemode " + gameMode.toString().toLowerCase() + "!",
-                        PermissionDefault.FALSE
-                )
-        );
     }
 
     private void registerWorldPerms() {
         for (World world : plugin.getServer().getWorlds()) {
-            if (!this.plugin.isIgnoreWorld(world)) {
-                addWorldPerm(world);
+            if (this.plugin.isIgnoreWorld(world)) {
+                continue;
             }
+            addWorldPerm(world);
         }
     }
 
     public void addWorldPerm(World world) {
-        this.pm.addPermission(
-                new Permission(
-                        "flyperms.allow.world." + world.getName(),
-                        "Allow you to fly in world named " + world.getName() + "!",
-                        PermissionDefault.FALSE
-                )
-        );
+        this.pm.addPermission(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
     }
 
     public void removeWorldPerm(World world) {
-        this.pm.removePermission(
-                new Permission(
-                        "flyperms.allow.world." + world.getName(),
-                        "Allow you to fly in world named " + world.getName() + "!",
-                        PermissionDefault.FALSE
-                )
-        );
+        this.pm.removePermission(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
     }
 
 }

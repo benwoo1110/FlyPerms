@@ -9,6 +9,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.enums.Permissions;
 import org.bukkit.command.CommandSender;
 
 @CommandAlias(Commands.BASE)
@@ -19,8 +20,8 @@ public class UsageCommand extends FlyPermsCommand {
     }
 
     @Subcommand(Commands.USAGE)
+    @CommandPermission(Permissions.USAGE)
     @HelpCommand
-    @CommandPermission("flyperms.help")
     @Syntax("[search]")
     @Description("Shows command usage.")
     public void doHelp(CommandSender sender, CommandHelp help) {

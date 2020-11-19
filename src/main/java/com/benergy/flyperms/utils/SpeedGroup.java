@@ -1,6 +1,7 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.api.FPSpeedGroup;
+import com.benergy.flyperms.enums.Permissions;
 
 public class SpeedGroup implements FPSpeedGroup {
     private final String name;
@@ -21,8 +22,8 @@ public class SpeedGroup implements FPSpeedGroup {
         return name;
     }
 
-    public String permission() {
-        return "flyperms.speed." + this.name;
+    public String getPermission() {
+        return Permissions.SPEED_GROUP + this.name;
     }
 
     public double getLowerLimit() {
@@ -35,7 +36,7 @@ public class SpeedGroup implements FPSpeedGroup {
 
     @Override
     public String toString() {
-        return "SpeedRange{" +
+        return "SpeedGroup{" +
                 "name='" + name + '\'' +
                 ", lowerLimit=" + lowerLimit +
                 ", upperLimit=" + upperLimit +
