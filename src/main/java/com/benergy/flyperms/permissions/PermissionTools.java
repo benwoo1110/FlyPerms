@@ -2,7 +2,6 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.enums.Permissions;
-import com.benergy.flyperms.utils.Logging;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
@@ -12,7 +11,6 @@ import org.bukkit.plugin.PluginManager;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 public class PermissionTools {
 
@@ -65,7 +63,6 @@ public class PermissionTools {
         if (!this.plugin.getFPConfig().isCheckWorld()) {
             return;
         }
-
         this.plugin.getServer()
                 .getWorlds()
                 .stream()
@@ -76,7 +73,6 @@ public class PermissionTools {
     private void addPerm(Permission perm) {
         this.pm.addPermission(perm);
         cachedPerms.put(perm.getName(), perm);
-        Logging.log(Level.INFO, perm.getName());
     }
 
     private void removePerm(String perm) {
