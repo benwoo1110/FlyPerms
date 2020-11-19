@@ -8,16 +8,17 @@ import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.enums.Commands;
 import org.bukkit.command.CommandSender;
 
-@CommandAlias("fp|flyperms|fperms|flypermissions")
+@CommandAlias(Commands.BASE)
 public class UsageCommand extends FlyPermsCommand {
 
     public UsageCommand(FlyPerms plugin) {
         super(plugin);
     }
 
-    @Subcommand("help")
+    @Subcommand(Commands.USAGE)
     @HelpCommand
     @CommandPermission("flyperms.help")
     @Syntax("[search]")

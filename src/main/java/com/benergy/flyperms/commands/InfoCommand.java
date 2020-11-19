@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.enums.Commands;
 import com.benergy.flyperms.utils.Formatter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +14,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.Arrays;
 import java.util.List;
 
-@CommandAlias("fp|flyperms|fperms|flypermissions")
+@CommandAlias(Commands.BASE)
 public class InfoCommand extends FlyPermsCommand {
 
     private final List<String> versionPlugins = Arrays.asList(
@@ -38,7 +39,7 @@ public class InfoCommand extends FlyPermsCommand {
         super(plugin);
     }
 
-    @Subcommand("info")
+    @Subcommand(Commands.INFO)
     @CommandPermission("flyperms.info")
     @Description("Displays basic information of the plugin.")
     public void onInfo(CommandSender sender) {

@@ -6,17 +6,18 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.enums.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-@CommandAlias("fp|flyperms|fperms|flypermissions")
+@CommandAlias(Commands.BASE)
 public class SpeedCommand extends FlyPermsCommand {
 
     public SpeedCommand(FlyPerms plugin) {
         super(plugin);
     }
 
-    @Subcommand("speed")
+    @Subcommand(Commands.SPEED)
     @CommandPermission("flyperms.speed")
     @Syntax("<speed>")
     @Description("Changes fly speed, from -10 to 10.")
