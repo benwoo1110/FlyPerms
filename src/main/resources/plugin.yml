@@ -16,6 +16,9 @@ permissions:
   flyperms.speed:
     default: false
     description: Ability to change fly speed.
+  flyperms.speed.others:
+    default: false
+    description: Ability to change fly speed.
   flyperms.info:
     default: false
     description: View info information about this plugin.
@@ -38,6 +41,8 @@ permissions:
     default: op
     description: Give Admins access to all FlyPerms commands.
     children:
+      - flyperms.speed
+      - flyperms.speed.others
       - flyperms.info
       - flyperms.listgroups
       - flyperms.reload
