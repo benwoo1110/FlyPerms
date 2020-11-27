@@ -90,21 +90,29 @@ public class FlyChecker extends Checker implements FPFlyChecker {
                 .collect(Collectors.toList());
     }
 
-    private boolean checkGameMode(Player player) {
+    public boolean checkGameMode(Player player) {
         return checkGameMode(player, player.getGameMode());
     }
 
-    private boolean checkGameMode(Player player, GameMode gameMode) {
-        return !this.plugin.getFPConfig().isCheckGameMode()
-                || player.hasPermission("flyperms.allow.gamemode." + gameMode.name().toLowerCase());
+    public boolean checkGameMode(Player player, GameMode gameMode) {
+        return checkGameMode(player, gameMode.name());
     }
 
-    private boolean checkWorld(Player player) {
+    public boolean checkGameMode(Player player, String gameModeName) {
+        return !this.plugin.getFPConfig().isCheckGameMode()
+                || player.hasPermission("flyperms.allow.gamemode." + gameModeName.toLowerCase());
+    }
+
+    public boolean checkWorld(Player player) {
         return checkWorld(player, player.getWorld());
     }
 
-    private boolean checkWorld(Player player, World world) {
+    public boolean checkWorld(Player player, World world) {
+        return checkWorld(player, world.getName());
+    }
+
+    public boolean checkWorld(Player player, String worldName) {
         return !this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow.world." + world.getName());
+                || player.hasPermission("flyperms.allow.world." + worldName);
     }
 }

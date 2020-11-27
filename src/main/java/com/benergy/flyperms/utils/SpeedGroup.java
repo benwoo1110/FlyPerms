@@ -22,10 +22,6 @@ public class SpeedGroup implements FPSpeedGroup {
         return name;
     }
 
-    public String getPermission() {
-        return Permissions.SPEED_GROUP + this.name;
-    }
-
     public double getLowerLimit() {
         return lowerLimit;
     }

@@ -20,7 +20,7 @@ public class InfoCommand extends FlyPermsCommand {
 
     private final List<String> versionPlugins = Arrays.asList(
             "FlyPerms", // This plugin
-            // "PlaceholderAPI", // API (TBA)
+            "PlaceholderAPI", // API
             // "WorldGuard", // API (TBA)
             "LuckPerms", // permissions (recommended)
             "UltraPermissions", // permissions (not recommended)

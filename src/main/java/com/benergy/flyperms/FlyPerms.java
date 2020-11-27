@@ -9,6 +9,7 @@ import com.benergy.flyperms.commands.ReloadCommand;
 import com.benergy.flyperms.commands.SeeAllowedCommand;
 import com.benergy.flyperms.commands.SpeedCommand;
 import com.benergy.flyperms.commands.UsageCommand;
+import com.benergy.flyperms.dependencies.PapiExpansion;
 import com.benergy.flyperms.permissions.SpeedChecker;
 import com.benergy.flyperms.utils.FlyCheckScheduler;
 import com.benergy.flyperms.listeners.FPPlayerListener;
@@ -20,6 +21,7 @@ import com.benergy.flyperms.utils.BstatsMetrics;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import scala.concurrent.impl.FutureConvertersImpl;
 
 import java.util.logging.Level;
 
@@ -71,6 +73,15 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         commandManager.registerCommand(new SpeedCommand(this));
         commandManager.registerCommand(new ListGroupsCommand(this));
         commandManager.registerCommand(new UsageCommand(this));
+
+        // Register dependencies
+        Logging.log(Level.FINE, "Registering dependencies...");
+
+        if (pm.getPlugin("PlaceholderAPI") != null) {
+            new PapiExpansion(this).register();
+        } else {
+            Logging.log(Level.FINE, "FlyPerms papi placeholders will not work! PlaceholderAPI likely is not installed.");
+        }
 
         flyCheckScheduler.startFlyChecker();
 

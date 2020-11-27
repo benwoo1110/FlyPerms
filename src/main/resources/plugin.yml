@@ -4,7 +4,7 @@ api-version: 1.13
 main: com.benergy.flyperms.FlyPerms
 author: benwoo1110
 description: Toggle ability to fly based on permissions!
-softdepend: [WorldGuard]
+softdepend: [WorldGuard, PlaceholderAPI]
 commands:
   flyperms:
     description: Base FlyPerms command.
