@@ -51,8 +51,13 @@ public class FlyManager {
                 }
             case NO:
                 if (player.getAllowFlight()) {
-                    stopFly(player);
-                    Logging.log(Level.FINE,"Disallowing flight for " + player.getName());
+                    if (player.isFlying()) {
+                        stopFly(player);
+                    }
+                    else {
+                        player.setAllowFlight(true);
+                        Logging.log(Level.FINE,"Disallowing flight for " + player.getName());
+                    }
                 }
         }
     }
