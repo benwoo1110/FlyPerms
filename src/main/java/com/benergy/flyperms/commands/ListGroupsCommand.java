@@ -21,7 +21,7 @@ public class ListGroupsCommand extends FlyPermsCommand {
     @CommandPermission(Permissions.LIST_GROUPS)
     @Description("Show all the speed groups available.")
     public void onListGroups(CommandSender sender) {
-        Formatter.header(sender, "Speed Groups");
+        sender.sendMessage(Formatter.header("Speed Groups"));
         this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .forEach(group -> sender.sendMessage(group.getName() + ": " + group.getLowerLimit() + " to " + group.getUpperLimit()));

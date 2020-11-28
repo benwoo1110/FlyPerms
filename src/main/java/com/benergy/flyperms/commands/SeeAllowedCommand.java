@@ -44,7 +44,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     }
 
     private void showAllowedInfo(CommandSender sender, Player player) {
-        Formatter.header(sender, player.getName() + " Flight Info");
+        sender.sendMessage(Formatter.header(player.getName() + " Flight Info"));
         sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
         sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
         if (this.plugin.getFPConfig().isCheckWorld()) {

@@ -3,7 +3,6 @@ package com.benergy.flyperms.api;
 import com.benergy.flyperms.utils.SpeedGroup;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface FPConfig {
     boolean reloadConfigValues();

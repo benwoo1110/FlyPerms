@@ -115,11 +115,11 @@ public class PapiExpansion extends PlaceholderExpansion {
             return Formatter.parseList(this.plugin.getFlyChecker().allowInWorlds(player), ChatColor.WHITE);
         }
 
-        if( identifier.equals("in_gamemodes")) {
+        if (identifier.equals("in_gamemodes")) {
             return Formatter.parseList(this.plugin.getFlyChecker().allowInGameModes(player), ChatColor.WHITE);
         }
 
-        if( identifier.equals("in_speedgroups")) {
+        if (identifier.equals("in_speedgroups")) {
             return Formatter.parseList(this.plugin.getSpeedChecker().inSpeedGroups(player), ChatColor.WHITE);
         }
 
@@ -128,20 +128,18 @@ public class PapiExpansion extends PlaceholderExpansion {
             return Formatter.parseBoolean(this.plugin.getFlyChecker().checkWorld(player, targetWorld));
         }
 
-        if( identifier.startsWith("in_gamemode_")) {
+        if (identifier.startsWith("in_gamemode_")) {
             String targetGameMode = identifier.substring(12);
             return Formatter.parseBoolean(this.plugin.getFlyChecker().checkWorld(player, targetGameMode));
         }
 
-        if( identifier.startsWith("in_speedgroup_")) {
+        if (identifier.startsWith("in_speedgroup_")) {
             String targetSpeedGroup = identifier.substring(14);
             return Formatter.parseBoolean(this.plugin.getSpeedChecker().checkSpeedGroup(player, targetSpeedGroup));
         }
 
-        if( identifier.equals("list_speedgroups")) {
-            StringBuilder sb = new StringBuilder();
-            this.plugin.getFPConfig().getSpeedGroups().forEach(group -> sb.append(group.getName()).append(", "));
-            return sb.toString();
+        if (identifier.equals("list_speedgroups")) {
+            return Formatter.parseList(this.plugin.getFPConfig().getSpeedGroupNames(), ChatColor.WHITE);
         }
 
         // We return null if an invalid placeholder was provided.

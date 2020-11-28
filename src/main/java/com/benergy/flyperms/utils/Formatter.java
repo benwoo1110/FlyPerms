@@ -1,7 +1,6 @@
 package com.benergy.flyperms.utils;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
 
@@ -21,12 +20,8 @@ public final class Formatter {
         return color + String.join(", ", list);
     }
 
-    public static void header(CommandSender sender, String title) {
-        sender.sendMessage(ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ " + title + " ]====");
-    }
-
-    public static void commandUsage(CommandSender sender, String command, String description) {
-        sender.sendMessage(ChatColor.GREEN + command + ChatColor.GRAY + " -> " + ChatColor.AQUA + description);
+    public static String header(String title) {
+        return ChatColor.DARK_AQUA + ChatColor.BOLD.toString() + "====[ " + title + " ]====";
     }
 
     public static long millisecondsToTicks(int ms) {

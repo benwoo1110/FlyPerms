@@ -45,7 +45,7 @@ public class InfoCommand extends FlyPermsCommand {
     @Description("Displays basic information of the plugin.")
     public void onInfo(CommandSender sender) {
         // Show the info
-        Formatter.header(sender, "FlyPerms Info");
+        sender.sendMessage(Formatter.header("FlyPerms Info"));
 
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
             if (!this.versionPlugins.contains(versionPlugin.getName())) {

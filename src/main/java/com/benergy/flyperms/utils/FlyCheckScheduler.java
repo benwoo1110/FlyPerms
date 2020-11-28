@@ -82,5 +82,4 @@ public class FlyCheckScheduler {
             this.playersToStopFly.remove(player.getUniqueId());
         };
     }
-
 }
