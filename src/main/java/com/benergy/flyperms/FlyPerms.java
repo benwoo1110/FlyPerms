@@ -16,12 +16,12 @@ import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.permissions.FlyChecker;
 import com.benergy.flyperms.permissions.PermissionTools;
+import com.benergy.flyperms.utils.FlyManager;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.BstatsMetrics;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import scala.concurrent.impl.FutureConvertersImpl;
 
 import java.util.logging.Level;
 
@@ -36,6 +36,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     // Handlers
     private final FlyCheckScheduler flyCheckScheduler = new FlyCheckScheduler(this);
+    private final FlyManager flyManager = new FlyManager(this);
 
     @Override
     public void onEnable() {
@@ -132,5 +133,9 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public FlyCheckScheduler getFlyCheckScheduler() {
         return flyCheckScheduler;
+    }
+
+    public FlyManager getFlyManager() {
+        return flyManager;
     }
 }

@@ -48,7 +48,7 @@ public class FPPlayerListener implements Listener {
             return;
         }
 
-        switch (this.plugin.getFlyChecker().calculateFlyState(event.getPlayer())) {
+        switch (this.plugin.getFlyManager().applyFlyState(event.getPlayer())) {
             case CREATIVE_BYPASS:
                 Logging.log(Level.FINE,"Allowing creative flight for " + event.getPlayer().getName() + " as defined in config.");
                 break;
@@ -68,7 +68,8 @@ public class FPPlayerListener implements Listener {
     private void doFlyCheck(String actionInfo, Player player, long delay) {
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
-                () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: " + this.plugin.getFlyChecker().calculateFlyState(player)),
+                () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
+                        + this.plugin.getFlyManager().applyFlyState(player)),
                 delay
         );
     }

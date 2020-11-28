@@ -39,11 +39,8 @@ public class SpeedCommand extends FlyPermsCommand {
     }
 
     private void changeSpeed(CommandSender sender, Player targetPlayer, int speed, String name) {
-        if (!this.plugin.getSpeedChecker().canChangeSpeedTo(targetPlayer, speed)) {
-            sender.sendMessage(ChatColor.RED + "You are not allowed to set fly to this speed!");
-            return;
-        }
-        targetPlayer.setFlySpeed((float) speed / 10);
-        sender.sendMessage("Successfully set " + name + " flying speed to " + speed);
+        sender.sendMessage(this.plugin.getFlyManager().applyFlySpeed(targetPlayer, speed)
+                ? "Successfully set " + name + " flying speed to " + speed
+                : ChatColor.RED + "You are not allowed to set fly to this speed!");
     }
 }

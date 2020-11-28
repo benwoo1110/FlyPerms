@@ -3,14 +3,12 @@ package com.benergy.flyperms.permissions;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPFlyChecker;
 import com.benergy.flyperms.enums.FlyState;
-import com.benergy.flyperms.utils.Logging;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static com.benergy.flyperms.enums.FlyState.*;
@@ -22,53 +20,25 @@ public class FlyChecker extends Checker implements FPFlyChecker {
     }
 
     public FlyState calculateFlyState(Player player) {
-        return calculateFlyState(player, player.getGameMode(), player.getWorld());
-    }
-
-    public FlyState calculateFlyState(Player player, GameMode gameMode) {
-        return calculateFlyState(player, gameMode, player.getWorld());
-    }
-
-    public FlyState calculateFlyState(Player player, World world) {
-        return calculateFlyState(player, player.getGameMode(), world);
-    }
-
-    public FlyState calculateFlyState(Player player, GameMode gameMode, World world) {
-        if (this.plugin.isIgnoreWorld(world)) {
+        if (this.plugin.isIgnoreWorld(player.getWorld())) {
             return IGNORED;
         }
 
-        if (gameMode.equals(GameMode.SPECTATOR)) {
-            player.setAllowFlight(true);
+        if (player.getGameMode().equals(GameMode.SPECTATOR)) {
             return SPECTATOR;
         }
 
-        if (this.plugin.getFPConfig().isAllowCreative() && gameMode.equals(GameMode.CREATIVE)) {
-            if (!player.getAllowFlight()) {
-                player.setAllowFlight(true);
-            }
+        if (this.plugin.getFPConfig().isAllowCreative() && player.getGameMode().equals(GameMode.CREATIVE)) {
             return CREATIVE_BYPASS;
         }
 
-        boolean allowedToFly = baseAllow(player)
-                && hasGameModePerm(player, gameMode)
-                && hasWorldPerm(player, world);
+        return isAllowedToFly(player) ? YES : NO;
+    }
 
-        if (player.isFlying() && !allowedToFly) {
-            this.plugin.getFlyCheckScheduler().stopFly(player);
-            return NO;
-        }
-
-        if (!player.getAllowFlight() && allowedToFly) {
-            player.setAllowFlight(true);
-            Logging.log(Level.FINE, "Allowing flight for " + player.getName());
-        }
-        else if (player.getAllowFlight() && !allowedToFly) {
-            player.setAllowFlight(false);
-            Logging.log(Level.FINE,"Disallowing flight for " + player.getName());
-        }
-
-        return allowedToFly ? YES : NO;
+    private boolean isAllowedToFly(Player player) {
+        return baseAllow(player)
+                && hasGameModePerm(player)
+                && hasWorldPerm(player);
     }
 
     public boolean baseAllow(Player player) {
