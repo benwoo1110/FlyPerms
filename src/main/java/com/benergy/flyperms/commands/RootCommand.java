@@ -3,7 +3,7 @@ package com.benergy.flyperms.commands;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Description;
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.enums.Commands;
+import com.benergy.flyperms.Constants.Commands;
 import org.bukkit.command.CommandSender;
 
 public class RootCommand extends FlyPermsCommand {

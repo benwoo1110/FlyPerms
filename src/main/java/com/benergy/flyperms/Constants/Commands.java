@@ -1,4 +1,4 @@
-package com.benergy.flyperms.enums;
+package com.benergy.flyperms.Constants;
 
 public final class Commands {
     public static final String BASE  = "fp|flyperms|fperms|flypermissions";

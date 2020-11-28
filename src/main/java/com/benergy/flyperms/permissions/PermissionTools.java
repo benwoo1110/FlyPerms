@@ -1,7 +1,7 @@
 package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.enums.Permissions;
+import com.benergy.flyperms.Constants.Permissions;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
@@ -16,7 +16,6 @@ public class PermissionTools {
 
     private final FlyPerms plugin;
     private final PluginManager pm;
-
     private final Map<String, Permission> cachedPerms;
 
     public PermissionTools(FlyPerms plugin) {

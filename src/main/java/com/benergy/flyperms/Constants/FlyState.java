@@ -1,4 +1,4 @@
-package com.benergy.flyperms.enums;
+package com.benergy.flyperms.Constants;
 
 import org.bukkit.ChatColor;
 

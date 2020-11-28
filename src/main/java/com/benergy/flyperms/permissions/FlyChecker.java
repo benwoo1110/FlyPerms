@@ -2,7 +2,7 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPFlyChecker;
-import com.benergy.flyperms.enums.FlyState;
+import com.benergy.flyperms.Constants.FlyState;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.benergy.flyperms.enums.FlyState.*;
+import static com.benergy.flyperms.Constants.FlyState.*;
 
 public class FlyChecker extends Checker implements FPFlyChecker {
 

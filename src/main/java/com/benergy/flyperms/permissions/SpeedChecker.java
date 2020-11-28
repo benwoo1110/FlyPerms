@@ -2,7 +2,7 @@ package com.benergy.flyperms.permissions;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPSpeedChecker;
-import com.benergy.flyperms.enums.Permissions;
+import com.benergy.flyperms.Constants.Permissions;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.entity.Player;
 

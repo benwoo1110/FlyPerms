@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 
 public class Logging {
+
     private static boolean doneSetup;
     private static String[] startupText;
     private static java.util.logging.Logger logger;

@@ -1,19 +1,15 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.enums.FlyState;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Level;
 
 public class FlyApplyScheduler {
 
     private final FlyPerms plugin;
+
     private BukkitTask flyCheckTask;
 
     public FlyApplyScheduler(FlyPerms plugin) {

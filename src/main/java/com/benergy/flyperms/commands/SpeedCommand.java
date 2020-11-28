@@ -2,8 +2,8 @@ package com.benergy.flyperms.commands;
 
 import co.aikar.commands.annotation.*;
 import com.benergy.flyperms.FlyPerms;
-import com.benergy.flyperms.enums.Commands;
-import com.benergy.flyperms.enums.Permissions;
+import com.benergy.flyperms.Constants.Commands;
+import com.benergy.flyperms.Constants.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

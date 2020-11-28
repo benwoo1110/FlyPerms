@@ -3,7 +3,6 @@ package com.benergy.flyperms;
 import com.benergy.flyperms.api.FPConfig;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.SpeedGroup;
-import com.google.common.collect.Lists;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;

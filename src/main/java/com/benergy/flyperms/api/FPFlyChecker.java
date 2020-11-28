@@ -1,6 +1,6 @@
 package com.benergy.flyperms.api;
 
-import com.benergy.flyperms.enums.FlyState;
+import com.benergy.flyperms.Constants.FlyState;
 import org.bukkit.entity.Player;
 
 import java.util.List;

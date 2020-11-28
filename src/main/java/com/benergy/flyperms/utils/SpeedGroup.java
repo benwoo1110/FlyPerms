@@ -1,9 +1,9 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.api.FPSpeedGroup;
-import com.benergy.flyperms.enums.Permissions;
 
 public class SpeedGroup implements FPSpeedGroup {
+
     private final String name;
     private final double lowerLimit;
     private final double upperLimit;

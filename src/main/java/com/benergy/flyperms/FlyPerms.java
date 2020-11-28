@@ -26,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
 public final class FlyPerms extends JavaPlugin implements FPPlugin {
+
     // Config
     private final FlyPermsConfig config = new FlyPermsConfig(this);
 
