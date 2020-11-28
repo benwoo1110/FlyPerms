@@ -3,6 +3,7 @@ package com.benergy.flyperms.permissions;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPFlyChecker;
 import com.benergy.flyperms.Constants.FlyState;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -66,25 +67,38 @@ public class FlyChecker extends Checker implements FPFlyChecker {
         return hasGameModePerm(player, player.getGameMode());
     }
 
-    public boolean hasGameModePerm(Player player, GameMode gameMode) {
-        return hasGameModePerm(player, gameMode.name());
+    public Boolean hasGameModePerm(Player player, String modeName) {
+        GameMode targetMode;
+        try {
+            targetMode = GameMode.valueOf(modeName);
+        }
+        catch (IllegalArgumentException ignored) {
+           return null;
+        }
+
+        return hasGameModePerm(player, targetMode);
     }
 
-    public boolean hasGameModePerm(Player player, String gameModeName) {
+    public boolean hasGameModePerm(Player player, GameMode gameMode) {
         return !this.plugin.getFPConfig().isCheckGameMode()
-                || player.hasPermission("flyperms.allow.gamemode." + gameModeName.toLowerCase());
+                || player.hasPermission("flyperms.allow.gamemode." + gameMode.toString().toLowerCase());
     }
 
     public boolean hasWorldPerm(Player player) {
         return hasWorldPerm(player, player.getWorld());
     }
 
-    public boolean hasWorldPerm(Player player, World world) {
-        return hasWorldPerm(player, world.getName());
+    public Boolean hasWorldPerm(Player player, String worldName) {
+        World targetWorld = Bukkit.getWorld(worldName);
+        if (targetWorld == null) {
+            return null;
+        }
+
+        return hasWorldPerm(player, targetWorld);
     }
 
-    public boolean hasWorldPerm(Player player, String worldName) {
+    public boolean hasWorldPerm(Player player, World world) {
         return !this.plugin.getFPConfig().isCheckWorld()
-                || player.hasPermission("flyperms.allow.world." + worldName);
+                || player.hasPermission("flyperms.allow.world." + world.getName());
     }
 }
