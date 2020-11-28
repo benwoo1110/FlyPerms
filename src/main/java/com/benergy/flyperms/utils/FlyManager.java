@@ -36,7 +36,7 @@ public class FlyManager {
                 }
             case NO:
                 if (player.getAllowFlight()) {
-                    player.setAllowFlight(false);
+                    this.plugin.getFlyCheckScheduler().stopFly(player);
                     Logging.log(Level.FINE,"Disallowing flight for " + player.getName());
                 }
         }
