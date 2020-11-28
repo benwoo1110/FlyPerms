@@ -44,7 +44,7 @@ public class FlyCheckScheduler {
     }
 
     public boolean isFlyCheckRunning() {
-        return this.flyCheckTask != null && this.flyCheckTask.isCancelled();
+        return this.flyCheckTask != null && !this.flyCheckTask.isCancelled();
     }
 
     private Runnable flyCheckRunnable() {
