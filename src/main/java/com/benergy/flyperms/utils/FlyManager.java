@@ -2,7 +2,6 @@ package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -70,7 +69,7 @@ public class FlyManager {
 
         int coolDown = this.plugin.getFPConfig().getCoolDown();
         player.sendMessage("You have lost your ability to fly. Dropping in " + Formatter.millisecondsToSeconds(coolDown) + "sec...");
-        Bukkit.getScheduler().runTaskLater(
+        this.plugin.getServer().getScheduler().runTaskLater(
                 this.plugin,
                 stopFlyRunnable(player),
                 Formatter.millisecondsToTicks(coolDown)

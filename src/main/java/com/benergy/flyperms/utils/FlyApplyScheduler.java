@@ -1,7 +1,6 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.logging.Level;
@@ -17,7 +16,7 @@ public class FlyApplyScheduler {
     }
 
     public void start() {
-        this.flyCheckTask = Bukkit.getScheduler().runTaskTimer(
+        this.flyCheckTask = this.plugin.getServer().getScheduler().runTaskTimer(
                 this.plugin,
                 flyCheckRunnable(),
                 0L,
@@ -42,6 +41,8 @@ public class FlyApplyScheduler {
     }
 
     private Runnable flyCheckRunnable() {
-        return () -> Bukkit.getOnlinePlayers().forEach(p -> this.plugin.getFlyManager().applyFlyState(p.getPlayer()));
+        return () -> this.plugin.getServer()
+                .getOnlinePlayers()
+                .forEach(p -> this.plugin.getFlyManager().applyFlyState(p.getPlayer()));
     }
 }
