@@ -108,7 +108,7 @@ public class PapiExpansion extends PlaceholderExpansion {
         }
 
         if (identifier.equals("status")) {
-            return this.plugin.getFlyChecker().canFly(player).toString();
+            return this.plugin.getFlyChecker().calculateFlyState(player).toString();
         }
 
         if (identifier.equals("in_worlds")) {
@@ -125,17 +125,17 @@ public class PapiExpansion extends PlaceholderExpansion {
 
         if (identifier.startsWith("in_world_")) {
             String targetWorld = identifier.substring(9);
-            return Formatter.parseBoolean(this.plugin.getFlyChecker().checkWorld(player, targetWorld));
+            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasWorldPerm(player, targetWorld));
         }
 
         if (identifier.startsWith("in_gamemode_")) {
             String targetGameMode = identifier.substring(12);
-            return Formatter.parseBoolean(this.plugin.getFlyChecker().checkWorld(player, targetGameMode));
+            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasWorldPerm(player, targetGameMode));
         }
 
         if (identifier.startsWith("in_speedgroup_")) {
             String targetSpeedGroup = identifier.substring(14);
-            return Formatter.parseBoolean(this.plugin.getSpeedChecker().checkSpeedGroup(player, targetSpeedGroup));
+            return Formatter.parseBoolean(this.plugin.getSpeedChecker().hasSpeedGroupPerm(player, targetSpeedGroup));
         }
 
         if (identifier.equals("list_speedgroups")) {

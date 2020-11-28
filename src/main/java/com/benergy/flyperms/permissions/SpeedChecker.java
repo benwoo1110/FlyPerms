@@ -20,22 +20,22 @@ public class SpeedChecker extends Checker implements FPSpeedChecker {
         return this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .stream()
-                .anyMatch(group -> checkSpeedGroup(player, group) && group.isInRange(speed));
+                .anyMatch(group -> hasSpeedGroupPerm(player, group) && group.isInRange(speed));
     }
 
     public Collection<String> inSpeedGroups(Player player) {
         return Collections.unmodifiableList(this.plugin.getFPConfig().getSpeedGroups()
                 .stream()
-                .filter(group -> checkSpeedGroup(player, group))
+                .filter(group -> hasSpeedGroupPerm(player, group))
                 .map(SpeedGroup::getName)
                 .collect(Collectors.toList()));
     }
 
-    public boolean checkSpeedGroup(Player player, SpeedGroup group) {
-        return checkSpeedGroup(player, group.getName());
+    public boolean hasSpeedGroupPerm(Player player, SpeedGroup group) {
+        return hasSpeedGroupPerm(player, group.getName());
     }
 
-    public boolean checkSpeedGroup(Player player, String groupName) {
+    public boolean hasSpeedGroupPerm(Player player, String groupName) {
         return player.hasPermission(Permissions.SPEED_GROUP + groupName);
     }
 }

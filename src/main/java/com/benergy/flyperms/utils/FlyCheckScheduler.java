@@ -48,7 +48,7 @@ public class FlyCheckScheduler {
     }
 
     private Runnable flyCheckRunnable() {
-        return () -> Bukkit.getOnlinePlayers().forEach(p -> this.plugin.getFlyChecker().canFly(p));
+        return () -> Bukkit.getOnlinePlayers().forEach(p -> this.plugin.getFlyChecker().calculateFlyState(p));
     }
 
     public void stopFly(Player player) {
@@ -71,7 +71,7 @@ public class FlyCheckScheduler {
             Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
                     || !player.isFlying()
-                    || !this.plugin.getFlyChecker().canFly(player).equals(FlyState.NO)) {
+                    || !this.plugin.getFlyChecker().calculateFlyState(player).equals(FlyState.NO)) {
                 return;
             }
 

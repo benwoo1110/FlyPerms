@@ -53,7 +53,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
         if (this.plugin.getFPConfig().isCheckGameMode()) {
             sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.plugin.getFlyChecker().allowInGameModes(player), ChatColor.WHITE));
         }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFlyChecker().canFly(player).toString());
+        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.plugin.getFlyChecker().calculateFlyState(player).toString());
         sender.sendMessage(ChatColor.AQUA + "In speed groups: " + Formatter.parseList(this.plugin.getSpeedChecker().inSpeedGroups(player), ChatColor.WHITE));
     }
 }
