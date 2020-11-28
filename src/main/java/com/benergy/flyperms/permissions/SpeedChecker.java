@@ -6,7 +6,8 @@ import com.benergy.flyperms.enums.Permissions;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class SpeedChecker extends Checker implements FPSpeedChecker {
@@ -22,13 +23,12 @@ public class SpeedChecker extends Checker implements FPSpeedChecker {
                 .anyMatch(group -> checkSpeedGroup(player, group) && group.isInRange(speed));
     }
 
-    public List<String> inSpeedGroups(Player player) {
-        return this.plugin.getFPConfig()
-                .getSpeedGroups()
+    public Collection<String> inSpeedGroups(Player player) {
+        return Collections.unmodifiableList(this.plugin.getFPConfig().getSpeedGroups()
                 .stream()
                 .filter(group -> checkSpeedGroup(player, group))
                 .map(SpeedGroup::getName)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     public boolean checkSpeedGroup(Player player, SpeedGroup group) {
