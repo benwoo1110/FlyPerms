@@ -11,7 +11,7 @@ import com.benergy.flyperms.commands.SpeedCommand;
 import com.benergy.flyperms.commands.UsageCommand;
 import com.benergy.flyperms.dependencies.PapiExpansion;
 import com.benergy.flyperms.permissions.SpeedChecker;
-import com.benergy.flyperms.utils.FlyCheckScheduler;
+import com.benergy.flyperms.utils.FlyApplyScheduler;
 import com.benergy.flyperms.listeners.FPPlayerListener;
 import com.benergy.flyperms.listeners.FPWorldListener;
 import com.benergy.flyperms.permissions.FlyChecker;
@@ -35,7 +35,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private final SpeedChecker speedChecker = new SpeedChecker(this);
 
     // Handlers
-    private final FlyCheckScheduler flyCheckScheduler = new FlyCheckScheduler(this);
+    private final FlyApplyScheduler flyCheckScheduler = new FlyApplyScheduler(this);
     private final FlyManager flyManager = new FlyManager(this);
 
     @Override
@@ -84,13 +84,13 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
             Logging.log(Level.FINE, "FlyPerms papi placeholders will not work! PlaceholderAPI likely is not installed.");
         }
 
-        flyCheckScheduler.startFlyChecker();
+        flyCheckScheduler.start();
 
         Logging.log(Level.INFO, "Started!");
     }
 
     public boolean reload() {
-        flyCheckScheduler.stopFlyChecker();
+        flyCheckScheduler.stop();
         permissionTools.removeAllPerms();
 
         if (!this.config.reloadConfigValues()) {
@@ -98,7 +98,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         }
 
         permissionTools.registerPerms();
-        flyCheckScheduler.startFlyChecker();
+        flyCheckScheduler.start();
 
         return true;
     }
@@ -106,7 +106,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        flyCheckScheduler.stopFlyChecker();
+        flyCheckScheduler.stop();
         permissionTools.removeAllPerms();
         Logging.log(Level.INFO, "Stopped. Happy flying!");
     }
@@ -131,7 +131,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         return speedChecker;
     }
 
-    public FlyCheckScheduler getFlyCheckScheduler() {
+    public FlyApplyScheduler getFlyCheckScheduler() {
         return flyCheckScheduler;
     }
 
