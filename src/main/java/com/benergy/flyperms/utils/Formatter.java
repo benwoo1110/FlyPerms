@@ -6,17 +6,24 @@ import java.util.Collection;
 
 public final class Formatter {
 
+    private static final String NULL_VALUE = ChatColor.GRAY + ChatColor.ITALIC.toString() + "Invalid";;
+
     public static String parseBoolean(Boolean bool) {
         if (bool == null) {
-            return ChatColor.GRAY + ChatColor.ITALIC.toString() + "Invalid";
+            return NULL_VALUE;
         }
         return bool ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No";
     }
 
     public static String parseList(Collection<String> list, ChatColor color) {
+        if (list == null) {
+            return NULL_VALUE;
+        }
+
         if (list.size() == 0) {
             return ChatColor.GRAY + ChatColor.ITALIC.toString() + "None";
         }
+
         return color + String.join(", ", list);
     }
 
