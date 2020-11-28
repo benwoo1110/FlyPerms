@@ -21,7 +21,7 @@ public class FlyChecker extends Checker implements FPFlyChecker {
     }
 
     public FlyState calculateFlyState(Player player) {
-        if (this.plugin.isIgnoreWorld(player.getWorld())) {
+        if (this.plugin.getFlyManager().isIgnoreWorld(player.getWorld())) {
             return IGNORED;
         }
 
@@ -58,7 +58,7 @@ public class FlyChecker extends Checker implements FPFlyChecker {
     public List<String> allowInWorlds(Player player) {
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.isIgnoreWorld(world) && hasWorldPerm(player, world))
+                .filter(world -> !this.plugin.getFlyManager().isIgnoreWorld(world) && hasWorldPerm(player, world))
                 .map(World::getName)
                 .collect(Collectors.toList());
     }

@@ -9,8 +9,6 @@ import org.bukkit.World;
 public interface FPPlugin {
     boolean reload();
 
-    boolean isIgnoreWorld(World world);
-
     FlyPermsConfig getFPConfig();
 
     FlyChecker getFlyChecker();

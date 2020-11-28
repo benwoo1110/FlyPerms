@@ -2,6 +2,7 @@ package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -23,15 +24,6 @@ public class FlyManager {
         FlyState state = this.plugin.getFlyChecker().calculateFlyState(player);
         modifyFlyAbility(player, state);
         return state;
-    }
-
-    public boolean applyFlySpeed(Player player, double speed) {
-        if (!this.plugin.getSpeedChecker().canChangeSpeedTo(player, speed)) {
-            return false;
-        }
-
-        player.setFlySpeed((float) speed / 10);
-        return true;
     }
 
     private void modifyFlyAbility(Player player, FlyState state) {
@@ -100,5 +92,13 @@ public class FlyManager {
             this.playersToStopFly.remove(player.getUniqueId());
             Logging.log(Level.FINE,"Disallowed flight for " + player.getName() + " after cooldown.");
         };
+    }
+
+    public boolean isIgnoreWorld(World world) {
+        return this.plugin.getFPConfig().getDisabledWorlds().contains(world.getName());
+    }
+
+    public boolean haveDisabledWorld() {
+        return this.plugin.getFPConfig().getDisabledWorlds().size() > 0;
     }
 }

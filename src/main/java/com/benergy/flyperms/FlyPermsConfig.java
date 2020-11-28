@@ -5,13 +5,12 @@ import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class FlyPermsConfig implements FPConfig {
 
@@ -24,13 +23,14 @@ public class FlyPermsConfig implements FPConfig {
     private int coolDown;
     private List<String> disabledWorlds;
     private boolean debugMode;
-    private final List<SpeedGroup> speedGroups = new ArrayList<SpeedGroup>();
+    private final Map<String, SpeedGroup> speedGroups;
 
     public FlyPermsConfig(FlyPerms plugin) {
         this.plugin = plugin;
+        speedGroups = new HashMap<>();
     }
 
-    public boolean reloadConfigValues() {
+    protected boolean reloadConfigValues() {
         try {
             this.plugin.reloadConfig();
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class FlyPermsConfig implements FPConfig {
         return this.loadConfigValues();
     }
 
-    public boolean loadConfigValues() {
+    protected boolean loadConfigValues() {
         try {
             FileConfiguration config = this.plugin.getConfig();
             this.checkWorld = config.getBoolean("check-for-world", true);
@@ -74,13 +74,14 @@ public class FlyPermsConfig implements FPConfig {
         this.speedGroups.clear();
 
         for (Map<?, ?> group : speedGroupConfig) {
-            for (Object groupName : group.keySet()) {
-                List<Double> speedValue = (List<Double>) group.get(groupName);
+            for (Object rawGroupName : group.keySet()) {
+                List<Double> speedValue = (List<Double>) group.get(rawGroupName);
                 if (!validateSpeedValue(speedValue)) {
-                    Logging.log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
+                    Logging.log(Level.WARNING, "Invalid speed group " + rawGroupName + ". Please check for config!");
                     continue;
                 }
-                speedGroups.add(new SpeedGroup(String.valueOf(groupName), speedValue.get(0), speedValue.get(1)));
+                String groupName = String.valueOf(rawGroupName);
+                speedGroups.put(groupName, new SpeedGroup(groupName, speedValue.get(0), speedValue.get(1)));
             }
         }
     }
@@ -120,10 +121,6 @@ public class FlyPermsConfig implements FPConfig {
         return coolDown;
     }
 
-    public boolean haveDisabledWorld() {
-        return disabledWorlds.size() > 0;
-    }
-
     public Collection<String> getDisabledWorlds() {
         return Collections.unmodifiableList(disabledWorlds);
     }
@@ -132,15 +129,8 @@ public class FlyPermsConfig implements FPConfig {
         return debugMode;
     }
 
-    public Collection<SpeedGroup> getSpeedGroups() {
-        return Collections.unmodifiableList(speedGroups);
-    }
-
-    public Collection<String> getSpeedGroupNames() {
-        return Collections.unmodifiableList(speedGroups.stream()
-                .map(SpeedGroup::getName)
-                .sorted()
-                .collect(Collectors.toList()));
+    public Map<String, SpeedGroup> getSpeedGroups() {
+        return Collections.unmodifiableMap(speedGroups);
     }
 
     @Override

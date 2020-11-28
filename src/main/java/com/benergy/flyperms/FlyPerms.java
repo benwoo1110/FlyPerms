@@ -19,6 +19,7 @@ import com.benergy.flyperms.permissions.PermissionTools;
 import com.benergy.flyperms.utils.FlyManager;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.BstatsMetrics;
+import com.benergy.flyperms.utils.SpeedManager;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,6 +39,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     // Handlers
     private final FlyApplyScheduler flyCheckScheduler = new FlyApplyScheduler(this);
     private final FlyManager flyManager = new FlyManager(this);
+    private final SpeedManager speedManager = new SpeedManager(this);
 
     @Override
     public void onEnable() {
@@ -112,10 +114,6 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         Logging.log(Level.INFO, "Stopped. Happy flying!");
     }
 
-    public boolean isIgnoreWorld(World world) {
-        return config.getDisabledWorlds().contains(world.getName());
-    }
-
     public FlyPermsConfig getFPConfig() {
         return config;
     }
@@ -138,5 +136,9 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public FlyManager getFlyManager() {
         return flyManager;
+    }
+
+    public SpeedManager getSpeedManager() {
+        return speedManager;
     }
 }

@@ -3,12 +3,9 @@ package com.benergy.flyperms.api;
 import com.benergy.flyperms.utils.SpeedGroup;
 
 import java.util.Collection;
+import java.util.Map;
 
 public interface FPConfig {
-    boolean reloadConfigValues();
-
-    boolean loadConfigValues();
-
     boolean isCheckGameMode();
 
     boolean isCheckWorld();
@@ -19,11 +16,7 @@ public interface FPConfig {
 
     int getCoolDown();
 
-    boolean haveDisabledWorld();
+    public Collection<String> getDisabledWorlds();
 
-    Collection<String> getDisabledWorlds();
-
-    Collection<SpeedGroup> getSpeedGroups();
-
-    Collection<String> getSpeedGroupNames();
+    Map<String, SpeedGroup> getSpeedGroups();
 }

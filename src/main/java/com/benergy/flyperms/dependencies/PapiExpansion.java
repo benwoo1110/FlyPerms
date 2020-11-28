@@ -130,7 +130,7 @@ public class PapiExpansion extends PlaceholderExpansion {
 
         if (identifier.startsWith("in_gamemode_")) {
             String targetGameMode = identifier.substring(12);
-            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasWorldPerm(player, targetGameMode));
+            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasGameModePerm(player, targetGameMode));
         }
 
         if (identifier.startsWith("in_speedgroup_")) {
@@ -139,7 +139,7 @@ public class PapiExpansion extends PlaceholderExpansion {
         }
 
         if (identifier.equals("list_speedgroups")) {
-            return Formatter.parseList(this.plugin.getFPConfig().getSpeedGroupNames(), ChatColor.WHITE);
+            return Formatter.parseList(this.plugin.getSpeedManager().getGroupNames(), ChatColor.WHITE);
         }
 
         // We return null if an invalid placeholder was provided.

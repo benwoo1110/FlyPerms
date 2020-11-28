@@ -17,15 +17,15 @@ public class SpeedChecker extends Checker implements FPSpeedChecker {
     }
 
     public boolean canChangeSpeedTo(Player player, double speed) {
-        return this.plugin.getFPConfig()
-                .getSpeedGroups()
+        return this.plugin.getSpeedManager()
+                .getGroups()
                 .stream()
                 .anyMatch(group -> hasSpeedGroupPerm(player, group) && group.isInRange(speed));
     }
 
     public Collection<String> inSpeedGroups(Player player) {
-        return Collections.unmodifiableList(this.plugin.getFPConfig()
-                .getSpeedGroups()
+        return Collections.unmodifiableList(this.plugin.getSpeedManager()
+                .getGroups()
                 .stream()
                 .filter(group -> hasSpeedGroupPerm(player, group))
                 .map(SpeedGroup::getName)
@@ -33,13 +33,7 @@ public class SpeedChecker extends Checker implements FPSpeedChecker {
     }
 
     public Boolean hasSpeedGroupPerm(Player player, String groupName) {
-        SpeedGroup targetGroup = this.plugin.getFPConfig()
-                .getSpeedGroups()
-                .stream()
-                .filter(g -> g.getName().equals(groupName))
-                .findFirst()
-                .orElse(null);
-
+        SpeedGroup targetGroup = this.plugin.getSpeedManager().getGroupOf(groupName);
         if (targetGroup == null) {
             return null;
         }
