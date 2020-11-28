@@ -8,7 +8,7 @@ public final class Formatter {
 
     public static String parseBoolean(Boolean bool) {
         if (bool == null) {
-            return ChatColor.GRAY + ChatColor.ITALIC.toString() + "Ignored";
+            return ChatColor.GRAY + ChatColor.ITALIC.toString() + "Invalid";
         }
         return bool ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No";
     }
