@@ -3,7 +3,7 @@ package com.benergy.flyperms.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import java.util.List;
+import java.util.Collection;
 
 public final class Formatter {
 
@@ -14,7 +14,7 @@ public final class Formatter {
         return bool ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No";
     }
 
-    public static String parseList(List<String> list, ChatColor color) {
+    public static String parseList(Collection<String> list, ChatColor color) {
         if (list.size() == 0) {
             return ChatColor.GRAY + ChatColor.ITALIC.toString() + "None";
         }
@@ -36,5 +36,4 @@ public final class Formatter {
     public static float millisecondsToSeconds(int ms) {
         return (float) ms / 1000;
     }
-
 }

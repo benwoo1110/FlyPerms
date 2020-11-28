@@ -2,6 +2,7 @@ package com.benergy.flyperms.api;
 
 import com.benergy.flyperms.utils.SpeedGroup;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface FPConfig {
@@ -21,7 +22,9 @@ public interface FPConfig {
 
     boolean haveDisabledWorld();
 
-    List<String> getDisabledWorlds();
+    Collection<String> getDisabledWorlds();
 
-    List<SpeedGroup> getSpeedGroups();
+    Collection<SpeedGroup> getSpeedGroups();
+
+    Collection<String> getSpeedGroupNames();
 }

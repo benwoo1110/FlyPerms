@@ -3,12 +3,16 @@ package com.benergy.flyperms;
 import com.benergy.flyperms.api.FPConfig;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.SpeedGroup;
+import com.google.common.collect.Lists;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class FlyPermsConfig implements FPConfig {
 
@@ -73,13 +77,17 @@ public class FlyPermsConfig implements FPConfig {
         for (Map<?, ?> group : speedGroupConfig) {
             for (Object groupName : group.keySet()) {
                 List<Double> speedValue = (List<Double>) group.get(groupName);
-                if (speedValue == null || speedValue.size() != 2 || speedValue.get(0) > speedValue.get(1)) {
+                if (!validateSpeedValue(speedValue)) {
                     Logging.log(Level.WARNING, "Invalid speed group " + groupName + ". Please check for config!");
                     continue;
                 }
                 speedGroups.add(new SpeedGroup(String.valueOf(groupName), speedValue.get(0), speedValue.get(1)));
             }
         }
+    }
+
+    private boolean validateSpeedValue(List<Double> speedValue) {
+        return speedValue != null && speedValue.size() == 2 && speedValue.get(0) <= speedValue.get(1);
     }
 
     private void setLogLevel() {
@@ -117,16 +125,23 @@ public class FlyPermsConfig implements FPConfig {
         return disabledWorlds.size() > 0;
     }
 
-    public List<String> getDisabledWorlds() {
-        return disabledWorlds;
+    public Collection<String> getDisabledWorlds() {
+        return Collections.unmodifiableList(disabledWorlds);
     }
 
     public boolean isDebugMode() {
         return debugMode;
     }
 
-    public List<SpeedGroup> getSpeedGroups() {
-        return speedGroups;
+    public Collection<SpeedGroup> getSpeedGroups() {
+        return Collections.unmodifiableList(speedGroups);
+    }
+
+    public Collection<String> getSpeedGroupNames() {
+        return Collections.unmodifiableList(speedGroups.stream()
+                .map(SpeedGroup::getName)
+                .sorted()
+                .collect(Collectors.toList()));
     }
 
     @Override
