@@ -12,8 +12,8 @@ import com.benergy.flyperms.commands.UsageCommand;
 import com.benergy.flyperms.dependencies.PapiExpansion;
 import com.benergy.flyperms.permissions.SpeedChecker;
 import com.benergy.flyperms.utils.FlyApplyScheduler;
-import com.benergy.flyperms.listeners.FPPlayerListener;
-import com.benergy.flyperms.listeners.FPWorldListener;
+import com.benergy.flyperms.listeners.PlayerListener;
+import com.benergy.flyperms.listeners.WorldListener;
 import com.benergy.flyperms.permissions.FlyChecker;
 import com.benergy.flyperms.permissions.PermissionTools;
 import com.benergy.flyperms.utils.FlyManager;
@@ -57,8 +57,8 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         // Register events
         Logging.log(Level.FINE, "Registering events...");
         PluginManager pm = this.getServer().getPluginManager();
-        pm.registerEvents(new FPPlayerListener(this), this);
-        pm.registerEvents(new FPWorldListener(this), this);
+        pm.registerEvents(new PlayerListener(this), this);
+        pm.registerEvents(new WorldListener(this), this);
 
         // Register permission nodes
         Logging.log(Level.FINE, "Registering permissions...");

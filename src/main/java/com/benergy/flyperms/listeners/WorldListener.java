@@ -2,31 +2,34 @@ package com.benergy.flyperms.listeners;
 
 import com.benergy.flyperms.FlyPerms;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-public class FPWorldListener implements Listener {
+public class WorldListener implements Listener {
 
     private final FlyPerms plugin;
 
-    public FPWorldListener(FlyPerms plugin) {
+    public WorldListener(FlyPerms plugin) {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void worldLoaded(WorldLoadEvent event) {
         if (this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
+
         this.plugin.getPermissionTools().addWorldPerm(event.getWorld());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void worldUnloaded(WorldUnloadEvent event) {
-        if (this.plugin.isIgnoreWorld(event.getWorld())) {
+        if (event.isCancelled() || this.plugin.isIgnoreWorld(event.getWorld())) {
             return;
         }
+
         this.plugin.getPermissionTools().removeWorldPerm(event.getWorld());
     }
 }

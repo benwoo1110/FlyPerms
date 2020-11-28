@@ -21,7 +21,7 @@ public class FlyManager {
 
     public FlyState applyFlyState(Player player) {
         FlyState state = this.plugin.getFlyChecker().calculateFlyState(player);
-        modifyFLyAbility(player, state);
+        modifyFlyAbility(player, state);
         return state;
     }
 
@@ -34,7 +34,7 @@ public class FlyManager {
         return true;
     }
 
-    private void modifyFLyAbility(Player player, FlyState state) {
+    private void modifyFlyAbility(Player player, FlyState state) {
         switch (state) {
             case SPECTATOR:
                 if (!player.getAllowFlight()) {

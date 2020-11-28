@@ -11,34 +11,39 @@ import org.bukkit.event.player.*;
 
 import java.util.logging.Level;
 
-public class FPPlayerListener implements Listener {
+public class PlayerListener implements Listener {
 
     private final FlyPerms plugin;
 
-    public FPPlayerListener(FlyPerms plugin) {
+    public PlayerListener(FlyPerms plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
-        doFlyCheck("joined", event.getPlayer(), 1L);
+        doApplyFly("joined", event.getPlayer(), 1L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeGameMode(PlayerGameModeChangeEvent event) {
-        doFlyCheck("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),1L);
+        doApplyFly("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),1L);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void changeWorld(PlayerChangedWorldEvent event) {
+    /*
+    * We check ignored world here so other plugins can potentially changed fly ability.
+     */
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void changeWorldIgnoreCheck(PlayerChangedWorldEvent event) {
         if (this.plugin.isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
             Logging.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
                     " at world " + event.getPlayer().getWorld().getName() + ".");
-            return;
         }
+    }
 
-        doFlyCheck("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void changeWorld(PlayerChangedWorldEvent event) {
+        doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -50,22 +55,24 @@ public class FPPlayerListener implements Listener {
 
         switch (this.plugin.getFlyManager().applyFlyState(event.getPlayer())) {
             case CREATIVE_BYPASS:
-                Logging.log(Level.FINE,"Allowing creative flight for " + event.getPlayer().getName() + " as defined in config.");
+                Logging.log(Level.FINE,"Starting fly for " + event.getPlayer().getName()
+                        + " due to creative bypass");
                 break;
             case IGNORED:
-                Logging.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() + " at world " + event.getPlayer().getWorld().getName() + ".");
+                Logging.log(Level.FINE, "Starting fly for " + event.getPlayer().getName()
+                                + "as player in ignored world '" + event.getPlayer().getWorld().getName() + "'.");
                 break;
             case NO:
                 event.setCancelled(true);
-                Logging.log(Level.FINE,"Flight canceled for " + event.getPlayer().getName() + "!");
+                Logging.log(Level.FINE,"Cancelled fly for " + event.getPlayer().getName() + ".");
                 break;
             case YES:
-                Logging.log(Level.FINE,"Starting flight for " + event.getPlayer().getName() + "...");
+                Logging.log(Level.FINE,"Starting fly for " + event.getPlayer().getName() + ".");
                 break;
         }
     }
 
-    private void doFlyCheck(String actionInfo, Player player, long delay) {
+    private void doApplyFly(String actionInfo, Player player, long delay) {
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
                 () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
