@@ -37,27 +37,34 @@ public class FlyManager {
     private void modifyFLyAbility(Player player, FlyState state) {
         switch (state) {
             case SPECTATOR:
-                player.setAllowFlight(true);
+                if (!player.getAllowFlight()) {
+                    player.setAllowFlight(true);
+                    Logging.log(Level.FINE, player.getName() + " in spectator mode.");
+                }
+                break;
             case CREATIVE_BYPASS:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowing flight for " + player.getName() + " due to creative bypass.");
+                    Logging.log(Level.FINE, "Allowed flight for " + player.getName() + " due to creative bypass.");
                 }
+                break;
             case YES:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowing flight for " + player.getName());
+                    Logging.log(Level.FINE, "Allowed flight for " + player.getName());
                 }
+                break;
             case NO:
                 if (player.getAllowFlight()) {
                     if (player.isFlying()) {
                         stopFly(player);
                     }
                     else {
-                        player.setAllowFlight(true);
-                        Logging.log(Level.FINE,"Disallowing flight for " + player.getName());
+                        player.setAllowFlight(false);
+                        Logging.log(Level.FINE,"Disallowed flight for " + player.getName());
                     }
                 }
+                break;
         }
     }
 
@@ -82,6 +89,7 @@ public class FlyManager {
             if (!player.isOnline()
                     || !player.isFlying()
                     || !this.plugin.getFlyChecker().calculateFlyState(player).equals(FlyState.NO)) {
+                Logging.log(Level.FINE, "Stop fly for " + player.getName() + " aborted");
                 return;
             }
 
@@ -90,6 +98,7 @@ public class FlyManager {
             player.setAllowFlight(false);
 
             this.playersToStopFly.remove(player.getUniqueId());
+            Logging.log(Level.FINE,"Disallowed flight for " + player.getName() + " after cooldown.");
         };
     }
 }
