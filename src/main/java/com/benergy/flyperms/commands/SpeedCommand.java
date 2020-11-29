@@ -20,7 +20,7 @@ public class SpeedCommand extends FlyPermsCommand {
     @CommandPermission(Permissions.CHANGE_SPEED)
     @Syntax("<speed>")
     @Description("Changes fly speed, from -10 to 10.")
-    public void onSpeed(Player player, int speed) {
+    public void onSpeed(Player player, String speed) {
         changeSpeed(player, player, speed, "your");
     }
 
@@ -29,7 +29,7 @@ public class SpeedCommand extends FlyPermsCommand {
     @CommandCompletion(" @players")
     @Syntax("<speed> [player]")
     @Description("Changes fly speed of another player, from -10 to 10.")
-    public void onSpeedOther(CommandSender sender, int speed, String playerName) {
+    public void onSpeedOther(CommandSender sender, String speed, String playerName) {
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
             sender.sendMessage(ChatColor.RED + "Unknown player '"+ playerName +"'");
@@ -38,8 +38,17 @@ public class SpeedCommand extends FlyPermsCommand {
         changeSpeed(sender, targetPlayer, speed, playerName);
     }
 
-    private void changeSpeed(CommandSender sender, Player targetPlayer, int speed, String name) {
-        sender.sendMessage(this.plugin.getSpeedManager().applyFlySpeed(targetPlayer, speed)
+    private void changeSpeed(CommandSender sender, Player targetPlayer, String speed, String name) {
+        double parsedSpeed;
+        try {
+            parsedSpeed = Double.parseDouble(speed);
+        }
+        catch (NumberFormatException ignored) {
+            sender.sendMessage(ChatColor.RED + "Error: '" + speed + "' is not a number.");
+            return;
+        }
+
+        sender.sendMessage(this.plugin.getSpeedManager().applyFlySpeed(targetPlayer, parsedSpeed)
                 ? "Successfully set " + name + " flying speed to " + speed
                 : ChatColor.RED + "You are not allowed to set fly to this speed!");
     }
