@@ -2,14 +2,13 @@ package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
-import com.benergy.flyperms.api.FPFlyManager;
-import org.bukkit.World;
+import com.benergy.flyperms.api.FPFlightManager;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.logging.Level;
 
-public class FlightManager implements FPFlyManager {
+public class FlightManager implements FPFlightManager {
 
     private final FlyPerms plugin;
     private final Set<UUID> playersToStopFly;

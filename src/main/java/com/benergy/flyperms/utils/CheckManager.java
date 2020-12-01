@@ -3,6 +3,7 @@ package com.benergy.flyperms.utils;
 import com.benergy.flyperms.Constants.FlyState;
 import com.benergy.flyperms.Constants.Permissions;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.FPCheckManager;
 import com.benergy.flyperms.checkers.GameModeChecker;
 import com.benergy.flyperms.checkers.PlayerChecker;
 import com.benergy.flyperms.checkers.SpeedChecker;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 
 import static com.benergy.flyperms.Constants.FlyState.*;
 
-public class CheckManager {
+public class CheckManager implements FPCheckManager {
 
     private final FlyPerms plugin;
 
