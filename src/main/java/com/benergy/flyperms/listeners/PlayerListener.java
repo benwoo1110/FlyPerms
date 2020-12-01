@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
      */
     @EventHandler(priority = EventPriority.LOWEST)
     public void changeWorldIgnoreCheck(PlayerChangedWorldEvent event) {
-        if (this.plugin.getFlyManager().isIgnoreWorld(event.getPlayer().getWorld())) {
+        if (this.plugin.getFlightManager().isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
             Logging.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
                     " at world " + event.getPlayer().getWorld().getName() + ".");
@@ -53,7 +53,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        switch (this.plugin.getFlyManager().applyFlyState(event.getPlayer())) {
+        switch (this.plugin.getFlightManager().applyFlyState(event.getPlayer())) {
             case CREATIVE_BYPASS:
                 Logging.log(Level.FINE,"Starting fly for " + event.getPlayer().getName()
                         + " due to creative bypass");
@@ -76,7 +76,7 @@ public class PlayerListener implements Listener {
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
                 () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
-                        + this.plugin.getFlyManager().applyFlyState(player)),
+                        + this.plugin.getFlightManager().applyFlyState(player)),
                 delay
         );
     }

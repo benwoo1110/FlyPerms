@@ -1,4 +1,4 @@
-package com.benergy.flyperms.permissions;
+package com.benergy.flyperms.check_old;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPSpeedChecker;
@@ -10,10 +10,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class SpeedChecker extends Checker implements FPSpeedChecker {
+public class SpeedChecker implements FPSpeedChecker {
+
+    private final FlyPerms plugin;
 
     public SpeedChecker(FlyPerms plugin) {
-        super(plugin);
+        this.plugin = plugin;
     }
 
     public boolean canChangeSpeedTo(Player player, double speed) {

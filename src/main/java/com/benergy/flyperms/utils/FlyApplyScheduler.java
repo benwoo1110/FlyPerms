@@ -44,6 +44,6 @@ public class FlyApplyScheduler implements FPScheduler {
     private Runnable flyCheckRunnable() {
         return () -> this.plugin.getServer()
                 .getOnlinePlayers()
-                .forEach(p -> this.plugin.getFlyManager().applyFlyState(p.getPlayer()));
+                .forEach(p -> this.plugin.getFlightManager().applyFlyState(p.getPlayer()));
     }
 }

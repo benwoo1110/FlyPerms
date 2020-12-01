@@ -1,4 +1,4 @@
-package com.benergy.flyperms.permissions;
+package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.Permissions;
@@ -65,7 +65,7 @@ public class PermissionTools {
         this.plugin.getServer()
                 .getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFlyManager().isIgnoreWorld(world))
+                .filter(world -> !this.plugin.getFlightManager().isIgnoreWorld(world))
                 .forEach(this::addWorldPerm);
     }
 

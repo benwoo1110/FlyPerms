@@ -6,17 +6,17 @@ import com.benergy.flyperms.api.FPFlyManager;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
-public class FlyManager implements FPFlyManager {
+public class FlightManager implements FPFlyManager {
 
     private final FlyPerms plugin;
     private final Set<UUID> playersToStopFly;
 
-    public FlyManager(FlyPerms plugin) {
+    private static final int SPEED_MODIFIER = 10;
+
+    public FlightManager(FlyPerms plugin) {
         this.plugin = plugin;
         this. playersToStopFly = new HashSet<>();
     }
@@ -94,11 +94,12 @@ public class FlyManager implements FPFlyManager {
         };
     }
 
-    public boolean isIgnoreWorld(World world) {
-        return this.plugin.getFPConfig().getDisabledWorlds().contains(world.getName());
-    }
+    public boolean applyFlySpeed(Player player, double speed) {
+        if (!this.plugin.getSpeedChecker().canChangeSpeedTo(player, speed)) {
+            return false;
+        }
 
-    public boolean haveIgnoreWorld() {
-        return this.plugin.getFPConfig().getDisabledWorlds().size() > 0;
+        player.setFlySpeed((float) speed / SPEED_MODIFIER);
+        return true;
     }
 }

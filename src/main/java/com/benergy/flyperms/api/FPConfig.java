@@ -16,7 +16,7 @@ public interface FPConfig {
 
     int getCoolDown();
 
-    Collection<String> getDisabledWorlds();
+    Collection<String> getIgnoreWorlds();
 
     Map<String, SpeedGroup> getSpeedGroups();
 }

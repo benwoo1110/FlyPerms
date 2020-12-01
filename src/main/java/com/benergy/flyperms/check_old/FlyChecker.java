@@ -1,4 +1,4 @@
-package com.benergy.flyperms.permissions;
+package com.benergy.flyperms.check_old;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPFlyChecker;
@@ -13,14 +13,16 @@ import java.util.stream.Collectors;
 
 import static com.benergy.flyperms.Constants.FlyState.*;
 
-public class FlyChecker extends Checker implements FPFlyChecker {
+public class FlyChecker implements FPFlyChecker {
+
+    private final FlyPerms plugin;
 
     public FlyChecker(FlyPerms plugin) {
-        super(plugin);
+        this.plugin = plugin;
     }
 
     public FlyState calculateFlyState(Player player) {
-        if (this.plugin.getFlyManager().isIgnoreWorld(player.getWorld())) {
+        if (this.plugin.getFlightManager().isIgnoreWorld(player.getWorld())) {
             return IGNORED;
         }
 
@@ -63,7 +65,7 @@ public class FlyChecker extends Checker implements FPFlyChecker {
 
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFlyManager().isIgnoreWorld(world) && hasWorldPerm(player, world))
+                .filter(world -> !this.plugin.getFlightManager().isIgnoreWorld(world) && hasWorldPerm(player, world))
                 .map(World::getName)
                 .collect(Collectors.toList());
     }
