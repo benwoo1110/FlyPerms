@@ -1,11 +1,12 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.FPScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.logging.Level;
 
-public class FlyApplyScheduler {
+public class FlyApplyScheduler implements FPScheduler {
 
     private final FlyPerms plugin;
 

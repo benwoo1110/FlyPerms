@@ -1,11 +1,12 @@
 package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.FPSpeedManager;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
 
-public class SpeedManager {
+public class SpeedManager implements FPSpeedManager {
 
     private final FlyPerms plugin;
     private static final int SPEED_MODIFIER = 10;

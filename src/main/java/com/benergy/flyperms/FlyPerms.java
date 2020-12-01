@@ -129,7 +129,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         return speedChecker;
     }
 
-    public FlyApplyScheduler getFlyCheckScheduler() {
+    public FlyApplyScheduler getFlyApplyScheduler() {
         return flyCheckScheduler;
     }
 

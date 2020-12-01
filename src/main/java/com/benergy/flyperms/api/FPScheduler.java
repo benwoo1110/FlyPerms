@@ -1,9 +1,9 @@
 package com.benergy.flyperms.api;
 
 public interface FPScheduler {
-    void startFlyChecker();
+    void start();
 
-    void stopFlyChecker();
+    void stop();
 
-    boolean isFlyCheckRunning();
+    boolean isRunning();
 }

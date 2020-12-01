@@ -41,7 +41,11 @@ public class SpeedChecker extends Checker implements FPSpeedChecker {
         return hasSpeedGroupPerm(player, targetGroup);
     }
 
-    public boolean hasSpeedGroupPerm(Player player, SpeedGroup group) {
+    public Boolean hasSpeedGroupPerm(Player player, SpeedGroup group) {
+        if (group == null) {
+            return null;
+        }
+
         return player.hasPermission(Permissions.SPEED_GROUP + group.getName());
     }
 }

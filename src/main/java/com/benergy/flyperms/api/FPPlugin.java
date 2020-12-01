@@ -4,6 +4,8 @@ import com.benergy.flyperms.FlyPermsConfig;
 import com.benergy.flyperms.permissions.FlyChecker;
 import com.benergy.flyperms.permissions.SpeedChecker;
 import com.benergy.flyperms.utils.FlyApplyScheduler;
+import com.benergy.flyperms.utils.FlyManager;
+import com.benergy.flyperms.utils.SpeedManager;
 import org.bukkit.World;
 
 public interface FPPlugin {
@@ -15,5 +17,9 @@ public interface FPPlugin {
 
     SpeedChecker getSpeedChecker();
 
-    FlyApplyScheduler getFlyCheckScheduler();
+    FlyApplyScheduler getFlyApplyScheduler();
+
+    FlyManager getFlyManager();
+
+    SpeedManager getSpeedManager();
 }
