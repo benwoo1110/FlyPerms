@@ -1,6 +1,7 @@
 package com.benergy.flyperms.dependencies;
 
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.utils.CheckManager;
 import com.benergy.flyperms.utils.Formatter;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.ChatColor;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 public class PapiExpansion extends PlaceholderExpansion {
 
     private final FlyPerms plugin;
+    private final CheckManager checker;
 
     /**
      * Since we register the expansion inside our own plugin, we
@@ -24,6 +26,7 @@ public class PapiExpansion extends PlaceholderExpansion {
      */
     public PapiExpansion(FlyPerms plugin) {
         this.plugin = plugin;
+        this.checker = this.plugin.getCheckManager();
     }
 
     /**
@@ -108,38 +111,38 @@ public class PapiExpansion extends PlaceholderExpansion {
         }
 
         if (identifier.equals("status")) {
-            return this.plugin.getFlyChecker().calculateFlyState(player).toString();
+            return this.plugin.getCheckManager().calculateFlyState(player).toString();
         }
 
         if (identifier.equals("in_worlds")) {
-            return Formatter.parseList(this.plugin.getFlyChecker().allowInWorlds(player), ChatColor.WHITE);
+            return Formatter.parseList(this.checker.getWorldChecker().getAllowedNames(player), ChatColor.WHITE);
         }
 
         if (identifier.equals("in_gamemodes")) {
-            return Formatter.parseList(this.plugin.getFlyChecker().allowInGameModes(player), ChatColor.WHITE);
+            return Formatter.parseList(this.checker.getGameModeChecker().getAllowedNames(player), ChatColor.WHITE);
         }
 
         if (identifier.equals("in_speedgroups")) {
-            return Formatter.parseList(this.plugin.getSpeedChecker().inSpeedGroups(player), ChatColor.WHITE);
+            return Formatter.parseList(this.checker.getSpeedChecker().getAllowedNames(player), ChatColor.WHITE);
         }
 
         if (identifier.startsWith("in_world_")) {
             String targetWorld = identifier.substring(9);
-            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasWorldPerm(player, targetWorld));
+            return Formatter.parseBoolean(this.checker.getWorldChecker().hasPerm(player, targetWorld));
         }
 
         if (identifier.startsWith("in_gamemode_")) {
             String targetGameMode = identifier.substring(12);
-            return Formatter.parseBoolean(this.plugin.getFlyChecker().hasGameModePerm(player, targetGameMode));
+            return Formatter.parseBoolean(this.checker.getGameModeChecker().hasPerm(player, targetGameMode));
         }
 
         if (identifier.startsWith("in_speedgroup_")) {
             String targetSpeedGroup = identifier.substring(14);
-            return Formatter.parseBoolean(this.plugin.getSpeedChecker().hasSpeedGroupPerm(player, targetSpeedGroup));
+            return Formatter.parseBoolean(this.checker.getSpeedChecker().hasPerm(player, targetSpeedGroup));
         }
 
         if (identifier.equals("list_speedgroups")) {
-            return Formatter.parseList(this.plugin.getSpeedManager().getGroupNames(), ChatColor.WHITE);
+            return Formatter.parseList(this.plugin.getFPConfig().getSpeedGroupNames(), ChatColor.WHITE);
         }
 
         return null;

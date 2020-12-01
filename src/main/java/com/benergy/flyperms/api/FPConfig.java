@@ -3,7 +3,6 @@ package com.benergy.flyperms.api;
 import com.benergy.flyperms.utils.SpeedGroup;
 
 import java.util.Collection;
-import java.util.Map;
 
 public interface FPConfig {
     boolean isCheckGameMode();
@@ -18,5 +17,5 @@ public interface FPConfig {
 
     Collection<String> getIgnoreWorlds();
 
-    Map<String, SpeedGroup> getSpeedGroups();
+    Collection<SpeedGroup> getSpeedGroups();
 }

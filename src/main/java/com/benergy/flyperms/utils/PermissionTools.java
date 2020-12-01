@@ -44,8 +44,8 @@ public class PermissionTools {
     }
 
     private void registerSpeedGroupPerms() {
-        this.plugin.getSpeedManager()
-                .getGroups()
+        this.plugin.getFPConfig()
+                .getSpeedGroups()
                 .forEach(group -> addPerm(new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE)));
     }
 
@@ -65,7 +65,7 @@ public class PermissionTools {
         this.plugin.getServer()
                 .getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFlightManager().isIgnoreWorld(world))
+                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world))
                 .forEach(this::addWorldPerm);
     }
 

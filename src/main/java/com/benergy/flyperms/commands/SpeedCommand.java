@@ -47,8 +47,9 @@ public class SpeedCommand extends FlyPermsCommand {
             sender.sendMessage(ChatColor.RED + "Error: '" + speed + "' is not a number.");
             return;
         }
+        // TODO: Add check for max speed range.
 
-        sender.sendMessage(this.plugin.getSpeedManager().applyFlySpeed(targetPlayer, parsedSpeed)
+        sender.sendMessage(this.plugin.getFlightManager().applyFlySpeed(targetPlayer, parsedSpeed)
                 ? "Successfully set " + name + " flying speed to " + speed
                 : ChatColor.RED + "You are not allowed to set fly to this speed!");
     }

@@ -22,7 +22,7 @@ public class FlightManager implements FPFlyManager {
     }
 
     public FlyState applyFlyState(Player player) {
-        FlyState state = this.plugin.getFlyChecker().calculateFlyState(player);
+        FlyState state = this.plugin.getCheckManager().calculateFlyState(player);
         modifyFlyAbility(player, state);
         return state;
     }
@@ -80,7 +80,7 @@ public class FlightManager implements FPFlyManager {
             Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
                     || !player.isFlying()
-                    || !this.plugin.getFlyChecker().calculateFlyState(player).equals(FlyState.NO)) {
+                    || !this.plugin.getCheckManager().calculateFlyState(player).equals(FlyState.NO)) {
                 Logging.log(Level.FINE, "Stop fly for " + player.getName() + " aborted");
                 return;
             }
@@ -95,7 +95,7 @@ public class FlightManager implements FPFlyManager {
     }
 
     public boolean applyFlySpeed(Player player, double speed) {
-        if (!this.plugin.getSpeedChecker().canChangeSpeedTo(player, speed)) {
+        if (!this.plugin.getCheckManager().canChangeSpeedTo(player, speed)) {
             return false;
         }
 

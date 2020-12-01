@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-interface Checker<T> {
+public interface Checker<T> {
     boolean isEnabled();
 
     List<T> getAllowed(Player player);

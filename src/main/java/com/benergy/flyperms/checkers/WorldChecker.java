@@ -29,7 +29,7 @@ public class WorldChecker implements PlayerChecker<World> {
 
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFlightManager().isIgnoreWorld(world) && hasPerm(player, world))
+                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world) && hasPerm(player, world))
                 .collect(Collectors.toList());
     }
 
@@ -41,7 +41,7 @@ public class WorldChecker implements PlayerChecker<World> {
 
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFlightManager().isIgnoreWorld(world) && hasPerm(player, world))
+                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world) && hasPerm(player, world))
                 .map(World::getName)
                 .collect(Collectors.toList());
     }

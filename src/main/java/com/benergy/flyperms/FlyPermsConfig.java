@@ -131,27 +131,31 @@ public class FlyPermsConfig implements FPConfig {
     }
 
     public boolean isIgnoreWorld(World world) {
-        return disabledWorlds.contains(world.getName());
+        return isIgnoreWorld(world.getName());
+    }
+
+    public boolean isIgnoreWorld(String worldName) {
+        return disabledWorlds.contains(worldName);
     }
 
     public boolean haveIgnoreWorld() {
         return disabledWorlds.size() > 0;
     }
 
-    public Map<String, SpeedGroup> getSpeedGroups() {
-        return Collections.unmodifiableMap(speedGroups);
+    public Collection<SpeedGroup> getSpeedGroups() {
+        return speedGroups.values();
     }
 
     public boolean hasSpeedGroup(String groupName) {
-        return this.plugin.getFPConfig().getSpeedGroups().containsKey(groupName);
+        return speedGroups.containsKey(groupName);
     }
 
     public SpeedGroup getSpeedGroupOf(String groupName) {
-        return this.plugin.getFPConfig().getSpeedGroups().get(groupName);
+        return speedGroups.get(groupName);
     }
 
     public Collection<String> getSpeedGroupNames() {
-        return this.plugin.getFPConfig().getSpeedGroups().keySet();
+        return speedGroups.keySet();
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,8 @@ public class SpeedChecker implements Checker<SpeedGroup> {
 
     @Override
     public List<SpeedGroup> getAllowed(Player player) {
-        return this.plugin.
+        return this.plugin.getFPConfig()
+                .getSpeedGroups()
                 .stream()
                 .filter(group -> hasPerm(player, group))
                 .collect(Collectors.toList());
@@ -32,8 +32,8 @@ public class SpeedChecker implements Checker<SpeedGroup> {
 
     @Override
     public List<String> getAllowedNames(Player player) {
-        return this.plugin.getSpeedManager()
-                .getGroups()
+        return this.plugin.getFPConfig()
+                .getSpeedGroups()
                 .stream()
                 .filter(group -> hasPerm(player, group))
                 .map(SpeedGroup::getName)
@@ -42,12 +42,13 @@ public class SpeedChecker implements Checker<SpeedGroup> {
 
     @Override
     public Boolean hasPerm(Player player, String groupName) {
-        SpeedGroup targetGroup = this.plugin.getSpeedManager().getGroupOf(groupName);
+        SpeedGroup targetGroup = this.plugin.getFPConfig().getSpeedGroupOf(groupName);
         if (targetGroup == null) {
             return null;
         }
 
-        return hasPerm(player, targetGroup);    }
+        return hasPerm(player, targetGroup);
+    }
 
     @Override
     public Boolean hasPerm(Player player, SpeedGroup group) {
