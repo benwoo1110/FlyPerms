@@ -2,27 +2,26 @@ package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
-import com.benergy.flyperms.api.FPFlyManager;
-import org.bukkit.World;
+import com.benergy.flyperms.api.FPFlightManager;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
-public class FlyManager implements FPFlyManager {
+public class FlightManager implements FPFlightManager {
 
     private final FlyPerms plugin;
     private final Set<UUID> playersToStopFly;
 
-    public FlyManager(FlyPerms plugin) {
+    private static final int SPEED_MODIFIER = 10;
+
+    public FlightManager(FlyPerms plugin) {
         this.plugin = plugin;
         this. playersToStopFly = new HashSet<>();
     }
 
     public FlyState applyFlyState(Player player) {
-        FlyState state = this.plugin.getFlyChecker().calculateFlyState(player);
+        FlyState state = this.plugin.getCheckManager().calculateFlyState(player);
         modifyFlyAbility(player, state);
         return state;
     }
@@ -80,7 +79,7 @@ public class FlyManager implements FPFlyManager {
             Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
                     || !player.isFlying()
-                    || !this.plugin.getFlyChecker().calculateFlyState(player).equals(FlyState.NO)) {
+                    || !this.plugin.getCheckManager().calculateFlyState(player).equals(FlyState.NO)) {
                 Logging.log(Level.FINE, "Stop fly for " + player.getName() + " aborted");
                 return;
             }
@@ -94,11 +93,12 @@ public class FlyManager implements FPFlyManager {
         };
     }
 
-    public boolean isIgnoreWorld(World world) {
-        return this.plugin.getFPConfig().getDisabledWorlds().contains(world.getName());
-    }
+    public boolean applyFlySpeed(Player player, double speed) {
+        if (!this.plugin.getCheckManager().canChangeSpeedTo(player, speed)) {
+            return false;
+        }
 
-    public boolean haveIgnoreWorld() {
-        return this.plugin.getFPConfig().getDisabledWorlds().size() > 0;
+        player.setFlySpeed((float) speed / SPEED_MODIFIER);
+        return true;
     }
 }

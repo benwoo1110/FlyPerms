@@ -10,16 +10,9 @@ import com.benergy.flyperms.commands.SeeAllowedCommand;
 import com.benergy.flyperms.commands.SpeedCommand;
 import com.benergy.flyperms.commands.UsageCommand;
 import com.benergy.flyperms.dependencies.PapiExpansion;
-import com.benergy.flyperms.permissions.SpeedChecker;
-import com.benergy.flyperms.utils.FlyApplyScheduler;
+import com.benergy.flyperms.utils.*;
 import com.benergy.flyperms.listeners.PlayerListener;
 import com.benergy.flyperms.listeners.WorldListener;
-import com.benergy.flyperms.permissions.FlyChecker;
-import com.benergy.flyperms.permissions.PermissionTools;
-import com.benergy.flyperms.utils.FlyManager;
-import com.benergy.flyperms.utils.Logging;
-import com.benergy.flyperms.utils.BstatsMetrics;
-import com.benergy.flyperms.utils.SpeedManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,15 +23,11 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     // Config
     private final FlyPermsConfig config = new FlyPermsConfig(this);
 
-    // Permissions
-    private final PermissionTools permissionTools = new PermissionTools(this);
-    private final FlyChecker flyChecker = new FlyChecker(this);
-    private final SpeedChecker speedChecker = new SpeedChecker(this);
-
     // Handlers
+    private final PermissionTools permissionTools = new PermissionTools(this);
+    private final CheckManager checkManager = new CheckManager(this);
+    private final FlightManager flightManager = new FlightManager(this);
     private final FlyApplyScheduler flyCheckScheduler = new FlyApplyScheduler(this);
-    private final FlyManager flyManager = new FlyManager(this);
-    private final SpeedManager speedManager = new SpeedManager(this);
 
     @Override
     public void onEnable() {
@@ -121,23 +110,15 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         return permissionTools;
     }
 
-    public FlyChecker getFlyChecker() {
-        return flyChecker;
-    }
-
-    public SpeedChecker getSpeedChecker() {
-        return speedChecker;
-    }
-
     public FlyApplyScheduler getFlyApplyScheduler() {
         return flyCheckScheduler;
     }
 
-    public FlyManager getFlyManager() {
-        return flyManager;
+    public FlightManager getFlightManager() {
+        return flightManager;
     }
 
-    public SpeedManager getSpeedManager() {
-        return speedManager;
+    public CheckManager getCheckManager() {
+        return checkManager;
     }
 }

@@ -17,7 +17,7 @@ public class WorldListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void worldLoaded(WorldLoadEvent event) {
-        if (this.plugin.getFlyManager().isIgnoreWorld(event.getWorld())) {
+        if (this.plugin.getFPConfig().isIgnoreWorld(event.getWorld())) {
             return;
         }
 
@@ -26,7 +26,7 @@ public class WorldListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void worldUnloaded(WorldUnloadEvent event) {
-        if (event.isCancelled() || this.plugin.getFlyManager().isIgnoreWorld(event.getWorld())) {
+        if (event.isCancelled() || this.plugin.getFPConfig().isIgnoreWorld(event.getWorld())) {
             return;
         }
 

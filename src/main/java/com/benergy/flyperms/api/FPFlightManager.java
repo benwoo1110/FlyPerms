@@ -1,13 +1,10 @@
 package com.benergy.flyperms.api;
 
 import com.benergy.flyperms.Constants.FlyState;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-public interface FPFlyManager {
+public interface FPFlightManager {
     FlyState applyFlyState(Player player);
 
-    boolean isIgnoreWorld(World world);
-
-    boolean haveIgnoreWorld();
+    boolean applyFlySpeed(Player player, double speed);
 }

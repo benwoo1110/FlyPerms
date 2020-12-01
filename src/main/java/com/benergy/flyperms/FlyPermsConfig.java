@@ -3,6 +3,7 @@ package com.benergy.flyperms;
 import com.benergy.flyperms.api.FPConfig;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.SpeedGroup;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Collection;
@@ -121,16 +122,40 @@ public class FlyPermsConfig implements FPConfig {
         return coolDown;
     }
 
-    public Collection<String> getDisabledWorlds() {
-        return Collections.unmodifiableList(disabledWorlds);
-    }
-
     public boolean isDebugMode() {
         return debugMode;
     }
 
-    public Map<String, SpeedGroup> getSpeedGroups() {
-        return Collections.unmodifiableMap(speedGroups);
+    public Collection<String> getIgnoreWorlds() {
+        return Collections.unmodifiableList(disabledWorlds);
+    }
+
+    public boolean isIgnoreWorld(World world) {
+        return isIgnoreWorld(world.getName());
+    }
+
+    public boolean isIgnoreWorld(String worldName) {
+        return disabledWorlds.contains(worldName);
+    }
+
+    public boolean haveIgnoreWorld() {
+        return disabledWorlds.size() > 0;
+    }
+
+    public Collection<SpeedGroup> getSpeedGroups() {
+        return speedGroups.values();
+    }
+
+    public boolean hasSpeedGroup(String groupName) {
+        return speedGroups.containsKey(groupName);
+    }
+
+    public SpeedGroup getSpeedGroupOf(String groupName) {
+        return speedGroups.get(groupName);
+    }
+
+    public Collection<String> getSpeedGroupNames() {
+        return speedGroups.keySet();
     }
 
     @Override

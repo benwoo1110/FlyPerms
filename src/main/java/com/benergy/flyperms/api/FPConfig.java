@@ -1,9 +1,9 @@
 package com.benergy.flyperms.api;
 
 import com.benergy.flyperms.utils.SpeedGroup;
+import org.bukkit.World;
 
 import java.util.Collection;
-import java.util.Map;
 
 public interface FPConfig {
     boolean isCheckGameMode();
@@ -16,7 +16,21 @@ public interface FPConfig {
 
     int getCoolDown();
 
-    Collection<String> getDisabledWorlds();
+    boolean isDebugMode();
 
-    Map<String, SpeedGroup> getSpeedGroups();
+    Collection<String> getIgnoreWorlds();
+
+    boolean isIgnoreWorld(World world);
+
+    boolean isIgnoreWorld(String worldName);
+
+    boolean haveIgnoreWorld();
+
+    Collection<SpeedGroup> getSpeedGroups();
+
+    boolean hasSpeedGroup(String groupName);
+
+    SpeedGroup getSpeedGroupOf(String groupName);
+
+    Collection<String> getSpeedGroupNames();
 }
