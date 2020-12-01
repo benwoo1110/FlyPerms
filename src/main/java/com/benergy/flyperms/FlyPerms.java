@@ -20,7 +20,6 @@ import com.benergy.flyperms.utils.FlyManager;
 import com.benergy.flyperms.utils.Logging;
 import com.benergy.flyperms.utils.BstatsMetrics;
 import com.benergy.flyperms.utils.SpeedManager;
-import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -103,7 +103,7 @@ public class PapiExpansion extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String identifier) {
 
-        if (player == null) {
+        if (player == null || identifier.length() == 0) {
             return "";
         }
 
@@ -142,7 +142,6 @@ public class PapiExpansion extends PlaceholderExpansion {
             return Formatter.parseList(this.plugin.getSpeedManager().getGroupNames(), ChatColor.WHITE);
         }
 
-        // We return null if an invalid placeholder was provided.
         return null;
     }
 }

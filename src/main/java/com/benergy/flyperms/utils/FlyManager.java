@@ -50,11 +50,10 @@ public class FlyManager {
                 if (player.getAllowFlight()) {
                     if (player.isFlying()) {
                         stopFly(player);
+                        break;
                     }
-                    else {
-                        player.setAllowFlight(false);
-                        Logging.log(Level.FINE,"Disallowed flight for " + player.getName());
-                    }
+                    player.setAllowFlight(false);
+                    Logging.log(Level.FINE,"Disallowed flight for " + player.getName());
                 }
                 break;
         }
@@ -98,7 +97,7 @@ public class FlyManager {
         return this.plugin.getFPConfig().getDisabledWorlds().contains(world.getName());
     }
 
-    public boolean haveDisabledWorld() {
+    public boolean haveIgnoreWorld() {
         return this.plugin.getFPConfig().getDisabledWorlds().size() > 0;
     }
 }
