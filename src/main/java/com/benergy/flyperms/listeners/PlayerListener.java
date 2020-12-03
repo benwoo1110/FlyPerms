@@ -3,25 +3,31 @@ package com.benergy.flyperms.listeners;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.utils.Logging;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class PlayerListener implements Listener {
 
     private final FlyPerms plugin;
+    private final Set<UUID> scheduledPlayers;
 
     public PlayerListener(FlyPerms plugin) {
         this.plugin = plugin;
+        scheduledPlayers = new HashSet<UUID>();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
-        doApplyFly("joined", event.getPlayer(), 1L);
+        doApplyFly("joined", event.getPlayer(), 2L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -46,6 +52,7 @@ public class PlayerListener implements Listener {
         if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
             return;
         }
+
         doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
     }
 
@@ -75,11 +82,54 @@ public class PlayerListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void teleport(PlayerTeleportEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
+        if (event.getTo() == null) {
+            Logging.log(Level.WARNING, event.getPlayer().getName() + " teleport to a null location!");
+            return;
+        }
+
+        World fromWorld = event.getFrom().getWorld();
+        World toWorld = event.getTo().getWorld();
+
+        if (fromWorld == null || toWorld == null) {
+            Logging.log(Level.WARNING, event.getPlayer().getName() + " teleport to/from a null world!");
+            return;
+        }
+
+        if (!fromWorld.equals(toWorld)) {
+            Logging.log(Level.FINE, event.getPlayer().getName() + " teleport to another world '" + toWorld.getName() + "', so fly handled by PlayerChangedWorldEvent.");
+            return;
+        }
+
+        doApplyFly("teleported within the same world '"+ toWorld.getName() + "'", event.getPlayer(), 2L);
+    }
+
     private void doApplyFly(String actionInfo, Player player, long delay) {
+        if (scheduledPlayers.contains(player.getUniqueId())) {
+            return;
+        }
+
+        scheduledPlayers.add(player.getUniqueId());
+        Logging.log(Level.FINE, "Schedule fly apply for " + actionInfo + ".");
+
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
-                () -> Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
-                        + this.plugin.getFlightManager().applyFlyState(player)),
+                () -> {
+                    Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
+                            + this.plugin.getFlightManager().applyFlyState(player));
+
+                    if (player.getAllowFlight() && !player.isFlying() && this.plugin.getFlightManager().playerInAir(player)) {
+                        Logging.log(Level.FINE, "Enabling fly after teleport to air for " + player.getName());
+                        player.setFlying(true);
+                    }
+
+                    scheduledPlayers.remove(player.getUniqueId());
+                },
                 delay
         );
     }

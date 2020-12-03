@@ -3,6 +3,8 @@ package com.benergy.flyperms.utils;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
 import com.benergy.flyperms.api.FPFlightManager;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -100,5 +102,12 @@ public class FlightManager implements FPFlightManager {
 
         player.setFlySpeed((float) speed / SPEED_MODIFIER);
         return true;
+    }
+
+    public boolean playerInAir(Player player) {
+        Location pLocation = player.getLocation();
+        pLocation.setZ(pLocation.getZ()-1);
+
+        return pLocation.getBlock().isEmpty();
     }
 }
