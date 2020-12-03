@@ -103,7 +103,16 @@ public class FlightManager implements FPFlightManager {
         return true;
     }
 
-    public boolean playerInAir(Player player) {
+    public boolean applyAutoFlyInAir(Player player) {
+        if (player.getAllowFlight() && !player.isFlying() && this.plugin.getFlightManager().playerInAir(player)) {
+            player.setFlying(true);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean playerInAir(Player player) {
         Location pLocation = player.getLocation();
         pLocation.setZ(pLocation.getZ()-1);
 

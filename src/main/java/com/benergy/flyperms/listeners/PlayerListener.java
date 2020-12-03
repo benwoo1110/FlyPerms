@@ -123,9 +123,8 @@ public class PlayerListener implements Listener {
                     Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
                             + this.plugin.getFlightManager().applyFlyState(player));
 
-                    if (player.getAllowFlight() && !player.isFlying() && this.plugin.getFlightManager().playerInAir(player)) {
-                        Logging.log(Level.FINE, "Enabling fly after teleport to air for " + player.getName());
-                        player.setFlying(true);
+                    if (this.plugin.getFlightManager().applyAutoFlyInAir(player)) {
+                        Logging.log(Level.FINE, "Enabled fly after teleport to air for " + player.getName());
                     }
 
                     scheduledPlayers.remove(player.getUniqueId());
