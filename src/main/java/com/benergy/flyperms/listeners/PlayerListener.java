@@ -43,6 +43,9 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeWorld(PlayerChangedWorldEvent event) {
+        if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
+            return;
+        }
         doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
     }
 
