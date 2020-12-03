@@ -4,7 +4,6 @@ import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.Constants.FlyState;
 import com.benergy.flyperms.api.FPFlightManager;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -39,13 +38,13 @@ public class FlightManager implements FPFlightManager {
             case CREATIVE_BYPASS:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowed flight for " + player.getName() + " due to creative bypass.");
+                    Logging.log(Level.FINE, "Allowed flight ability for " + player.getName() + " due to creative bypass.");
                 }
                 break;
             case YES:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowed flight for " + player.getName());
+                    Logging.log(Level.FINE, "Allowed flight ability for " + player.getName());
                 }
                 break;
             case NO:
@@ -55,7 +54,7 @@ public class FlightManager implements FPFlightManager {
                         break;
                     }
                     player.setAllowFlight(false);
-                    Logging.log(Level.FINE,"Disallowed flight for " + player.getName());
+                    Logging.log(Level.FINE,"Disallowed flight ability for " + player.getName());
                 }
                 break;
         }
