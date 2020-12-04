@@ -97,13 +97,18 @@ public class FlyPermsConfig implements FPConfig {
                     continue;
                 }
                 String groupName = String.valueOf(rawGroupName);
-                speedGroups.put(groupName, new SpeedGroup(groupName, speedValue.get(0), speedValue.get(1)));
+                if (speedValue.size() == 2) {
+                    speedGroups.put(groupName, new SpeedGroup(groupName, speedValue.get(0), speedValue.get(1)));
+                }
+                else if (speedValue.size() == 1) {
+                    speedGroups.put(groupName, new SpeedGroup(groupName, speedValue.get(0)));
+                }
             }
         }
     }
 
     private boolean validateSpeedValue(List<Double> speedValue) {
-        return speedValue != null && speedValue.size() == 2 && speedValue.get(0) <= speedValue.get(1);
+        return speedValue != null && ((speedValue.size() == 2 && speedValue.get(0) <= speedValue.get(1)) || speedValue.size() == 1);
     }
 
     private void setLogLevel() {

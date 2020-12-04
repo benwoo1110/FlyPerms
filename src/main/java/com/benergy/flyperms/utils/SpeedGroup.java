@@ -8,6 +8,10 @@ public class SpeedGroup implements FPSpeedGroup {
     private final double lowerLimit;
     private final double upperLimit;
 
+    public SpeedGroup(String name, double limit) {
+        this(name, limit, limit);
+    }
+
     public SpeedGroup(String name, double lowerLimit, double upperLimit) {
         this.name = name.toLowerCase();
         this.lowerLimit = lowerLimit;
