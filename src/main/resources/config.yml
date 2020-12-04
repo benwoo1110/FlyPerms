@@ -5,6 +5,10 @@
 # Discord: https://discord.gg/Be59ehc
 # Spigot: https://www.spigotmc.org/resources/flyperms-1-8-1-16.83432/
 
+
+# +--------------+
+# | Fly Checking |
+# +--------------+
 # If enabled, players will need flyperms.allow.world.WORLDNAME permission node to fly.
 check-for-world: true
 
@@ -23,13 +27,13 @@ check-interval: 1000
 # This serves as a warning to players and can prevents sudden fall without warning.
 cooldown: 5000
 
-# FlyPerms will not effect these worlds.
-# All perms and fly checks will not be present in these worlds.
-ignore-in-worlds:
-#  - world2
-#  - world2_nether
-#  - world3_the_end
+# Auto-enable flying if teleported to a location in air. Only works if player is able to fly.
+fly-on-air-teleport: true
 
+
+# +-----------+
+# | Fly Speed |
+# +-----------+
 # Allow players to change their fly speed, from -10 to 10. Negative values indicate reverse directions.
 # Permission to give users the speed group is "flyperms.speed.<groupname>", which will give them access to the
 # range of speed as defined.
@@ -38,6 +42,30 @@ speed-group:
   - default: [0.0, 2.0]
   - special: [0.0, 5.0]
   - admin: [-10.0, 10.0]
+
+# When true, speed will reset when player changes world, and can only be bypassed with
+# "flyperms.bypass.speed.world" permission node.
+reset-speed-world: false
+
+# When true, speed will reset when player changes gamemode, and can only be bypassed with
+# "flyperms.bypass.speed.gamemode" permission node.
+reset-speed-gamemode: false
+
+
+# +--------+
+# | Others |
+# +--------+
+# FlyPerms will not effect these worlds.
+# All perms and fly checks will not be done when players are in these worlds.
+ignore-in-worlds:
+#  - world2
+#  - world2_nether
+#  - world3_the_end
+
+# There is already detection to only register FlyPerm's PlaceholderAPI extension when PlaceholderAPI is installed.
+# So there shouldn't be a need to worry. But in any case, if there is a need to disable FlyPerm's PlaceholderAPI
+# extension, you can set this to false.
+enable-papi-hook: true
 
 # Used for development and troubleshooting purposes.
 show-debug-info: false
