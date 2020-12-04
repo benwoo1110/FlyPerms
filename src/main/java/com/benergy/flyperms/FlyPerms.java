@@ -69,10 +69,11 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         // Register dependencies
         Logging.log(Level.FINE, "Registering dependencies...");
 
-        if (pm.getPlugin("PlaceholderAPI") != null) {
+        if (config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
-        } else {
-            Logging.log(Level.FINE, "FlyPerms papi placeholders will not work! PlaceholderAPI likely is not installed.");
+        }
+        else {
+            Logging.log(Level.FINE, "FlyPerms placeholders is not registered!");
         }
 
         flyCheckScheduler.start();

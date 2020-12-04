@@ -51,6 +51,10 @@ reset-speed-world: false
 # "flyperms.bypass.speed.gamemode" permission node.
 reset-speed-gamemode: false
 
+# When above reset option is enable, this will be the fly speed that players reset to. This option will bypass
+# the speed groups configuration.
+speed-reset-value: 1.0
+
 
 # +--------+
 # | Others |

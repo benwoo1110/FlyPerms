@@ -16,7 +16,21 @@ public interface FPConfig {
 
     int getCoolDown();
 
-    boolean isDebugMode();
+    boolean isAutoFlyOnAirTeleport();
+
+    Collection<SpeedGroup> getSpeedGroups();
+
+    boolean hasSpeedGroup(String groupName);
+
+    SpeedGroup getSpeedGroupOf(String groupName);
+
+    Collection<String> getSpeedGroupNames();
+
+    boolean isResetSpeedOnWorldChange();
+
+    boolean isResetSpeedOnGameModeChange();
+
+    double getResetSpeedValue();
 
     Collection<String> getIgnoreWorlds();
 
@@ -26,11 +40,7 @@ public interface FPConfig {
 
     boolean haveIgnoreWorld();
 
-    Collection<SpeedGroup> getSpeedGroups();
+    boolean isHookPapi();
 
-    boolean hasSpeedGroup(String groupName);
-
-    SpeedGroup getSpeedGroupOf(String groupName);
-
-    Collection<String> getSpeedGroupNames();
+    boolean isDebugMode();
 }

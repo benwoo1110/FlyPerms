@@ -32,6 +32,14 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeGameMode(PlayerGameModeChangeEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
+        if (this.plugin.getFPConfig().isResetSpeedOnGameModeChange()) {
+            event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
+        }
+
         doApplyFly("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),1L);
     }
 
@@ -51,6 +59,10 @@ public class PlayerListener implements Listener {
     public void changeWorld(PlayerChangedWorldEvent event) {
         if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
             return;
+        }
+
+        if (this.plugin.getFPConfig().isResetSpeedOnWorldChange()) {
+            event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
         }
 
         doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);

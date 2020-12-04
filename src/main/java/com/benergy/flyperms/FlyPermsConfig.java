@@ -16,19 +16,26 @@ import java.util.logging.Level;
 public class FlyPermsConfig implements FPConfig {
 
     private final FlyPerms plugin;
+    private final FileConfiguration config;
 
     private boolean checkGameMode;
     private boolean checkWorld;
     private boolean allowCreative;
     private int checkInterval;
     private int coolDown;
+    private boolean autoFlyOnAirTeleport;
+    private boolean resetSpeedOnWorldChange;
+    private boolean resetSpeedOnGameModeChange;
+    private double resetSpeedValue;
+    private Map<String, SpeedGroup> speedGroups;
     private List<String> disabledWorlds;
+    private boolean hookPapi;
     private boolean debugMode;
-    private final Map<String, SpeedGroup> speedGroups;
 
     public FlyPermsConfig(FlyPerms plugin) {
         this.plugin = plugin;
-        speedGroups = new HashMap<>();
+        this.config = this.plugin.getConfig();
+        this.speedGroups = new HashMap<>();
     }
 
     protected boolean reloadConfigValues() {
@@ -44,15 +51,7 @@ public class FlyPermsConfig implements FPConfig {
 
     protected boolean loadConfigValues() {
         try {
-            FileConfiguration config = this.plugin.getConfig();
-            this.checkWorld = config.getBoolean("check-for-world", true);
-            this.checkGameMode = config.getBoolean("check-for-gamemode", false);
-            this.allowCreative = config.getBoolean("always-allow-in-creative", true);
-            this.checkInterval = config.getInt("check-interval", 1000);
-            this.coolDown = config.getInt("cooldown", 5000);
-            this.disabledWorlds = config.getStringList("ignore-in-worlds");
-            this.debugMode = config.getBoolean("show-debug-info", false);
-            loadSpeedGroups(config.getMapList("speed-group"));
+            loadConfigOptions();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -67,12 +66,28 @@ public class FlyPermsConfig implements FPConfig {
         return true;
     }
 
+    private void loadConfigOptions() {
+        this.checkWorld = config.getBoolean("check-for-world", true);
+        this.checkGameMode = config.getBoolean("check-for-gamemode", false);
+        this.allowCreative = config.getBoolean("always-allow-in-creative", true);
+        this.checkInterval = config.getInt("check-interval", 1000);
+        this.coolDown = config.getInt("cooldown", 5000);
+        this.autoFlyOnAirTeleport = config.getBoolean("fly-on-air-teleport", true);
+        loadSpeedGroups(config.getMapList("speed-group"));
+        this.resetSpeedOnWorldChange = config.getBoolean("reset-speed-world", false);
+        this.resetSpeedOnGameModeChange = config.getBoolean("reset-speed-gamemode", false);
+        this.resetSpeedValue = config.getDouble("speed-reset-value", 1.0);
+        this.disabledWorlds = config.getStringList("ignore-in-worlds");
+        this.hookPapi = config.getBoolean("enable-papi-hook", true);
+        this.debugMode = config.getBoolean("show-debug-info", false);
+    }
+
     private void loadSpeedGroups(List<Map<?, ?>> speedGroupConfig) {
+        this.speedGroups = new HashMap<>();
+
         if (speedGroupConfig == null) {
             return;
         }
-
-        this.speedGroups.clear();
 
         for (Map<?, ?> group : speedGroupConfig) {
             for (Object rawGroupName : group.keySet()) {
@@ -122,24 +137,8 @@ public class FlyPermsConfig implements FPConfig {
         return coolDown;
     }
 
-    public boolean isDebugMode() {
-        return debugMode;
-    }
-
-    public Collection<String> getIgnoreWorlds() {
-        return Collections.unmodifiableList(disabledWorlds);
-    }
-
-    public boolean isIgnoreWorld(World world) {
-        return isIgnoreWorld(world.getName());
-    }
-
-    public boolean isIgnoreWorld(String worldName) {
-        return disabledWorlds.contains(worldName);
-    }
-
-    public boolean haveIgnoreWorld() {
-        return disabledWorlds.size() > 0;
+    public boolean isAutoFlyOnAirTeleport() {
+        return autoFlyOnAirTeleport;
     }
 
     public Collection<SpeedGroup> getSpeedGroups() {
@@ -158,18 +157,57 @@ public class FlyPermsConfig implements FPConfig {
         return speedGroups.keySet();
     }
 
+    public boolean isResetSpeedOnWorldChange() {
+        return resetSpeedOnWorldChange;
+    }
+
+    public boolean isResetSpeedOnGameModeChange() {
+        return resetSpeedOnGameModeChange;
+    }
+
+    public double getResetSpeedValue() {
+        return resetSpeedValue;
+    }
+
+    public Collection<String> getIgnoreWorlds() {
+        return Collections.unmodifiableList(disabledWorlds);
+    }
+
+    public boolean isIgnoreWorld(World world) {
+        return isIgnoreWorld(world.getName());
+    }
+
+    public boolean isIgnoreWorld(String worldName) {
+        return disabledWorlds.contains(worldName);
+    }
+
+    public boolean haveIgnoreWorld() {
+        return disabledWorlds.size() > 0;
+    }
+
+    public boolean isHookPapi() {
+        return hookPapi;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
     @Override
     public String toString() {
         return "FlyPermsConfig{" +
-                "plugin=" + plugin +
-                ", checkGameMode=" + checkGameMode +
+                "checkGameMode=" + checkGameMode +
                 ", checkWorld=" + checkWorld +
                 ", allowCreative=" + allowCreative +
                 ", checkInterval=" + checkInterval +
                 ", coolDown=" + coolDown +
+                ", autoFlyOnAirTeleport=" + autoFlyOnAirTeleport +
+                ", resetSpeedOnWorldChange=" + resetSpeedOnWorldChange +
+                ", resetSpeedOnGameModeChange=" + resetSpeedOnGameModeChange +
+                ", resetSpeedValue=" + resetSpeedValue +
+                ", speedGroups=" + speedGroups +
                 ", disabledWorlds=" + disabledWorlds +
                 ", debugMode=" + debugMode +
-                ", speedGroups=" + speedGroups +
                 '}';
     }
 }
