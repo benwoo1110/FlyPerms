@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import java.util.Arrays;
 import java.util.logging.Level;
 
+/**
+ * Handles console and debug logging for the plugin.
+ */
 public class Logging {
 
     private static boolean doneSetup;

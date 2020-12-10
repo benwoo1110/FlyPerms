@@ -12,6 +12,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles permission register.
+ */
 public class PermissionTools {
 
     private final FlyPerms plugin;

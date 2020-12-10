@@ -2,6 +2,7 @@ package com.benergy.flyperms.checkers;
 
 import com.benergy.flyperms.Constants.Permissions;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.Checker;
 import com.benergy.flyperms.utils.SpeedGroup;
 import org.bukkit.entity.Player;
 

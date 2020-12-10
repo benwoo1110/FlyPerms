@@ -2,6 +2,9 @@ package com.benergy.flyperms.utils;
 
 import com.benergy.flyperms.api.FPSpeedGroup;
 
+/**
+ * {@inheritDoc}
+ */
 public class SpeedGroup implements FPSpeedGroup {
 
     private final String name;
@@ -18,18 +21,30 @@ public class SpeedGroup implements FPSpeedGroup {
         this.upperLimit = upperLimit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean isInRange(double speed) {
         return lowerLimit <= speed && upperLimit >= speed;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double getLowerLimit() {
         return lowerLimit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double getUpperLimit() {
         return upperLimit;
     }

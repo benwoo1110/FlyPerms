@@ -5,7 +5,7 @@ import com.benergy.flyperms.Constants.Permissions;
 import com.benergy.flyperms.FlyPerms;
 import com.benergy.flyperms.api.FPCheckManager;
 import com.benergy.flyperms.checkers.GameModeChecker;
-import com.benergy.flyperms.checkers.PlayerChecker;
+import com.benergy.flyperms.api.PlayerChecker;
 import com.benergy.flyperms.checkers.SpeedChecker;
 import com.benergy.flyperms.checkers.WorldChecker;
 import org.bukkit.GameMode;
@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 
 import static com.benergy.flyperms.Constants.FlyState.*;
 
+/**
+ * {@inheritDoc}
+ */
 public class CheckManager implements FPCheckManager {
 
     private final FlyPerms plugin;
@@ -28,6 +31,9 @@ public class CheckManager implements FPCheckManager {
         this.gameModeChecker = new GameModeChecker(plugin);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public FlyState calculateFlyState(Player player) {
         if (this.plugin.getFPConfig().isIgnoreWorld(player.getWorld())) {
             return IGNORED;
@@ -59,6 +65,9 @@ public class CheckManager implements FPCheckManager {
         return !checker.isEnabled() || checker.hasPerm(player);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean canChangeSpeedTo(Player player, double speed) {
         return this.plugin.getFPConfig()
                 .getSpeedGroups()
@@ -66,14 +75,23 @@ public class CheckManager implements FPCheckManager {
                 .anyMatch(group -> speedChecker.hasPerm(player, group) && group.isInRange(speed));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public SpeedChecker getSpeedChecker() {
         return speedChecker;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public WorldChecker getWorldChecker() {
         return worldChecker;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public GameModeChecker getGameModeChecker() {
         return gameModeChecker;
     }

@@ -2,6 +2,7 @@ package com.benergy.flyperms.checkers;
 
 import com.benergy.flyperms.Constants.Permissions;
 import com.benergy.flyperms.FlyPerms;
+import com.benergy.flyperms.api.PlayerChecker;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

@@ -5,6 +5,9 @@ import org.bukkit.World;
 
 import java.util.Collection;
 
+/**
+ * Store all configuration data.
+ */
 public interface FPConfig {
     boolean isCheckGameMode();
 

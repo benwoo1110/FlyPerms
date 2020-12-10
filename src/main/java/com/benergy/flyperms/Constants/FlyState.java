@@ -2,6 +2,9 @@ package com.benergy.flyperms.Constants;
 
 import org.bukkit.ChatColor;
 
+/**
+ * Represent fly ability state a player can be in.
+ */
 public enum FlyState {
     YES(ChatColor.GREEN + "Yes"),
     NO(ChatColor.RED + "No"),

@@ -6,6 +6,9 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.logging.Level;
 
+/**
+ * {@inheritDoc}
+ */
 public class FlyApplyScheduler implements FPScheduler {
 
     private final FlyPerms plugin;
@@ -16,6 +19,9 @@ public class FlyApplyScheduler implements FPScheduler {
         this.plugin = plugin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void start() {
         this.flyCheckTask = this.plugin.getServer().getScheduler().runTaskTimer(
                 this.plugin,
@@ -26,6 +32,9 @@ public class FlyApplyScheduler implements FPScheduler {
         Logging.log(Level.INFO, "Started fly check task...");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void stop() {
         if (this.flyCheckTask == null) {
             Logging.log(Level.WARNING, "Unable to stop fly check task. Fly check task has not started!");
@@ -37,6 +46,9 @@ public class FlyApplyScheduler implements FPScheduler {
         Logging.log(Level.INFO, "Stopped fly check task...");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean isRunning() {
         return this.flyCheckTask != null && !this.flyCheckTask.isCancelled();
     }

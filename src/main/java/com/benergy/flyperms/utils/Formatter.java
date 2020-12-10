@@ -4,6 +4,9 @@ import org.bukkit.ChatColor;
 
 import java.util.Collection;
 
+/**
+ * Helper class used for various conversions and text formatting.
+ */
 public final class Formatter {
 
     private static final String NULL_VALUE = ChatColor.GRAY + ChatColor.ITALIC.toString() + "Invalid";;

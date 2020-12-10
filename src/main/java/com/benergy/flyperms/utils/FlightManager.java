@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.logging.Level;
 
+/**
+ * {@inheritDoc}
+ */
 public class FlightManager implements FPFlightManager {
 
     private final FlyPerms plugin;
@@ -21,6 +24,9 @@ public class FlightManager implements FPFlightManager {
         this. playersToStopFly = new HashSet<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public FlyState applyFlyState(Player player) {
         FlyState state = this.plugin.getCheckManager().calculateFlyState(player);
         modifyFlyAbility(player, state);
@@ -94,6 +100,9 @@ public class FlightManager implements FPFlightManager {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean applyFlySpeed(Player player, double speed) {
         if (!this.plugin.getCheckManager().canChangeSpeedTo(player, speed)) {
             return false;
@@ -103,6 +112,9 @@ public class FlightManager implements FPFlightManager {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean applyAutoFlyInAir(Player player) {
         if (this.plugin.getFPConfig().isAutoFlyOnAirTeleport()
                 && player.getAllowFlight()

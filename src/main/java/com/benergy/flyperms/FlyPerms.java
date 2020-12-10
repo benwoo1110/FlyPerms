@@ -18,6 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
 
+/**
+ * {@inheritDoc}
+ */
 public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     // Config
@@ -103,22 +106,34 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         Logging.log(Level.INFO, "Stopped. Happy flying!");
     }
 
-    public FlyPermsConfig getFPConfig() {
-        return config;
-    }
-
     public PermissionTools getPermissionTools() {
         return permissionTools;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public FlyPermsConfig getFPConfig() {
+        return config;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public FlyApplyScheduler getFlyApplyScheduler() {
         return flyCheckScheduler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public FlightManager getFlightManager() {
         return flightManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public CheckManager getCheckManager() {
         return checkManager;
     }

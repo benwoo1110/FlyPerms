@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+/**
+ * {@inheritDoc}
+ */
 public class FlyPermsConfig implements FPConfig {
 
     private final FlyPerms plugin;
