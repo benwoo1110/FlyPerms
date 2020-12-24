@@ -36,7 +36,7 @@ public interface FPCheckManager {
      * @return {@link Checker} for {@link SpeedGroup} object.
      */
     SpeedChecker getSpeedChecker();
-
+    
     /**
      * Gets the {@link WorldChecker}.
      *
