@@ -1,7 +1,7 @@
 name: FlyPerms
 version: ${project.version}
 api-version: 1.13
-main: com.benergy.flyperms.FlyPerms
+main: dev.benergy10.flyperms.FlyPerms
 author: benwoo1110
 description: Toggle ability to fly based on permissions!
 softdepend: [WorldGuard, PlaceholderAPI]
