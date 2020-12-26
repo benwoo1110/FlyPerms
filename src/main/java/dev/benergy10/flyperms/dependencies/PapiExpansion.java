@@ -21,8 +21,7 @@ public class PapiExpansion extends PlaceholderExpansion {
      * can simply use this method here to get an instance of our
      * plugin.
      *
-     * @param plugin
-     *        The instance of our plugin.
+     * @param plugin The instance of our plugin.
      */
     public PapiExpansion(FlyPerms plugin) {
         this.plugin = plugin;
@@ -96,10 +95,8 @@ public class PapiExpansion extends PlaceholderExpansion {
      * <br>We specify the value identifier in this method.
      * <br>Since version 2.9.1 can you use OfflinePlayers in your requests.
      *
-     * @param  player
-     *         A {@link org.bukkit.entity.Player Player}.
-     * @param  identifier
-     *         A String containing the identifier/value.
+     * @param  player     A {@link org.bukkit.entity.Player Player}.
+     * @param  identifier A String containing the identifier/value.
      *
      * @return possibly-null String of the requested identifier.
      */

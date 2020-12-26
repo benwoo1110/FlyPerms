@@ -3,6 +3,9 @@ package dev.benergy10.flyperms.utils;
 import dev.benergy10.flyperms.FlyPerms;
 import org.bstats.bukkit.Metrics;
 
+/**
+ * Upload plugin stats to https://bstats.org/
+ */
 public class BstatsMetrics {
 
     private final FlyPerms plugin;

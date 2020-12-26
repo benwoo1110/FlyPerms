@@ -11,12 +11,14 @@ import java.util.List;
  */
 public interface Checker<T> {
     /**
+     * Should checking take place.
      *
      * @return True if checking should take place, else return false.
      */
     boolean isEnabled();
 
     /**
+     * Get all the allowed object/action that the player have permission for.
      *
      * @param player A bukkit {@link Player} entity.
      * @return A List of object that player has permission. Returns null if not {@link #isEnabled()}.
@@ -24,6 +26,7 @@ public interface Checker<T> {
     List<T> getAllowed(Player player);
 
     /**
+     * String representation of the target checker object {@link T} that a player is allowed.
      *
      * @param player A bukkit {@link Player} entity.
      * @return String representation for a List of object that player has permission. Returns null if not {@link #isEnabled()}.
@@ -31,6 +34,7 @@ public interface Checker<T> {
     List<String> getAllowedNames(Player player);
 
     /**
+     * Check if player has permissions to do the relevant actions.
      *
      * @param player A bukkit {@link Player} entity.
      * @param check  String representation of the object, usually it's name.
@@ -39,6 +43,7 @@ public interface Checker<T> {
     Boolean hasPerm(Player player, String check);
 
     /**
+     * Check if player has permissions to do the relevant actions.
      *
      * @param player A bukkit {@link Player} entity.
      * @param check  Target object to check for permissions.

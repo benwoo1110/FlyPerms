@@ -10,7 +10,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**
- * Used for permission checking.
+ * Used for permission checking for various fly actions.
  */
 public interface FPCheckManager {
     /**

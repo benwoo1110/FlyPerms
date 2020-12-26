@@ -27,31 +27,53 @@ public class PermissionTools {
         cachedPerms = new HashMap<>(50);
     }
 
+    /**
+     * Register all non-command permissions used.
+     */
     public void registerPerms() {
         registerGameModePerms();
         registerWorldPerms();
         registerSpeedGroupPerms();
     }
 
+    /**
+     * Unregister all non-command permissions used.
+     */
     public void removeAllPerms() {
         cachedPerms.values().forEach(this.pm::removePermission);
         cachedPerms.clear();
     }
 
+    /**
+     * Register a single world permission.
+     *
+     * @param world A bukkit {@link World}.
+     */
     public void addWorldPerm(World world) {
         addPerm(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
     }
 
+    /**
+     * Unregister a single world permission.
+     *
+     * @param world A bukkit {@link World}.
+     */
     public void removeWorldPerm(World world) {
         removePerm(Permissions.ALLOW_WORLD + world.getName());
     }
 
+    /**
+     * Register all permissions for {@link SpeedGroup} defined in config.
+     */
     private void registerSpeedGroupPerms() {
         this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .forEach(group -> addPerm(new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE)));
     }
 
+    /**
+     * Register all permissions for {@link GameMode}.
+     */
     private void registerGameModePerms() {
         if (!this.plugin.getFPConfig().isCheckGameMode()) {
             return;
@@ -61,6 +83,9 @@ public class PermissionTools {
                 .forEach(gm -> addPerm(new Permission(Permissions.ALLOW_GAMEMODE + gm.name().toLowerCase(), PermissionDefault.FALSE)));
     }
 
+    /**
+     * Register all permissions for all loaded {@link World}.
+     */
     private void registerWorldPerms() {
         if (!this.plugin.getFPConfig().isCheckWorld()) {
             return;
@@ -72,11 +97,21 @@ public class PermissionTools {
                 .forEach(this::addWorldPerm);
     }
 
+    /**
+     * Do permissions register and add to cache.
+     *
+     * @param perm The permission node to register.
+     */
     private void addPerm(Permission perm) {
         this.pm.addPermission(perm);
         cachedPerms.put(perm.getName(), perm);
     }
 
+    /**
+     * Do permissions unregister and remove from cache.
+     *
+     * @param perm The permission node to unregister.
+     */
     private void removePerm(String perm) {
         this.pm.removePermission(cachedPerms.get(perm));
         cachedPerms.remove(perm);

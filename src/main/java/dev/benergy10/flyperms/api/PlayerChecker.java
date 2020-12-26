@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
  */
 public interface PlayerChecker<T> extends Checker<T> {
     /**
+     * Check if player has permissions to do the relevant actions.
      *
      * @param player A bukkit {@link Player} entity.
      * @return True if player has permission, else false. Returns null if not {@link #isEnabled()}.

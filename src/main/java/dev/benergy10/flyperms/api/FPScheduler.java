@@ -15,6 +15,7 @@ public interface FPScheduler {
     void stop();
 
     /**
+     * Status of the runnable.
      *
      * @return True if fly check runnable is active.
      */

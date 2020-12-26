@@ -22,7 +22,7 @@ public class PlayerListener implements Listener {
 
     public PlayerListener(FlyPerms plugin) {
         this.plugin = plugin;
-        scheduledPlayers = new HashSet<UUID>();
+        scheduledPlayers = new HashSet<>();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -40,7 +40,7 @@ public class PlayerListener implements Listener {
             event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
         }
 
-        doApplyFly("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),1L);
+        doApplyFly("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),2L);
     }
 
     /*
@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
             event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
         }
 
-        doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 1L);
+        doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 2L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -89,6 +89,9 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         Logging.log(Level.INFO, "Started!");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean reload() {
         flyCheckScheduler.stop();
         permissionTools.removeAllPerms();
@@ -111,6 +114,9 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         Logging.log(Level.INFO, "Stopped. Happy flying!");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public PermissionTools getPermissionTools() {
         return permissionTools;
     }

@@ -4,6 +4,7 @@ import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.FlyState;
 import dev.benergy10.flyperms.api.FPFlightManager;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -33,6 +34,12 @@ public class FlightManager implements FPFlightManager {
         return state;
     }
 
+    /**
+     * Actually change the player's fly attributes.
+     *
+     * @param player A bukkit {@link Player} entity.
+     * @param state  {@link FlyState} to change to.
+     */
     private void modifyFlyAbility(Player player, FlyState state) {
         switch (state) {
             case SPECTATOR:
@@ -66,6 +73,11 @@ public class FlightManager implements FPFlightManager {
         }
     }
 
+    /**
+     * Schedule to stop fly after cooldown defined in config.
+     *
+     * @param player A bukkit {@link Player} entity.
+     */
     private void stopFly(Player player) {
         if (this.playersToStopFly.contains(player.getUniqueId())) {
             return;
@@ -81,6 +93,12 @@ public class FlightManager implements FPFlightManager {
         );
     }
 
+    /**
+     * Stop fly for a player when they lost the permission to fly.
+     *
+     * @param player A bukkit {@link Player} entity.
+     * @return Runnable to stop fly for a player.
+     */
     private Runnable stopFlyRunnable(Player player) {
         return () -> {
             Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
@@ -128,9 +146,6 @@ public class FlightManager implements FPFlightManager {
     }
 
     private boolean playerInAir(Player player) {
-        Location pLocation = player.getLocation();
-        pLocation.setZ(pLocation.getZ()-1);
-
-        return pLocation.getBlock().isEmpty();
+        return player.getLocation().getBlock().getRelative(BlockFace.DOWN).isEmpty();
     }
 }
