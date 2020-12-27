@@ -94,7 +94,14 @@ public class FlyPermsConfig implements FPConfig {
 
         for (Map<?, ?> group : speedGroupConfig) {
             for (Object rawGroupName : group.keySet()) {
-                List<Double> speedValue = (List<Double>) group.get(rawGroupName);
+                List<Double> speedValue;
+                try {
+                    speedValue = (List<Double>) group.get(rawGroupName);
+                }
+                catch (ClassCastException e) {
+                    Logging.log(Level.WARNING, "Invalid speed group " + rawGroupName + ". Please check for config!");
+                    continue;
+                }
                 if (!validateSpeedValue(speedValue)) {
                     Logging.log(Level.WARNING, "Invalid speed group " + rawGroupName + ". Please check for config!");
                     continue;
