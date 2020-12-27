@@ -50,7 +50,7 @@ public class PlayerListener implements Listener {
     public void changeWorldIgnoreCheck(PlayerChangedWorldEvent event) {
         if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
             event.getPlayer().setAllowFlight(false);
-            Logging.log(Level.FINE,"Flight check ignored for " + event.getPlayer().getName() +
+            Logging.debug("Flight check ignored for " + event.getPlayer().getName() +
                     " at world " + event.getPlayer().getWorld().getName() + ".");
         }
     }
@@ -71,25 +71,25 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void fly(PlayerToggleFlightEvent event) {
         if (!event.isFlying()) {
-            Logging.log(Level.FINE,event.getPlayer().getName() + " stopped flying!");
+            Logging.debug(event.getPlayer().getName() + " stopped flying!");
             return;
         }
 
         switch (this.plugin.getFlightManager().applyFlyState(event.getPlayer())) {
             case CREATIVE_BYPASS:
-                Logging.log(Level.FINE,"Starting fly for " + event.getPlayer().getName()
+                Logging.debug("Starting fly for " + event.getPlayer().getName()
                         + " due to creative bypass");
                 break;
             case IGNORED:
-                Logging.log(Level.FINE, "Starting fly for " + event.getPlayer().getName()
+                Logging.debug("Starting fly for " + event.getPlayer().getName()
                                 + "as player in ignored world '" + event.getPlayer().getWorld().getName() + "'.");
                 break;
             case NO:
                 event.setCancelled(true);
-                Logging.log(Level.FINE,"Cancelled fly for " + event.getPlayer().getName() + ".");
+                Logging.debug("Cancelled fly for " + event.getPlayer().getName() + ".");
                 break;
             case YES:
-                Logging.log(Level.FINE,"Starting fly for " + event.getPlayer().getName() + ".");
+                Logging.debug("Starting fly for " + event.getPlayer().getName() + ".");
                 break;
         }
     }
@@ -101,7 +101,7 @@ public class PlayerListener implements Listener {
         }
 
         if (event.getTo() == null) {
-            Logging.log(Level.WARNING, event.getPlayer().getName() + " teleport to a null location!");
+            Logging.warning(event.getPlayer().getName() + " teleport to a null location!");
             return;
         }
 
@@ -109,12 +109,12 @@ public class PlayerListener implements Listener {
         World toWorld = event.getTo().getWorld();
 
         if (fromWorld == null || toWorld == null) {
-            Logging.log(Level.WARNING, event.getPlayer().getName() + " teleport to/from a null world!");
+            Logging.warning(event.getPlayer().getName() + " teleport to/from a null world!");
             return;
         }
 
         if (!fromWorld.equals(toWorld)) {
-            Logging.log(Level.FINE, event.getPlayer().getName() + " teleport to another world '" + toWorld.getName() + "', so fly handled by PlayerChangedWorldEvent.");
+            Logging.debug(event.getPlayer().getName() + " teleport to another world '" + toWorld.getName() + "', so fly handled by PlayerChangedWorldEvent.");
             return;
         }
 
@@ -127,16 +127,14 @@ public class PlayerListener implements Listener {
         }
 
         scheduledPlayers.add(player.getUniqueId());
-        Logging.log(Level.FINE, "Schedule fly apply for " + actionInfo + ".");
+        Logging.debug("Schedule fly apply for " + actionInfo + ".");
 
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
                 () -> {
-                    Logging.log(Level.FINE, player.getName() + " " + actionInfo + ". Fly state is now: "
-                            + this.plugin.getFlightManager().applyFlyState(player));
-
+                    Logging.debug(player.getName() + " " + actionInfo + ". Fly state is now: " + this.plugin.getFlightManager().applyFlyState(player));
                     if (this.plugin.getFlightManager().applyAutoFlyInAir(player)) {
-                        Logging.log(Level.FINE, "Enabled fly after teleport to air for " + player.getName());
+                        Logging.debug("Enabled fly after teleport to air for " + player.getName());
                     }
 
                     scheduledPlayers.remove(player.getUniqueId());

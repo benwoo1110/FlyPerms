@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  * {@inheritDoc}
@@ -46,7 +45,7 @@ public class FlyPermsConfig implements FPConfig {
             this.plugin.reloadConfig();
         } catch (Exception e) {
             e.printStackTrace();
-            Logging.log(Level.SEVERE, "Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            Logging.severe("Error reloading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
             return false;
         }
         return this.loadConfigValues();
@@ -58,14 +57,14 @@ public class FlyPermsConfig implements FPConfig {
         }
         catch (Exception e) {
             e.printStackTrace();
-            Logging.log(Level.SEVERE, "Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
-            Logging.log(Level.SEVERE,"If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
+            Logging.severe("Error loading config! Ensure your yaml format is correct with a tool like http://www.yamllint.com/");
+            Logging.severe("If you get this error after updating FlyPerms, there is most likely a config change. Please delete the config.yml and restart.");
             return false;
         }
 
         setLogLevel();
-        Logging.log(Level.FINE, this.toString());
-        Logging.log(Level.INFO, "Loaded config.yml");
+        Logging.debug(this.toString());
+        Logging.info("Loaded config.yml");
         return true;
     }
 
@@ -99,11 +98,11 @@ public class FlyPermsConfig implements FPConfig {
                     speedValue = (List<Double>) group.get(rawGroupName);
                 }
                 catch (ClassCastException e) {
-                    Logging.log(Level.WARNING, "Invalid speed group " + rawGroupName + ". Please check for config!");
+                    Logging.warning("Invalid speed group " + rawGroupName + ". Please check for config!");
                     continue;
                 }
                 if (!validateSpeedValue(speedValue)) {
-                    Logging.log(Level.WARNING, "Invalid speed group " + rawGroupName + ". Please check for config!");
+                    Logging.warning("Invalid speed group " + rawGroupName + ". Please check for config!");
                     continue;
                 }
                 String groupName = String.valueOf(rawGroupName);
@@ -122,14 +121,13 @@ public class FlyPermsConfig implements FPConfig {
     }
 
     private void setLogLevel() {
-        if (debugMode) {
-            Logging.setLogLevel(Level.FINEST);
-            Logging.log(Level.FINE, "Debug logging enabled.");
-        }
-        else {
-            Logging.log(Level.FINE, "Debug logging disabled.");
-            Logging.setLogLevel(Level.INFO);
-        }
+        Logging.doDebugLog(debugMode);
+
+        Logging.info((Logging.isDoDebug())
+                ? "Debug logging enabled."
+                : "Debug logging disabled.");
+
+        Logging.debug("Test debug mode.");
     }
 
     public boolean isCheckGameMode() {

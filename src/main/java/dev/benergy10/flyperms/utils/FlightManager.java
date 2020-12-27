@@ -1,14 +1,14 @@
 package dev.benergy10.flyperms.utils;
 
-import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.FlyState;
+import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPFlightManager;
-import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
-import java.util.*;
-import java.util.logging.Level;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * {@inheritDoc}
@@ -45,19 +45,19 @@ public class FlightManager implements FPFlightManager {
             case SPECTATOR:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, player.getName() + " in spectator mode.");
+                    Logging.debug(player.getName() + " in spectator mode.");
                 }
                 break;
             case CREATIVE_BYPASS:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowed flight ability for " + player.getName() + " due to creative bypass.");
+                    Logging.debug("Allowed flight ability for " + player.getName() + " due to creative bypass.");
                 }
                 break;
             case YES:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.log(Level.FINE, "Allowed flight ability for " + player.getName());
+                    Logging.debug("Allowed flight ability for " + player.getName());
                 }
                 break;
             case NO:
@@ -102,11 +102,11 @@ public class FlightManager implements FPFlightManager {
      */
     private Runnable stopFlyRunnable(Player player) {
         return () -> {
-            Logging.log(Level.FINE, "Running scheduled stop fly for " + player.getName());
+            Logging.debug("Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
                     || !player.isFlying()
                     || !this.plugin.getCheckManager().calculateFlyState(player).equals(FlyState.NO)) {
-                Logging.log(Level.FINE, "Stop fly for " + player.getName() + " aborted");
+                Logging.debug("Stop fly for " + player.getName() + " aborted!");
                 return;
             }
 
@@ -115,7 +115,7 @@ public class FlightManager implements FPFlightManager {
             player.setAllowFlight(false);
 
             this.playersToStopFly.remove(player.getUniqueId());
-            Logging.log(Level.FINE,"Disallowed flight for " + player.getName() + " after cooldown.");
+            Logging.debug("Disallowed flight for " + player.getName() + " after cooldown.");
         };
     }
 

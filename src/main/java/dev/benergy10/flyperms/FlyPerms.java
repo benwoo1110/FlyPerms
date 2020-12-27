@@ -14,8 +14,6 @@ import dev.benergy10.flyperms.utils.PermissionTools;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
-
 /**
  * {@inheritDoc}
  */
@@ -35,44 +33,44 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     public void onEnable() {
         Logging.setup(this);
         Logging.showStartUpText();
-        Logging.log(Level.INFO, "Starting...");
+        Logging.info("Starting...");
 
         // Get config
-        Logging.log(Level.FINE, "Setting up config...");
+        Logging.info("Setting up config...");
         this.saveDefaultConfig();
         this.config.loadConfigValues();
 
         // Init bstats
-        Logging.log(Level.FINE, "Setting up bstats...");
+        Logging.debug("Setting up bstats...");
         BstatsMetrics.configureMetrics(this);
 
         // Register events
-        Logging.log(Level.FINE, "Registering events...");
+        Logging.debug("Registering events...");
         PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new PlayerListener(this), this);
         pm.registerEvents(new WorldListener(this), this);
 
         // Register permission nodes
-        Logging.log(Level.FINE, "Registering permissions...");
+        Logging.debug("Registering permissions...");
         this.permissionTools.registerPerms();
 
         // Register commands
-        Logging.log(Level.FINE, "Setting commands...");
+        Logging.debug("Setting commands...");
         this.commandManager = new FPCommandManager(this);
 
         // Register dependencies
-        Logging.log(Level.FINE, "Registering dependencies...");
+        Logging.debug("Registering dependencies...");
 
         if (config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
         }
         else {
-            Logging.log(Level.FINE, "FlyPerms placeholders is not registered!");
+            Logging.debug("FlyPerms placeholders is not registered!");
         }
 
         flyCheckScheduler.start();
 
-        Logging.log(Level.INFO, "Started!");
+        Logging.info("Started!");
     }
 
     /**
@@ -97,7 +95,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         // Plugin shutdown logic
         flyCheckScheduler.stop();
         permissionTools.removeAllPerms();
-        Logging.log(Level.INFO, "Stopped. Happy flying!");
+        Logging.info("Stopped. Happy flying!");
     }
 
     /**

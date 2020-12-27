@@ -4,8 +4,6 @@ import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.logging.Level;
-
 /**
  * {@inheritDoc}
  */
@@ -29,7 +27,7 @@ public class FlyApplyScheduler implements FPScheduler {
                 0L,
                 Formatter.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
         );
-        Logging.log(Level.INFO, "Started fly check task...");
+        Logging.info("Started fly check task...");
     }
 
     /**
@@ -37,13 +35,13 @@ public class FlyApplyScheduler implements FPScheduler {
      */
     public void stop() {
         if (this.flyCheckTask == null) {
-            Logging.log(Level.WARNING, "Unable to stop fly check task. Fly check task has not started!");
+            Logging.warning("Unable to stop fly check task. Fly check task has not started!");
             return;
         }
 
         this.flyCheckTask.cancel();
         this.flyCheckTask = null;
-        Logging.log(Level.INFO, "Stopped fly check task...");
+        Logging.info("Stopped fly check task...");
     }
 
     /**

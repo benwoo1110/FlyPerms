@@ -4,22 +4,22 @@ import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.Bukkit;
 
 import java.util.Arrays;
-import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles console and debug logging for the plugin.
  */
-public class Logging {
+public final class Logging {
 
     private static boolean doneSetup;
     private static String[] startupText;
-    private static java.util.logging.Logger logger;
-    private static java.util.logging.Logger debugLogger;
-    private static Level logLevel = Level.ALL;
+    private static Logger logger;
+    private static Logger debugLogger;
+    private static boolean doDebug = false;
 
     public static void setup(FlyPerms plugin) {
-        logger = java.util.logging.Logger.getLogger(plugin.getName());
-        debugLogger = java.util.logging.Logger.getLogger(plugin.getName() + "-debug");
+        logger = Logger.getLogger(plugin.getName());
+        debugLogger = Logger.getLogger(plugin.getName() + "-debug");
         startupText = new String[]{
                 "§2    ___§3  __",
                 "§2   /__§3  /__)   §aFlyPerms - v" + plugin.getDescription().getVersion(),
@@ -35,26 +35,34 @@ public class Logging {
         }
     }
 
-    public static void log(Level level, String msg) {
+    public static void info(String msg) {
         checkSetup();
+        logger.info(msg);
+    }
 
-        if (level.intValue() < logLevel.intValue()) {
-            return;
-        }
-        if (level.intValue() < Level.INFO.intValue()) {
+    public static void warning(String msg) {
+        checkSetup();
+        logger.warning(msg);
+    }
+
+    public static void severe(String msg) {
+        checkSetup();
+        logger.severe(msg);
+    }
+
+    public static void debug(String msg) {
+        if (doDebug) {
+            checkSetup();
             debugLogger.info(msg);
-            return;
         }
-
-        logger.log(level, msg);
     }
 
-    public static Level getLogLevel() {
-        return logLevel;
+    public static void doDebugLog(boolean state) {
+        doDebug = state;
     }
 
-    public static void setLogLevel(Level level) {
-        logLevel = level;
+    public static boolean isDoDebug() {
+        return doDebug;
     }
 
     public static void showStartUpText() {
