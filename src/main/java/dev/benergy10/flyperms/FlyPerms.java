@@ -1,19 +1,12 @@
 package dev.benergy10.flyperms;
 
-import co.aikar.commands.PaperCommandManager;
 import dev.benergy10.flyperms.api.FPPlugin;
-import dev.benergy10.flyperms.commands.InfoCommand;
-import dev.benergy10.flyperms.commands.ListGroupsCommand;
-import dev.benergy10.flyperms.commands.ReloadCommand;
-import dev.benergy10.flyperms.commands.RootCommand;
-import dev.benergy10.flyperms.commands.SeeAllowedCommand;
-import dev.benergy10.flyperms.commands.SpeedCommand;
-import dev.benergy10.flyperms.commands.UsageCommand;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
 import dev.benergy10.flyperms.listeners.WorldListener;
 import dev.benergy10.flyperms.utils.BstatsMetrics;
 import dev.benergy10.flyperms.utils.CheckManager;
+import dev.benergy10.flyperms.utils.FPCommandManager;
 import dev.benergy10.flyperms.utils.FlightManager;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
 import dev.benergy10.flyperms.utils.Logging;
@@ -36,6 +29,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private final CheckManager checkManager = new CheckManager(this);
     private final FlightManager flightManager = new FlightManager(this);
     private final FlyApplyScheduler flyCheckScheduler = new FlyApplyScheduler(this);
+    private FPCommandManager commandManager;
 
     @Override
     public void onEnable() {
@@ -63,16 +57,8 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         this.permissionTools.registerPerms();
 
         // Register commands
-        Logging.log(Level.FINE, "Registering commands...");
-        PaperCommandManager commandManager = new PaperCommandManager(this);
-        commandManager.enableUnstableAPI("help");
-        commandManager.registerCommand(new RootCommand(this));
-        commandManager.registerCommand(new InfoCommand(this));
-        commandManager.registerCommand(new ReloadCommand(this));
-        commandManager.registerCommand(new SeeAllowedCommand(this));
-        commandManager.registerCommand(new SpeedCommand(this));
-        commandManager.registerCommand(new ListGroupsCommand(this));
-        commandManager.registerCommand(new UsageCommand(this));
+        Logging.log(Level.FINE, "Setting commands...");
+        this.commandManager = new FPCommandManager(this);
 
         // Register dependencies
         Logging.log(Level.FINE, "Registering dependencies...");
