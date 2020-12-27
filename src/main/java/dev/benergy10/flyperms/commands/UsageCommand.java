@@ -25,6 +25,7 @@ public class UsageCommand extends FlyPermsCommand {
     @Syntax("[search]")
     @Description("Shows command usage.")
     public void doHelp(CommandSender sender, CommandHelp help) {
+        help.setPerPage(6);
         help.showHelp();
     }
 }
