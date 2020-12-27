@@ -61,13 +61,8 @@ public class FlightManager implements FPFlightManager {
                 }
                 break;
             case NO:
-                if (player.getAllowFlight()) {
-                    if (player.isFlying()) {
-                        stopFly(player);
-                        break;
-                    }
-                    player.setAllowFlight(false);
-                    Logging.log(Level.FINE,"Disallowed flight ability for " + player.getName());
+                if (player.getAllowFlight() || player.isFlying()) {
+                    stopFly(player);
                 }
                 break;
         }
@@ -79,6 +74,12 @@ public class FlightManager implements FPFlightManager {
      * @param player A bukkit {@link Player} entity.
      */
     private void stopFly(Player player) {
+        if (!player.isFlying()) {
+            player.setAllowFlight(false);
+            Logging.debug("Disallowed flight ability for " + player.getName());
+            return;
+        }
+
         if (this.playersToStopFly.contains(player.getUniqueId())) {
             return;
         }
