@@ -1,6 +1,7 @@
 ![FlyPerms](resource/FlyPerms.png)
 
 [![Build Status](https://travis-ci.com/benwoo1110/FlyPerms.svg?branch=master)](https://travis-ci.com/benwoo1110/FlyPerms)
+[![License](https://img.shields.io/github/license/benwoo1110/FlyPerms)](LICENSE)
 
 ### Have you ever wanted a plugin where players can fly based on permission and not just a command toggle? This is the plugin for you!
 
