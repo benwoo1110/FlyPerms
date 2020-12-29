@@ -1,17 +1,22 @@
-# FlyPerms
-Have you ever wanted a plugin where players can fly based on permission and not just a command toggle? This is the plugin for you!
+![FlyPerms](resource/FlyPerms.png)
 
-* Allow flight based on permission node
-* Per world fly permissions with
-* Per gamemode fly permissions with
-* Able to disable this plugin per world
-* Change your fly speed with speed groups
+### Have you ever wanted a plugin where players can fly based on permission and not just a command toggle? This is the plugin for you!
+</br>
+
+## Amazing features
+* Allow flight based on permission node!
+* Per world fly with permissions!
+* Per gamemode fly with permissions!
+* [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) support built-in!
+* Able to disable this plugin per world!
+* Change your fly speed with speed groups!
 * Supports all modern permission plugins (Recommended LuckPerms)
-* Supports minecraft version 1.8+
+* Supports 1.8.8 servers and later!
 
 ## Useful links
 Discord server: https://discord.gg/Be59ehc </br>
-Spigot resource: https://www.spigotmc.org/resources/flyperms.83432/
+Spigot resource: https://www.spigotmc.org/resources/flyperms.83432/ </br>
+Bstats metrics: https://bstats.org/plugin/bukkit/FlyPerms/8745 </br>
 
 ## License
 GNU GENERAL PUBLIC LICENSE, See [here](LICENSE) for more.
