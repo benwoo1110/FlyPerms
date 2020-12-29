@@ -1,7 +1,6 @@
 ![FlyPerms](resource/FlyPerms.png)
 
 ### Have you ever wanted a plugin where players can fly based on permission and not just a command toggle? This is the plugin for you!
-</br>
 
 ## Amazing features
 * Allow flight based on permission node!
@@ -10,7 +9,7 @@
 * [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) support built-in!
 * Able to disable this plugin per world!
 * Change your fly speed with speed groups!
-* Supports all modern permission plugins (Recommended LuckPerms)
+* Supports all modern permission plugins (Recommended [LuckPerms](https://luckperms.net/download))
 * Supports 1.8.8 servers and later!
 
 ## Useful links
