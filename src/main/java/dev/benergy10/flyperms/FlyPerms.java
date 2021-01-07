@@ -60,15 +60,14 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
         // Register dependencies
         Logging.debug("Registering dependencies...");
-
-        if (config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
+        if (this.config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
         }
         else {
-            Logging.debug("FlyPerms placeholders is not registered!");
+            Logging.debug("FlyPerms placeholderAPI expansion is not registered!");
         }
 
-        flyCheckScheduler.start();
+        this.flyCheckScheduler.start();
 
         Logging.info("Started!");
     }
@@ -77,15 +76,15 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
      * {@inheritDoc}
      */
     public boolean reload() {
-        flyCheckScheduler.stop();
-        permissionTools.removeAllPerms();
+        this.flyCheckScheduler.stop();
+        this.permissionTools.removeAllPerms();
 
         if (!this.config.reloadConfigValues()) {
             return false;
         }
 
-        permissionTools.registerPerms();
-        flyCheckScheduler.start();
+        this.permissionTools.registerPerms();
+        this.flyCheckScheduler.start();
 
         return true;
     }
@@ -93,8 +92,8 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        flyCheckScheduler.stop();
-        permissionTools.removeAllPerms();
+        this.flyCheckScheduler.stop();
+        this.permissionTools.removeAllPerms();
         Logging.info("Stopped. Happy flying!");
     }
 
@@ -102,34 +101,34 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
      * {@inheritDoc}
      */
     public PermissionTools getPermissionTools() {
-        return permissionTools;
+        return this.permissionTools;
     }
 
     /**
      * {@inheritDoc}
      */
     public FlyPermsConfig getFPConfig() {
-        return config;
+        return this.config;
     }
 
     /**
      * {@inheritDoc}
      */
     public FlyApplyScheduler getFlyApplyScheduler() {
-        return flyCheckScheduler;
+        return this.flyCheckScheduler;
     }
 
     /**
      * {@inheritDoc}
      */
     public FlightManager getFlightManager() {
-        return flightManager;
+        return this.flightManager;
     }
 
     /**
      * {@inheritDoc}
      */
     public CheckManager getCheckManager() {
-        return checkManager;
+        return this.checkManager;
     }
 }

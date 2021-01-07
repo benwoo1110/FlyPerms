@@ -30,6 +30,12 @@ public class FlyApplyScheduler implements FPScheduler {
         Logging.info("Started fly check task...");
     }
 
+    private Runnable flyCheckRunnable() {
+        return () -> this.plugin.getServer()
+                .getOnlinePlayers()
+                .forEach(p -> this.plugin.getFlightManager().applyFlyState(p.getPlayer()));
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -49,11 +55,5 @@ public class FlyApplyScheduler implements FPScheduler {
      */
     public boolean isRunning() {
         return this.flyCheckTask != null && !this.flyCheckTask.isCancelled();
-    }
-
-    private Runnable flyCheckRunnable() {
-        return () -> this.plugin.getServer()
-                .getOnlinePlayers()
-                .forEach(p -> this.plugin.getFlightManager().applyFlyState(p.getPlayer()));
     }
 }

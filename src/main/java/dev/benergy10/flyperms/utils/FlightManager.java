@@ -45,19 +45,19 @@ public class FlightManager implements FPFlightManager {
             case SPECTATOR:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.debug(player.getName() + " in spectator mode.");
+                    Logging.debug( "%s in spectator mode.", player.getName());
                 }
                 break;
             case CREATIVE_BYPASS:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.debug("Allowed flight ability for " + player.getName() + " due to creative bypass.");
+                    Logging.debug("Allowed flight ability for due to creative bypass.", player.getName());
                 }
                 break;
             case YES:
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    Logging.debug("Allowed flight ability for " + player.getName());
+                    Logging.debug("Allowed flight ability for %s.", player.getName());
                 }
                 break;
             case NO:
@@ -76,7 +76,7 @@ public class FlightManager implements FPFlightManager {
     private void stopFly(Player player) {
         if (!player.isFlying()) {
             player.setAllowFlight(false);
-            Logging.debug("Disallowed flight ability for " + player.getName());
+            Logging.debug("Disallowed flight ability for %s.", player.getName());
             return;
         }
 
@@ -86,7 +86,7 @@ public class FlightManager implements FPFlightManager {
         this.playersToStopFly.add(player.getUniqueId());
 
         int coolDown = this.plugin.getFPConfig().getCoolDown();
-        player.sendMessage("You have lost your ability to fly. Dropping in " + dev.benergy10.flyperms.utils.Formatter.millisecondsToSeconds(coolDown) + "sec...");
+        player.sendMessage("You have lost your ability to fly. Dropping in " + Formatter.millisecondsToSeconds(coolDown) + "sec...");
         this.plugin.getServer().getScheduler().runTaskLater(
                 this.plugin,
                 stopFlyRunnable(player),
@@ -106,7 +106,7 @@ public class FlightManager implements FPFlightManager {
             if (!player.isOnline()
                     || !player.isFlying()
                     || !this.plugin.getCheckManager().calculateFlyState(player).equals(FlyState.NO)) {
-                Logging.debug("Stop fly for " + player.getName() + " aborted!");
+                Logging.debug("Stop fly for  aborted!", player.getName());
                 return;
             }
 
@@ -115,7 +115,7 @@ public class FlightManager implements FPFlightManager {
             player.setAllowFlight(false);
 
             this.playersToStopFly.remove(player.getUniqueId());
-            Logging.debug("Disallowed flight for " + player.getName() + " after cooldown.");
+            Logging.debug("Disallowed flight for %s after cooldown.", player.getName());
         };
     }
 

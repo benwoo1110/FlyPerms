@@ -4,6 +4,7 @@ import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.Bukkit;
 
 import java.util.Arrays;
+import java.util.IllegalFormatException;
 import java.util.logging.Logger;
 
 /**
@@ -20,21 +21,31 @@ public final class Logging {
         debugLogger = Logger.getLogger(plugin.getName() + "-debug");
     }
 
-    public static void info(String msg) {
-        logger.info(msg);
+    public static void info(String msg, Object... args) {
+        logger.info(format(msg, args));
     }
 
-    public static void warning(String msg) {
-        logger.warning(msg);
+    public static void warning(String msg, Object... args) {
+        logger.warning(format(msg, args));
     }
 
-    public static void severe(String msg) {
-        logger.severe(msg);
+    public static void severe(String msg, Object... args) {
+        logger.severe(format(msg, args));
     }
 
-    public static void debug(String msg) {
+    public static void debug(String msg, Object... args) {
         if (doDebug) {
-            debugLogger.info(msg);
+            debugLogger.info(format(msg, args));
+        }
+    }
+
+    private static String format(String msg, Object[] args) {
+        try {
+            return String.format(msg, args);
+        }
+        catch (IllegalFormatException e) {
+            logger.warning("Illegal format in the following message:");
+            return msg;
         }
     }
 
