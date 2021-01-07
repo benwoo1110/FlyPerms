@@ -32,7 +32,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     @Override
     public void onEnable() {
         Logging.setup(this);
-        Logging.showStartUpText();
+        Logging.showStartUpText(this);
         Logging.info("Starting...");
 
         // Get config

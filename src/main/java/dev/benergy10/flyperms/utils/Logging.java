@@ -11,8 +11,6 @@ import java.util.logging.Logger;
  */
 public final class Logging {
 
-    private static boolean doneSetup;
-    private static String[] startupText;
     private static Logger logger;
     private static Logger debugLogger;
     private static boolean doDebug = false;
@@ -20,39 +18,22 @@ public final class Logging {
     public static void setup(FlyPerms plugin) {
         logger = Logger.getLogger(plugin.getName());
         debugLogger = Logger.getLogger(plugin.getName() + "-debug");
-        startupText = new String[]{
-                "§2    ___§3  __",
-                "§2   /__§3  /__)   §aFlyPerms - v" + plugin.getDescription().getVersion(),
-                "§2  /  §3  /       §bEnabled by - benwoo1110",
-                ""
-        };
-        doneSetup = true;
-    }
-
-    private static void checkSetup() {
-        if (!doneSetup) {
-            throw new IllegalArgumentException("Logging has not been setup!");
-        }
     }
 
     public static void info(String msg) {
-        checkSetup();
         logger.info(msg);
     }
 
     public static void warning(String msg) {
-        checkSetup();
         logger.warning(msg);
     }
 
     public static void severe(String msg) {
-        checkSetup();
         logger.severe(msg);
     }
 
     public static void debug(String msg) {
         if (doDebug) {
-            checkSetup();
             debugLogger.info(msg);
         }
     }
@@ -65,7 +46,13 @@ public final class Logging {
         return doDebug;
     }
 
-    public static void showStartUpText() {
+    public static void showStartUpText(FlyPerms plugin) {
+        String[] startupText = new String[]{
+                "§2    ___§3  __",
+                "§2   /__§3  /__)   §aFlyPerms - v" + plugin.getDescription().getVersion(),
+                "§2  /  §3  /       §bEnabled by - benwoo1110",
+                ""
+        };
         Arrays.stream(startupText).forEach(Bukkit.getServer().getConsoleSender()::sendMessage);
     }
 }
