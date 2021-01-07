@@ -19,18 +19,21 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
-    // Config
-    private final FlyPermsConfig config = new FlyPermsConfig(this);
-
-    // Handlers
-    private final PermissionTools permissionTools = new PermissionTools(this);
-    private final CheckManager checkManager = new CheckManager(this);
-    private final FlightManager flightManager = new FlightManager(this);
-    private final FlyApplyScheduler flyApplyScheduler = new FlyApplyScheduler(this);
+    private FlyPermsConfig config;
+    private PermissionTools permissionTools;
+    private CheckManager checkManager;
+    private FlightManager flightManager;
+    private FlyApplyScheduler flyApplyScheduler;
     private FPCommandManager commandManager;
 
     @Override
     public void onEnable() {
+        this.config = new FlyPermsConfig(this);
+        this.permissionTools = new PermissionTools(this);
+        this.checkManager = new CheckManager(this);
+        this.flightManager = new FlightManager(this);
+        this.flyApplyScheduler = new FlyApplyScheduler(this);
+        
         Logging.setup(this);
         Logging.showStartUpText(this);
         Logging.info("Starting...");
