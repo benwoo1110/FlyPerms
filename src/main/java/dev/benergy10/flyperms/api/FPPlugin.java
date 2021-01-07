@@ -2,9 +2,9 @@ package dev.benergy10.flyperms.api;
 
 import dev.benergy10.flyperms.FlyPermsConfig;
 import dev.benergy10.flyperms.utils.CheckManager;
+import dev.benergy10.flyperms.utils.FPCommandManager;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
 import dev.benergy10.flyperms.utils.FlightManager;
-import dev.benergy10.flyperms.utils.PermissionTools;
 
 /**
  * FlyPerms plugin.
@@ -18,11 +18,11 @@ public interface FPPlugin {
     boolean reload();
 
     /**
-     * Gets class used to register permissions.
+     * Gets class used to manage commands.
      *
-     * @return {@link PermissionTools}.
+     * @return {@link FPCommandManager}.
      */
-    PermissionTools getPermissionTools();
+    FPCommandManager getCommandManager();
 
     /**
      * Gets class where all to config options are stored.

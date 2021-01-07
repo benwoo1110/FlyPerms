@@ -26,7 +26,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private final PermissionTools permissionTools = new PermissionTools(this);
     private final CheckManager checkManager = new CheckManager(this);
     private final FlightManager flightManager = new FlightManager(this);
-    private final FlyApplyScheduler flyCheckScheduler = new FlyApplyScheduler(this);
+    private final FlyApplyScheduler flyApplyScheduler = new FlyApplyScheduler(this);
     private FPCommandManager commandManager;
 
     @Override
@@ -67,7 +67,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
             Logging.debug("FlyPerms placeholderAPI expansion is not registered!");
         }
 
-        this.flyCheckScheduler.start();
+        this.flyApplyScheduler.start();
 
         Logging.info("Started!");
     }
@@ -76,7 +76,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
      * {@inheritDoc}
      */
     public boolean reload() {
-        this.flyCheckScheduler.stop();
+        this.flyApplyScheduler.stop();
         this.permissionTools.removeAllPerms();
 
         if (!this.config.reloadConfigValues()) {
@@ -84,7 +84,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         }
 
         this.permissionTools.registerPerms();
-        this.flyCheckScheduler.start();
+        this.flyApplyScheduler.start();
 
         return true;
     }
@@ -92,16 +92,20 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        this.flyCheckScheduler.stop();
+        this.flyApplyScheduler.stop();
         this.permissionTools.removeAllPerms();
         Logging.info("Stopped. Happy flying!");
+    }
+
+    public PermissionTools getPermissionTools() {
+        return this.permissionTools;
     }
 
     /**
      * {@inheritDoc}
      */
-    public PermissionTools getPermissionTools() {
-        return this.permissionTools;
+    public FPCommandManager getCommandManager() {
+        return commandManager;
     }
 
     /**
@@ -115,7 +119,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
      * {@inheritDoc}
      */
     public FlyApplyScheduler getFlyApplyScheduler() {
-        return this.flyCheckScheduler;
+        return this.flyApplyScheduler;
     }
 
     /**
