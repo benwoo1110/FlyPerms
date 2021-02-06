@@ -39,7 +39,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>install</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -53,7 +53,7 @@
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>install</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
