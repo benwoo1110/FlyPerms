@@ -38,10 +38,14 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>javadoc-jar</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
