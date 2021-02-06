@@ -1,16 +1,13 @@
 package dev.benergy10.flyperms.commands;
 
 import co.aikar.commands.CommandHelp;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.HelpCommand;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
-import dev.benergy10.flyperms.FlyPerms;
+import co.aikar.commands.HelpEntry;
+import co.aikar.commands.annotation.*;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
-import org.bukkit.command.CommandSender;
+import dev.benergy10.flyperms.FlyPerms;
+
+import java.util.List;
 
 @CommandAlias(Commands.BASE)
 public class UsageCommand extends FlyPermsCommand {
@@ -24,8 +21,13 @@ public class UsageCommand extends FlyPermsCommand {
     @HelpCommand
     @Syntax("[search]")
     @Description("Shows command usage.")
-    public void doHelp(CommandSender sender, CommandHelp help) {
-        help.setPerPage(6);
+    public void doHelp(CommandHelp help) {
+        List<HelpEntry> entries = help.getHelpEntries();
+        if (entries.size() == 1) {
+            this.plugin.getCommandManager().getHelpFormatter().showDetailedHelp(help, entries.get(0));
+            return;
+        }
+
         help.showHelp();
     }
 }

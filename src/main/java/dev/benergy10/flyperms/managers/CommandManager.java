@@ -19,6 +19,7 @@ public class CommandManager extends PaperCommandManager {
         this.plugin = plugin;
 
         enableUnstableAPI("help");
+        setDefaultHelpPerPage(6);
 
         registerCommand(new RootCommand(this.plugin));
         registerCommand(new InfoCommand(this.plugin));
