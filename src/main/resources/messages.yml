@@ -1,2 +1,2 @@
-RELOAD_SUCCESS: 'Successfully reloaded FlyPerms!'
-RELOAD_ERROR: 'Error reloading FlyPerms, see console for more details.'
+RELOAD_SUCCESS: '&aSuccessfully reloaded FlyPerms!'
+RELOAD_ERROR: '&cError reloading FlyPerms, see console for more details.'
