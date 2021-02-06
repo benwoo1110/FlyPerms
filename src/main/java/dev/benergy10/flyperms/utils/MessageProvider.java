@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.utils;
 
+import com.google.common.base.Strings;
 import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.ChatColor;
@@ -60,14 +61,16 @@ public class MessageProvider {
         for (MessageKey messageKey : MessageKey.values()) {
             messagesMap.put(
                     messageKey.name(),
-                    colourise(messageYaml.getString(messageKey.name(), INVALID_MESSAGE))
+                    colourise(messageYaml.getString(messageKey.name()))
             );
         }
         Logging.debug(String.valueOf(messagesMap));
     }
 
     private String colourise(String message) {
-        return ChatColor.translateAlternateColorCodes(COLOUR_CHAR, message);
+        return (Strings.isNullOrEmpty(message))
+                ? message
+                : ChatColor.translateAlternateColorCodes(COLOUR_CHAR, message);
     }
 
     public String parseMessage(MessageKey messageKey, Object...replacements) {
