@@ -71,5 +71,7 @@ ignore-in-worlds:
 # extension, you can set this to false.
 enable-papi-hook: true
 
+enable-luckperms-hook: true
+
 # Used for development and troubleshooting purposes.
 show-debug-info: false

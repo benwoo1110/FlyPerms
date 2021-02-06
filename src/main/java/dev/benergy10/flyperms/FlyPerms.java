@@ -4,13 +4,8 @@ import dev.benergy10.flyperms.api.FPPlugin;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
 import dev.benergy10.flyperms.listeners.WorldListener;
-import dev.benergy10.flyperms.utils.BstatsMetrics;
-import dev.benergy10.flyperms.utils.CheckManager;
-import dev.benergy10.flyperms.utils.FPCommandManager;
-import dev.benergy10.flyperms.utils.FlightManager;
-import dev.benergy10.flyperms.utils.FlyApplyScheduler;
-import dev.benergy10.flyperms.utils.Logging;
-import dev.benergy10.flyperms.utils.PermissionTools;
+import dev.benergy10.flyperms.utils.*;
+import net.luckperms.api.LuckPerms;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -68,6 +63,13 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         }
         else {
             Logging.debug("FlyPerms placeholderAPI expansion is not registered!");
+        }
+        LuckPerms luckPerms = getServer().getServicesManager().load(LuckPerms.class);
+        if (this.config.isHookPapi() && luckPerms != null) {
+            luckPerms.getContextManager().registerCalculator(new FlyStateContextCalculator(this));
+        }
+        else {
+            Logging.debug("FlyPerms LuckPerms context is not registered!");
         }
 
         this.flyApplyScheduler.start();

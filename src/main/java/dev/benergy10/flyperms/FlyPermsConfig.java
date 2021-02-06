@@ -32,6 +32,7 @@ public class FlyPermsConfig implements FPConfig {
     private Map<String, SpeedGroup> speedGroups;
     private List<String> disabledWorlds;
     private boolean hookPapi;
+    private boolean hookLuckPerms;
     private boolean debugMode;
 
     public FlyPermsConfig(FlyPerms plugin) {
@@ -81,6 +82,7 @@ public class FlyPermsConfig implements FPConfig {
         this.resetSpeedValue = config.getDouble("speed-reset-value", 1.0);
         this.disabledWorlds = config.getStringList("ignore-in-worlds");
         this.hookPapi = config.getBoolean("enable-papi-hook", true);
+        this.hookLuckPerms = config.getBoolean("enable-luckperms-hook", true);
         this.debugMode = config.getBoolean("show-debug-info", false);
     }
 
@@ -200,6 +202,10 @@ public class FlyPermsConfig implements FPConfig {
 
     public boolean isHookPapi() {
         return hookPapi;
+    }
+
+    public boolean isHookLuckPerms() {
+        return hookLuckPerms;
     }
 
     public boolean isDebugMode() {

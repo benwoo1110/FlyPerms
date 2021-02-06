@@ -45,5 +45,7 @@ public interface FPConfig {
 
     boolean isHookPapi();
 
+    boolean isHookLuckPerms();
+
     boolean isDebugMode();
 }
