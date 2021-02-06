@@ -1,1 +1,2 @@
-TEST: 'haha'
+RELOAD_SUCCESS: 'Successfully reloaded FlyPerms!'
+RELOAD_ERROR: 'Error reloading FlyPerms, see console for more details.'

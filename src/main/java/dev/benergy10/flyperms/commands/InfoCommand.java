@@ -48,8 +48,6 @@ public class InfoCommand extends FlyPermsCommand {
         // Show the info
         sender.sendMessage(Formatter.header("FlyPerms Info"));
 
-        this.messenger.send(sender, MessageKey.TEST);
-
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
             if (!this.versionPlugins.contains(versionPlugin.getName())) {
                 continue;
