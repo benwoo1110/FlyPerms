@@ -21,19 +21,19 @@ public class MessageProvider {
     private static final String INVALID_MESSAGE = "&c!!INVALID!!";
 
     private final FlyPerms plugin;
-    private Map<String, String> defaultMessagesMap;
-    private Map<String, String> customMessagesMap;
+    private final Map<String, String> defaultMessagesMap;
+    private final Map<String, String> customMessagesMap;
 
     public MessageProvider(FlyPerms plugin) {
         this.plugin = plugin;
+        this.defaultMessagesMap = new HashMap<>(MessageKey.values().length);
+        this.customMessagesMap = new HashMap<>(MessageKey.values().length);
+
         loadDefault();
         loadCustom();
     }
 
     private void loadDefault() {
-        Logging.debug("Loading default locale...");
-        this.defaultMessagesMap = new HashMap<>(MessageKey.values().length);
-
         InputStream messageFileStream = this.plugin.getResource(MESSAGE_FILENAME);
         if (messageFileStream == null) {
             Logging.severe("Unable to load default messages!");
@@ -46,8 +46,6 @@ public class MessageProvider {
     }
 
     public void loadCustom() {
-        this.customMessagesMap = new HashMap<>(MessageKey.values().length);
-
         File messageFile = new File(this.plugin.getDataFolder(), MESSAGE_FILENAME);
         if (!messageFile.exists()) {
             this.plugin.saveResource(MESSAGE_FILENAME, false);
@@ -58,6 +56,7 @@ public class MessageProvider {
     }
 
     private void populateMessagesMap(Map<String, String> messagesMap, YamlConfiguration messageYaml) {
+        messagesMap.clear();
         for (MessageKey messageKey : MessageKey.values()) {
             messagesMap.put(
                     messageKey.name(),
@@ -87,7 +86,7 @@ public class MessageProvider {
         return message;
     }
 
-    private String getMessage(MessageKey messageKey) {
+    public String getMessage(MessageKey messageKey) {
         String message = this.customMessagesMap.get(messageKey.name());
         return (message == null)
                 ? this.defaultMessagesMap.getOrDefault(messageKey.name(), INVALID_MESSAGE)
