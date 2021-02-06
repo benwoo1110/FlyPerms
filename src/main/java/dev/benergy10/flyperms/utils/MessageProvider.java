@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -25,6 +26,7 @@ public class MessageProvider {
     public MessageProvider(FlyPerms plugin) {
         this.plugin = plugin;
         loadDefault();
+        loadCustom();
     }
 
     private void loadDefault() {
@@ -42,8 +44,16 @@ public class MessageProvider {
         populateMessagesMap(this.defaultMessagesMap, messageYaml);
     }
 
-    public void load() {
-        // this.messagesMap = new HashMap<>(Messages.values().length);
+    public void loadCustom() {
+        this.customMessagesMap = new HashMap<>(MessageKey.values().length);
+
+        File messageFile = new File(this.plugin.getDataFolder(), MESSAGE_FILENAME);
+        if (!messageFile.exists()) {
+            this.plugin.saveResource(MESSAGE_FILENAME, false);
+        }
+
+        YamlConfiguration messageYaml = YamlConfiguration.loadConfiguration(messageFile);
+        populateMessagesMap(this.customMessagesMap, messageYaml);
     }
 
     private void populateMessagesMap(Map<String, String> messagesMap, YamlConfiguration messageYaml) {
@@ -61,7 +71,10 @@ public class MessageProvider {
     }
 
     public String getMessage(MessageKey messageKey) {
-        return this.defaultMessagesMap.getOrDefault(messageKey.name(), INVALID_MESSAGE);
+        String message = this.customMessagesMap.get(messageKey.name());
+        return (message == null)
+                ? this.defaultMessagesMap.getOrDefault(messageKey.name(), INVALID_MESSAGE)
+                : message;
     }
 
     public void send(CommandSender sender, MessageKey messageKey) {

@@ -92,6 +92,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         if (!this.config.reloadConfigValues()) {
             return false;
         }
+        this.messageProvider.loadCustom();
 
         this.permissionTools.registerPerms();
         this.flyApplyScheduler.start();
