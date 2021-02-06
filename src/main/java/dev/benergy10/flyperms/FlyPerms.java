@@ -1,9 +1,13 @@
 package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPPlugin;
+import dev.benergy10.flyperms.dependencies.FlyStateContextCalculator;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
 import dev.benergy10.flyperms.listeners.WorldListener;
+import dev.benergy10.flyperms.managers.CheckManager;
+import dev.benergy10.flyperms.managers.CommandManager;
+import dev.benergy10.flyperms.managers.FlightManager;
 import dev.benergy10.flyperms.utils.*;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.plugin.PluginManager;
@@ -19,7 +23,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private CheckManager checkManager;
     private FlightManager flightManager;
     private FlyApplyScheduler flyApplyScheduler;
-    private FPCommandManager commandManager;
+    private CommandManager commandManager;
 
     @Override
     public void onEnable() {
@@ -54,7 +58,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
         // Register commands
         Logging.debug("Setting commands...");
-        this.commandManager = new FPCommandManager(this);
+        this.commandManager = new CommandManager(this);
 
         // Register dependencies
         Logging.debug("Registering dependencies...");
@@ -109,7 +113,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     /**
      * {@inheritDoc}
      */
-    public FPCommandManager getCommandManager() {
+    public CommandManager getCommandManager() {
         return commandManager;
     }
 

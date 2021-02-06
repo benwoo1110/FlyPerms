@@ -1,8 +1,10 @@
-package dev.benergy10.flyperms.utils;
+package dev.benergy10.flyperms.managers;
 
 import dev.benergy10.flyperms.Constants.FlyState;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPFlightManager;
+import dev.benergy10.flyperms.utils.Formatter;
+import dev.benergy10.flyperms.utils.Logging;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 

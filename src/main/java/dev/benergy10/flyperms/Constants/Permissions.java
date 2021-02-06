@@ -1,25 +1,19 @@
 package dev.benergy10.flyperms.Constants;
 
 public final class Permissions {
-    // main
-    public static final String ROOT = "flyperms.";
-    public static final String OTHERS = ".others";
-
     // fly
-    public static final String ALLOW_BASE = ROOT + "allow";
-    public static final String ALLOW_WORLD = ALLOW_BASE + ".world.";
-    public static final String ALLOW_GAMEMODE = ALLOW_BASE + ".gamemode.";
-
+    public static final String ALLOW_BASE = "flyperms.allow";
+    public static final String ALLOW_WORLD = "flyperms.allow.world.";
+    public static final String ALLOW_GAMEMODE = "flyperms.allow.gamemode.";
     // speed
-    public static final String SPEED_GROUP = ROOT + "speedgroup.";
-
+    public static final String SPEED_GROUP = "flyperms.speedgroup.";
     // commands
-    public static final String USAGE = ROOT + "help";
-    public static final String INFO = ROOT + "info";
-    public static final String LIST_GROUPS = ROOT + "listgroups";
-    public static final String RELOAD = ROOT + "reload";
-    public static final String SEE_ALLOWED = ROOT + "seeallowed";
-    public static final String SEE_ALLOWED_OTHERS = SEE_ALLOWED + OTHERS;
-    public static final String CHANGE_SPEED = ROOT + "speed";
-    public static final String CHANGE_SPEED_OTHERS = CHANGE_SPEED + OTHERS;
+    public static final String USAGE = "flyperms.help";
+    public static final String INFO = "flyperms.info";
+    public static final String LIST_GROUPS = "flyperms.listgroups";
+    public static final String RELOAD = "flyperms.reload";
+    public static final String SEE_ALLOWED = "flyperms.seeallowed";
+    public static final String SEE_ALLOWED_OTHERS = "flyperms.seeallowed.others";
+    public static final String CHANGE_SPEED = "flyperms.speed";
+    public static final String CHANGE_SPEED_OTHERS = "flyperms.speed.others";
 }

@@ -9,7 +9,7 @@ import co.aikar.commands.annotation.Syntax;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
-import dev.benergy10.flyperms.utils.CheckManager;
+import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.utils.Formatter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,10 +1,10 @@
 package dev.benergy10.flyperms.api;
 
 import dev.benergy10.flyperms.FlyPermsConfig;
-import dev.benergy10.flyperms.utils.CheckManager;
-import dev.benergy10.flyperms.utils.FPCommandManager;
+import dev.benergy10.flyperms.managers.CheckManager;
+import dev.benergy10.flyperms.managers.CommandManager;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
-import dev.benergy10.flyperms.utils.FlightManager;
+import dev.benergy10.flyperms.managers.FlightManager;
 
 /**
  * FlyPerms plugin.
@@ -20,9 +20,9 @@ public interface FPPlugin {
     /**
      * Gets class used to manage commands.
      *
-     * @return {@link FPCommandManager}.
+     * @return {@link CommandManager}.
      */
-    FPCommandManager getCommandManager();
+    CommandManager getCommandManager();
 
     /**
      * Gets class where all to config options are stored.

@@ -1,4 +1,4 @@
-package dev.benergy10.flyperms.utils;
+package dev.benergy10.flyperms.dependencies;
 
 import dev.benergy10.flyperms.Constants.FlyState;
 import dev.benergy10.flyperms.FlyPerms;

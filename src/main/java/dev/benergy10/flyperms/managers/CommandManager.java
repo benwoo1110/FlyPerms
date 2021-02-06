@@ -1,4 +1,4 @@
-package dev.benergy10.flyperms.utils;
+package dev.benergy10.flyperms.managers;
 
 import co.aikar.commands.PaperCommandManager;
 import dev.benergy10.flyperms.FlyPerms;
@@ -10,11 +10,11 @@ import dev.benergy10.flyperms.commands.SeeAllowedCommand;
 import dev.benergy10.flyperms.commands.SpeedCommand;
 import dev.benergy10.flyperms.commands.UsageCommand;
 
-public class FPCommandManager extends PaperCommandManager {
+public class CommandManager extends PaperCommandManager {
 
     private final FlyPerms plugin;
 
-    public FPCommandManager(FlyPerms plugin) {
+    public CommandManager(FlyPerms plugin) {
         super(plugin);
         this.plugin = plugin;
 
