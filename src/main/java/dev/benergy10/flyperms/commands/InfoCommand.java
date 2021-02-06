@@ -59,7 +59,8 @@ public class InfoCommand extends FlyPermsCommand {
             }
         }
 
-        sender.sendMessage(ChatColor.AQUA + "Check for worlds: " + Formatter.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
+        this.messenger.send(sender, MessageKey.INFO_CHECK_WORLD, Formatter.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
+
         sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + Formatter.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
         sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + Formatter.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
         if (this.plugin.getFPConfig().haveIgnoreWorld()) {

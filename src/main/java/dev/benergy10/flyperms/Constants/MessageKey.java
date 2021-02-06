@@ -4,4 +4,5 @@ public enum MessageKey {
     RELOAD_SUCCESS,
     RELOAD_ERROR,
 
+    INFO_CHECK_WORLD
 }

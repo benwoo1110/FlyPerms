@@ -1,2 +1,4 @@
 RELOAD_SUCCESS: '&aSuccessfully reloaded FlyPerms!'
 RELOAD_ERROR: '&cError reloading FlyPerms, see console for more details.'
+
+INFO_CHECK_WORLD: '&bCheck for worlds: %1'

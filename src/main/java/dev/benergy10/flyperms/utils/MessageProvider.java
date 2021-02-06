@@ -70,14 +70,28 @@ public class MessageProvider {
         return ChatColor.translateAlternateColorCodes(COLOUR_CHAR, message);
     }
 
-    public String getMessage(MessageKey messageKey) {
+    public String parseMessage(MessageKey messageKey, Object...replacements) {
+        String message = getMessage(messageKey);
+
+        if (replacements == null || replacements.length == 0) {
+            return message;
+        }
+
+        int index = 1;
+        for (Object replacement : replacements) {
+            message = message.replace("%" + index++, String.valueOf(replacement));
+        }
+        return message;
+    }
+
+    private String getMessage(MessageKey messageKey) {
         String message = this.customMessagesMap.get(messageKey.name());
         return (message == null)
                 ? this.defaultMessagesMap.getOrDefault(messageKey.name(), INVALID_MESSAGE)
                 : message;
     }
 
-    public void send(CommandSender sender, MessageKey messageKey) {
-        sender.sendMessage(getMessage(messageKey));
+    public void send(CommandSender sender, MessageKey messageKey, Object...replacements) {
+        sender.sendMessage(parseMessage(messageKey, replacements));
     }
 }
