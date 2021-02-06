@@ -24,21 +24,17 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private FlightManager flightManager;
     private FlyApplyScheduler flyApplyScheduler;
     private CommandManager commandManager;
+    private MessageProvider messageProvider;
 
     @Override
     public void onEnable() {
-        this.config = new FlyPermsConfig(this);
-        this.permissionTools = new PermissionTools(this);
-        this.checkManager = new CheckManager(this);
-        this.flightManager = new FlightManager(this);
-        this.flyApplyScheduler = new FlyApplyScheduler(this);
-        
         Logging.setup(this);
         Logging.showStartUpText(this);
         Logging.info("Starting...");
 
         // Get config
         Logging.info("Setting up config...");
+        this.config = new FlyPermsConfig(this);
         this.saveDefaultConfig();
         this.config.loadConfigValues();
 
@@ -54,11 +50,8 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
         // Register permission nodes
         Logging.debug("Registering permissions...");
+        this.permissionTools = new PermissionTools(this);
         this.permissionTools.registerPerms();
-
-        // Register commands
-        Logging.debug("Setting commands...");
-        this.commandManager = new CommandManager(this);
 
         // Register dependencies
         Logging.debug("Registering dependencies...");
@@ -76,6 +69,14 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
             Logging.debug("FlyPerms LuckPerms context is not registered!");
         }
 
+        // Init remaining classes
+        this.checkManager = new CheckManager(this);
+        this.flightManager = new FlightManager(this);
+        this.messageProvider = new MessageProvider(this);
+        this.commandManager = new CommandManager(this);
+
+        // Start scheduler for fly checking
+        this.flyApplyScheduler = new FlyApplyScheduler(this);
         this.flyApplyScheduler.start();
 
         Logging.info("Started!");
@@ -143,5 +144,9 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
      */
     public CheckManager getCheckManager() {
         return this.checkManager;
+    }
+
+    public MessageProvider getMessageProvider() {
+        return messageProvider;
     }
 }

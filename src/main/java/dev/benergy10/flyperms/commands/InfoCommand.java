@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
@@ -46,6 +47,8 @@ public class InfoCommand extends FlyPermsCommand {
     public void onInfo(CommandSender sender) {
         // Show the info
         sender.sendMessage(Formatter.header("FlyPerms Info"));
+
+        this.messenger.send(sender, MessageKey.TEST);
 
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
             if (!this.versionPlugins.contains(versionPlugin.getName())) {
