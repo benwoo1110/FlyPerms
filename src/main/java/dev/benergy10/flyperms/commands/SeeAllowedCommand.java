@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
+import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
@@ -41,23 +42,19 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     public void onSeeAllowedOthers(CommandSender sender, String playerName) {
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
-            sender.sendMessage(ChatColor.RED + "Unknown player '"+ playerName +"'");
+            this.messenger.send(sender, MessageKey.ERROR_UNKNOWN_PLAYER, playerName);
             return;
         }
         showAllowedInfo(sender, targetPlayer);
     }
 
     private void showAllowedInfo(CommandSender sender, Player player) {
-        sender.sendMessage(Formatter.header(player.getName() + " Flight Info"));
-        sender.sendMessage(ChatColor.AQUA + "Current world: " + ChatColor.WHITE + player.getWorld().getName());
-        sender.sendMessage(ChatColor.AQUA + "Current gamemode: " + ChatColor.WHITE + player.getGameMode().name().toLowerCase());
-        if (this.checker.getWorldChecker().isEnabled()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in worlds: " + Formatter.parseList(this.checker.getWorldChecker().getAllowedNames(player), ChatColor.WHITE));
-        }
-        if (this.checker.getGameModeChecker().isEnabled()) {
-            sender.sendMessage(ChatColor.GREEN + "Only fly in gamemodes: " + Formatter.parseList(this.checker.getGameModeChecker().getAllowedNames(player), ChatColor.WHITE));
-        }
-        sender.sendMessage(ChatColor.AQUA + "Currently can fly: " + this.checker.calculateFlyState(player).toString());
-        sender.sendMessage(ChatColor.AQUA + "In speed groups: " + Formatter.parseList(this.checker.getSpeedChecker().getAllowedNames(player), ChatColor.WHITE));
+        this.messenger.send(sender, MessageKey.SEEALLOWED_HEADER, player.getName());
+        this.messenger.send(sender, MessageKey.SEEALLOWED_CURRENT_WORLD, player.getWorld().getName());
+        this.messenger.send(sender, MessageKey.SEEALLOWED_CURRENT_GAMEMODE, player.getGameMode().name().toLowerCase());
+        this.messenger.send(sender, MessageKey.SEEALLOWED_WORLDS, Formatter.parseList(this.checker.getWorldChecker().getAllowedNames(player), ChatColor.WHITE));
+        this.messenger.send(sender, MessageKey.SEEALLOWED_GAMEMODES, Formatter.parseList(this.checker.getGameModeChecker().getAllowedNames(player), ChatColor.WHITE));
+        this.messenger.send(sender, MessageKey.SEEALLOWED_FLY_STATE, this.checker.calculateFlyState(player).toString());
+        this.messenger.send(sender, MessageKey.SEEALLOWED_SPEED_GROUPS, Formatter.parseList(this.checker.getSpeedChecker().getAllowedNames(player), ChatColor.WHITE));
     }
 }

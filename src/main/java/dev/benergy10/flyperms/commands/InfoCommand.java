@@ -20,21 +20,18 @@ import java.util.List;
 public class InfoCommand extends FlyPermsCommand {
 
     private final List<String> versionPlugins = Arrays.asList(
-            "FlyPerms", // This plugin
-            "PlaceholderAPI", // API
-            // "WorldGuard", // API (TBA)
-            "LuckPerms", // permissions (recommended)
+            "FlyPerms",         // This plugin
+            "PlaceholderAPI",   // API
+            // "WorldGuard",    // API (TBA)
+            "LuckPerms",        // permissions (recommended)
             "UltraPermissions", // permissions (not recommended)
-            "PowerRanks", // permissions (not recommended)
-            "PermissionsEx", // permissions (unsupported)
-            "GroupManager", // permissions (unsupported)
-            "bPermissions" // permissions (unsupported)
+            "PowerRanks"        // permissions (not recommended)
     );
 
     private final List<String> unsupportedPlugins = Arrays.asList(
-            "PermissionsEx", // permissions (unsupported)
-            "GroupManager", // permissions (unsupported)
-            "bPermissions" // permissions (unsupported)
+            "PermissionsEx",    // permissions (unsupported)
+            "GroupManager",     // permissions (unsupported)
+            "bPermissions"      // permissions (unsupported)
     );
 
     public InfoCommand(FlyPerms plugin) {
@@ -45,26 +42,19 @@ public class InfoCommand extends FlyPermsCommand {
     @CommandPermission(Permissions.INFO)
     @Description("Displays basic information of the plugin.")
     public void onInfo(CommandSender sender) {
-        // Show the info
-        sender.sendMessage(Formatter.header("FlyPerms Info"));
-
+        this.messenger.send(sender, MessageKey.INFO_HEADER);
         for (Plugin versionPlugin : this.plugin.getServer().getPluginManager().getPlugins()) {
-            if (!this.versionPlugins.contains(versionPlugin.getName())) {
+            if (this.versionPlugins.contains(versionPlugin.getName())) {
+                this.messenger.send(sender, MessageKey.INFO_PLUGIN_SUPPORTED, versionPlugin.getName(), versionPlugin.getDescription().getVersion());
                 continue;
             }
             if (this.unsupportedPlugins.contains(versionPlugin.getName())) {
-                sender.sendMessage(ChatColor.DARK_AQUA + versionPlugin.getName() + " version: " + ChatColor.RED + versionPlugin.getDescription().getVersion() + " (unsupported)");
-            } else {
-                sender.sendMessage(ChatColor.AQUA + versionPlugin.getName() + " version: " + ChatColor.GREEN + versionPlugin.getDescription().getVersion());
+                this.messenger.send(sender, MessageKey.INFO_PLUGIN_UNSUPPORTED, versionPlugin.getName(), versionPlugin.getDescription().getVersion());
             }
         }
-
         this.messenger.send(sender, MessageKey.INFO_CHECK_WORLD, Formatter.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
-
-        sender.sendMessage(ChatColor.AQUA + "Check for gamemode: " + Formatter.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
-        sender.sendMessage(ChatColor.AQUA + "Always allow in creative: " + Formatter.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
-        if (this.plugin.getFPConfig().haveIgnoreWorld()) {
-            sender.sendMessage(ChatColor.AQUA + "Disabled in worlds: " + Formatter.parseList(this.plugin.getFPConfig().getIgnoreWorlds(), ChatColor.RED));
-        }
+        this.messenger.send(sender, MessageKey.INFO_CHECK_GAMEMODE, Formatter.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
+        this.messenger.send(sender, MessageKey.INFO_ALLOW_CREATIVE, Formatter.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
+        this.messenger.send(sender, MessageKey.INFO_DISABLED_WORLDS, Formatter.parseList(this.plugin.getFPConfig().getIgnoreWorlds(), ChatColor.RED));
     }
 }

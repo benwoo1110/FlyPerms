@@ -1,4 +1,30 @@
 RELOAD_SUCCESS: '&aSuccessfully reloaded FlyPerms!'
 RELOAD_ERROR: '&cError reloading FlyPerms, see console for more details.'
 
+INFO_HEADER: '&3&l====[ FlyPerms Info ]===='
+INFO_PLUGIN_SUPPORTED: '&b%1 version: %2'
+INFO_PLUGIN_UNSUPPORTED: '&3%1 version: &c%2 (unsupported)'
 INFO_CHECK_WORLD: '&bCheck for worlds: %1'
+INFO_CHECK_GAMEMODE: '&bAlways allow in creative: %1'
+INFO_ALLOW_CREATIVE: '&bAlways allow in creative: %1'
+INFO_DISABLED_WORLDS: '&bDisabled in worlds: %1'
+
+LISTGROUP_HEADER: '&3&l====[ FlyPerms Speed Groups ]===='
+LISTGROUP_SPEED_INFO: '%1 : %2 to %3'
+
+BASE_VERSION: '&a%1 v%2 &8| &bEnabled by - %3'
+BASE_HELP: '&3See &b%1 &3for available commands.'
+
+SEEALLOWED_HEADER: '&3&l====[ %1 Flight Info ]===='
+SEEALLOWED_CURRENT_WORLD: '&bCurrent world: &r%1'
+SEEALLOWED_CURRENT_GAMEMODE: '&bCurrent gamemode: &r%1'
+SEEALLOWED_WORLDS: '&aOnly fly in worlds: &r%1'
+SEEALLOWED_GAMEMODES: '&aOnly fly in gamemodes: &r%1'
+SEEALLOWED_FLY_STATE: '&bCurrently can fly: &r%1'
+SEEALLOWED_SPEED_GROUPS: '&bIn speed groups: &r%1'
+
+SPEED_SET_SUCCESSFUL: 'Successfully set %1 flying speed to %2.'
+SPEED_SET_DISALLOWED: '&c%1 is not allowed to set fly to this speed!'
+
+ERROR_UNKNOWN_PLAYER: '&cERROR: Unknown player &7%1&c.'
+ERROR_NOT_NUMBER: '&cERROR: &7%1&c is not a number.'

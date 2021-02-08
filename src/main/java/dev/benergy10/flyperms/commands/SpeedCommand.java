@@ -1,11 +1,11 @@
 package dev.benergy10.flyperms.commands;
 
 import co.aikar.commands.annotation.*;
+import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,7 +32,7 @@ public class SpeedCommand extends FlyPermsCommand {
     public void onSpeedOther(CommandSender sender, String speed, String playerName) {
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
-            sender.sendMessage(ChatColor.RED + "Unknown player '"+ playerName +"'");
+            this.messenger.send(sender, MessageKey.ERROR_UNKNOWN_PLAYER, playerName);
             return;
         }
         changeSpeed(sender, targetPlayer, speed, playerName);
@@ -44,13 +44,15 @@ public class SpeedCommand extends FlyPermsCommand {
             parsedSpeed = Double.parseDouble(speed);
         }
         catch (NumberFormatException ignored) {
-            sender.sendMessage(ChatColor.RED + "Error: '" + speed + "' is not a number.");
+            this.messenger.send(sender, MessageKey.ERROR_NOT_NUMBER, speed);
             return;
         }
         // TODO: Add check for max speed range.
 
-        sender.sendMessage(this.plugin.getFlightManager().applyFlySpeed(targetPlayer, parsedSpeed)
-                ? "Successfully set " + name + " flying speed to " + speed
-                : ChatColor.RED + "You are not allowed to set fly to this speed!");
+        if (this.plugin.getFlightManager().applyFlySpeed(targetPlayer, parsedSpeed)) {
+            this.messenger.send(sender, MessageKey.SPEED_SET_SUCCESSFUL, name, speed);
+            return;
+        }
+        this.messenger.send(sender, MessageKey.SPEED_SET_DISALLOWED, name);
     }
 }
