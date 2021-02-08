@@ -18,7 +18,7 @@ public class MessageProvider {
 
     private static final char COLOUR_CHAR = '&';
     private static final String MESSAGE_FILENAME = "messages.yml";
-    private static final String INVALID_MESSAGE = "&c!!INVALID!!";
+    private static final String INVALID_MESSAGE = ChatColor.RED + "!!INVALID!!";
 
     private final FlyPerms plugin;
     private final Map<String, String> defaultMessagesMap;
@@ -74,11 +74,18 @@ public class MessageProvider {
 
     public String parseMessage(MessageKey messageKey, Object...replacements) {
         String message = getMessage(messageKey);
-
-        if (replacements == null || replacements.length == 0) {
+        if (message == null) {
+            Logging.warning("No message for key: %s", messageKey);
+            return INVALID_MESSAGE;
+        }
+        if (message.length() == 0|| replacements == null || replacements.length == 0) {
             return message;
         }
 
+        return doReplacements(message, replacements);
+    }
+
+    private String doReplacements(String message, Object[] replacements) {
         int index = 1;
         for (Object replacement : replacements) {
             message = message.replace("%" + index++, String.valueOf(replacement));
@@ -89,11 +96,15 @@ public class MessageProvider {
     public String getMessage(MessageKey messageKey) {
         String message = this.customMessagesMap.get(messageKey.name());
         return (message == null)
-                ? this.defaultMessagesMap.getOrDefault(messageKey.name(), INVALID_MESSAGE)
+                ? this.defaultMessagesMap.get(messageKey.name())
                 : message;
     }
 
     public void send(CommandSender sender, MessageKey messageKey, Object...replacements) {
-        sender.sendMessage(parseMessage(messageKey, replacements));
+        String parsedMessage = parseMessage(messageKey, replacements);
+        if (Strings.isNullOrEmpty(parsedMessage)) {
+            return;
+        }
+        sender.sendMessage(parsedMessage);
     }
 }
