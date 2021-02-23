@@ -80,15 +80,15 @@ public class FlightManager implements FPFlightManager {
      * @param player A bukkit {@link Player} entity.
      */
     private void stopFly(Player player) {
+        if (this.playersToStopFly.contains(player.getUniqueId())) {
+            return;
+        }
+
         this.messager.send(player, MessageKey.FLY_ABILITY_LOST);
 
         if (!player.isFlying()) {
             player.setAllowFlight(false);
             Logging.debug("Disallowed flight ability for %s.", player.getName());
-            return;
-        }
-
-        if (this.playersToStopFly.contains(player.getUniqueId())) {
             return;
         }
 
