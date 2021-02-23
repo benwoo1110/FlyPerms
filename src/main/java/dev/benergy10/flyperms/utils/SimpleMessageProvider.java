@@ -3,6 +3,7 @@ package dev.benergy10.flyperms.utils;
 import com.google.common.base.Strings;
 import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
+import dev.benergy10.flyperms.api.MessageProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,9 +15,8 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageProvider {
+public class SimpleMessageProvider implements MessageProvider {
 
-    private static final char COLOUR_CHAR = '&';
     private static final String MESSAGE_FILENAME = "messages.yml";
     private static final String INVALID_MESSAGE = ChatColor.RED + "!!INVALID!!";
 
@@ -24,13 +24,13 @@ public class MessageProvider {
     private final Map<String, String> defaultMessagesMap;
     private final Map<String, String> customMessagesMap;
 
-    public MessageProvider(FlyPerms plugin) {
+    public SimpleMessageProvider(FlyPerms plugin) {
         this.plugin = plugin;
         this.defaultMessagesMap = new HashMap<>(MessageKey.values().length);
         this.customMessagesMap = new HashMap<>(MessageKey.values().length);
 
         loadDefault();
-        loadCustom();
+        load();
     }
 
     private void loadDefault() {
@@ -45,7 +45,7 @@ public class MessageProvider {
         populateMessagesMap(this.defaultMessagesMap, messageYaml);
     }
 
-    public void loadCustom() {
+    public void load() {
         File messageFile = new File(this.plugin.getDataFolder(), MESSAGE_FILENAME);
         if (!messageFile.exists()) {
             this.plugin.saveResource(MESSAGE_FILENAME, false);
@@ -60,16 +60,10 @@ public class MessageProvider {
         for (MessageKey messageKey : MessageKey.values()) {
             messagesMap.put(
                     messageKey.name(),
-                    colourise(messageYaml.getString(messageKey.name()))
+                    Formatter.colourise(messageYaml.getString(messageKey.name()))
             );
         }
         Logging.debug(String.valueOf(messagesMap));
-    }
-
-    private String colourise(String message) {
-        return (Strings.isNullOrEmpty(message))
-                ? message
-                : ChatColor.translateAlternateColorCodes(COLOUR_CHAR, message);
     }
 
     public String parseMessage(MessageKey messageKey, Object...replacements) {

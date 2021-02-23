@@ -25,7 +25,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     private FlightManager flightManager;
     private FlyApplyScheduler flyApplyScheduler;
     private CommandManager commandManager;
-    private MessageProvider messageProvider;
+    private SimpleMessageProvider messageProvider;
 
     @Override
     public void onEnable() {
@@ -73,7 +73,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         // Init remaining classes
         this.checkManager = new CheckManager(this);
         this.flightManager = new FlightManager(this);
-        this.messageProvider = new MessageProvider(this);
+        this.messageProvider = new SimpleMessageProvider(this);
         this.commandManager = new CommandManager(this);
 
         // Start scheduler for fly checking
@@ -93,7 +93,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         if (!this.config.reloadConfigValues()) {
             return false;
         }
-        this.messageProvider.loadCustom();
+        this.messageProvider.load();
 
         this.permissionTools.registerPerms();
         this.flyApplyScheduler.start();
@@ -148,7 +148,7 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         return this.checkManager;
     }
 
-    public MessageProvider getMessageProvider() {
+    public SimpleMessageProvider getMessageProvider() {
         return messageProvider;
     }
 }
