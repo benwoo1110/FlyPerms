@@ -20,6 +20,10 @@ public final class Formatter {
         return bool ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No";
     }
 
+    public static String parseList(Collection<String> list) {
+        return parseList(list, null);
+    }
+
     public static String parseList(Collection<String> list, ChatColor color) {
         if (list == null) {
             return NULL_VALUE;
@@ -29,7 +33,9 @@ public final class Formatter {
             return ChatColor.GRAY + ChatColor.ITALIC.toString() + "None";
         }
 
-        return color + String.join(", ", list);
+        return (color == null)
+                ? String.join(", ", list)
+                : color + String.join(", ", list);
     }
 
     public static String header(String title) {

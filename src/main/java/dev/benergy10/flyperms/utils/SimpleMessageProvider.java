@@ -30,7 +30,6 @@ public class SimpleMessageProvider implements MessageProvider {
         this.customMessagesMap = new HashMap<>(MessageKey.values().length);
 
         loadDefault();
-        load();
     }
 
     private void loadDefault() {
