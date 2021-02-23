@@ -67,13 +67,13 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         else {
             Logging.debug("FlyPerms placeholderAPI expansion is not registered!");
         }
-        LuckPerms luckPerms = getServer().getServicesManager().load(LuckPerms.class);
-        if (this.config.isHookPapi() && luckPerms != null) {
-            luckPerms.getContextManager().registerCalculator(new FlyStateContextCalculator(this));
-        }
-        else {
-            Logging.debug("FlyPerms LuckPerms context is not registered!");
-        }
+//        LuckPerms luckPerms = getServer().getServicesManager().load(LuckPerms.class);
+//        if (this.config.isHookPapi() && luckPerms != null) {
+//            luckPerms.getContextManager().registerCalculator(new FlyStateContextCalculator(this));
+//        }
+//        else {
+//            Logging.debug("FlyPerms LuckPerms context is not registered!");
+//        }
 
         // Init remaining classes
         this.checkManager = new CheckManager(this);
