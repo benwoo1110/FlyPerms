@@ -7,8 +7,12 @@ import dev.benergy10.flyperms.api.FPFlightManager;
 import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.flyperms.utils.Formatter;
 import dev.benergy10.flyperms.utils.Logging;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import sun.rmi.runtime.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -154,7 +158,9 @@ public class FlightManager implements FPFlightManager {
                 && player.getAllowFlight()
                 && !player.isFlying()
                 && playerInAir(player)) {
+
             player.setFlying(true);
+            Logging.info("Auto flight applied to %s.", player.getName());
             return true;
         }
 
@@ -162,6 +168,16 @@ public class FlightManager implements FPFlightManager {
     }
 
     private boolean playerInAir(Player player) {
-        return player.getLocation().getBlock().getRelative(BlockFace.DOWN).isEmpty();
+        Location location = player.getLocation();
+        World world = location.getWorld();
+        if (world == null) {
+            Logging.warning("%s is in null world for some reason!", player.getName());
+            return false;
+        }
+
+        return world.getBlockAt(location.getBlockX(), location.getBlockY() - 1, location.getBlockZ())
+                .getBlockData()
+                .getMaterial()
+                .isAir();
     }
 }
