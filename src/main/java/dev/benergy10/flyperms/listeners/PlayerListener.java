@@ -48,11 +48,13 @@ public class PlayerListener implements Listener {
      */
     @EventHandler(priority = EventPriority.LOWEST)
     public void changeWorldIgnoreCheck(PlayerChangedWorldEvent event) {
-        if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
-            Player player = event.getPlayer();
-            player.setAllowFlight(false);
-            Logging.debug("Flight check ignored for %s at world %s.", player.getName(), player.getWorld().getName());
+        if (!this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
+            return;
         }
+        
+        Player player = event.getPlayer();
+        player.setAllowFlight(false);
+        Logging.debug("Flight check ignored for %s at world %s.", player.getName(), player.getWorld().getName());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

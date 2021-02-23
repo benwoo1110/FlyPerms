@@ -1,6 +1,7 @@
 package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPPlugin;
+import dev.benergy10.flyperms.dependencies.BstatsMetrics;
 import dev.benergy10.flyperms.dependencies.FlyStateContextCalculator;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;

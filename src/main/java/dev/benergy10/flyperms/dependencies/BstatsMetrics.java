@@ -1,4 +1,4 @@
-package dev.benergy10.flyperms.utils;
+package dev.benergy10.flyperms.dependencies;
 
 import dev.benergy10.flyperms.FlyPerms;
 import org.bstats.bukkit.Metrics;
@@ -8,9 +8,10 @@ import org.bstats.bukkit.Metrics;
  */
 public class BstatsMetrics {
 
+    private static final int PLUGIN_ID = 8745;
+
     private final FlyPerms plugin;
     private final Metrics metrics;
-    private static final int PLUGIN_ID = 8745;
 
     public static void configureMetrics(FlyPerms plugin) {
         BstatsMetrics configurator = new BstatsMetrics(plugin);
