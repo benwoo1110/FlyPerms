@@ -35,7 +35,7 @@ fly-on-air-teleport: true
 # | Fly Speed |
 # +-----------+
 # Allow players to change their fly speed, from -10 to 10. Negative values indicate reverse directions.
-# Permission to give users the speed group is "flyperms.speed.<groupname>", which will give them access to the
+# Permission to give users the speed group is "flyperms.speedgroup.<groupname>", which will give them access to the
 # range of speed as defined.
 # Command to change speed is "/fp speed <speed>".
 speed-group:
