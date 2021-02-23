@@ -33,6 +33,11 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         Logging.showStartUpText(this);
         Logging.info("Starting...");
 
+        // Init messaging
+        Logging.info("Setting up messaging...");
+        this.messageProvider = new SimpleMessageProvider(this);
+        this.messageProvider.load();
+
         // Get config
         Logging.info("Setting up config...");
         this.config = new FlyPermsConfig(this);
@@ -73,7 +78,6 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         // Init remaining classes
         this.checkManager = new CheckManager(this);
         this.flightManager = new FlightManager(this);
-        this.messageProvider = new SimpleMessageProvider(this);
         this.commandManager = new CommandManager(this);
 
         // Start scheduler for fly checking
