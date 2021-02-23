@@ -26,5 +26,10 @@ SEEALLOWED_SPEED_GROUPS: '&bIn speed groups: &r%1'
 SPEED_SET_SUCCESSFUL: 'Successfully set %1 flying speed to %2.'
 SPEED_SET_DISALLOWED: '&c%1 is not allowed to set fly to this speed!'
 
+FLY_ABILITY_GAINED: '&aYou have gained the ability to fly!'
+FLY_ABILITY_LOST: 'You have lost your ability to fly.'
+FLY_DROP_COOLDOWN: 'Dropping in %1 seconds...'
+FLY_DROP_NOW: 'Dropping now!'
+
 ERROR_UNKNOWN_PLAYER: '&cERROR: Unknown player &7%1&c.'
 ERROR_NOT_NUMBER: '&cERROR: &7%1&c is not a number.'

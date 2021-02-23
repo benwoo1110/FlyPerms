@@ -1,8 +1,10 @@
 package dev.benergy10.flyperms.managers;
 
 import dev.benergy10.flyperms.Constants.FlyState;
+import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPFlightManager;
+import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.flyperms.utils.Formatter;
 import dev.benergy10.flyperms.utils.Logging;
 import org.bukkit.block.BlockFace;
@@ -18,12 +20,14 @@ import java.util.UUID;
 public class FlightManager implements FPFlightManager {
 
     private final FlyPerms plugin;
+    private final MessageProvider messager;
     private final Set<UUID> playersToStopFly;
 
     private static final int SPEED_MODIFIER = 10;
 
     public FlightManager(FlyPerms plugin) {
         this.plugin = plugin;
+        this.messager = plugin.getMessageProvider();
         this. playersToStopFly = new HashSet<>();
     }
 
@@ -76,6 +80,8 @@ public class FlightManager implements FPFlightManager {
      * @param player A bukkit {@link Player} entity.
      */
     private void stopFly(Player player) {
+        this.messager.send(player, MessageKey.FLY_ABILITY_LOST);
+
         if (!player.isFlying()) {
             player.setAllowFlight(false);
             Logging.debug("Disallowed flight ability for %s.", player.getName());
@@ -85,10 +91,17 @@ public class FlightManager implements FPFlightManager {
         if (this.playersToStopFly.contains(player.getUniqueId())) {
             return;
         }
+
         this.playersToStopFly.add(player.getUniqueId());
 
         int coolDown = this.plugin.getFPConfig().getCoolDown();
-        player.sendMessage("You have lost your ability to fly. Dropping in " + Formatter.millisecondsToSeconds(coolDown) + "sec...");
+        if (coolDown <= 0) {
+            stopFlyRunnable(player).run();
+            return;
+        }
+
+        Logging.debug("Cool down of %s before drop.", coolDown);
+        this.messager.send(player, MessageKey.FLY_DROP_COOLDOWN, Formatter.millisecondsToSeconds(coolDown));
         this.plugin.getServer().getScheduler().runTaskLater(
                 this.plugin,
                 stopFlyRunnable(player),
@@ -108,16 +121,16 @@ public class FlightManager implements FPFlightManager {
             if (!player.isOnline()
                     || !player.isFlying()
                     || !this.plugin.getCheckManager().calculateFlyState(player).equals(FlyState.NO)) {
-                Logging.debug("Stop fly for  aborted!", player.getName());
+                Logging.debug("Stop fly for %s aborted!", player.getName());
                 return;
             }
 
-            player.sendMessage("Dropping now!");
             player.setFlying(false);
             player.setAllowFlight(false);
-
             this.playersToStopFly.remove(player.getUniqueId());
-            Logging.debug("Disallowed flight for %s after cooldown.", player.getName());
+
+            this.messager.send(player, MessageKey.FLY_DROP_NOW);
+            Logging.debug("Disallowed flight for %s.", player.getName());
         };
     }
 
