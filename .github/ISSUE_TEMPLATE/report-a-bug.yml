@@ -1,0 +1,24 @@
+name: Report bug
+about: Report a bug in FlyPerms
+labels: 'bug: unconfirmed'
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      Thanks for taking the time to report an FlyPerms bug! Fill out the form below to provide us with info to help fix the bug.
+
+- type: dropdown
+  attributes:
+    label: Type of bug
+    description: What type of bug is this? Choose all that apply.
+    multiple: true
+    options:
+      - Performance issue or memory leak
+      - Data loss
+      - Exploit
+      - Compatibility issue
+      - Error in console
+      - Other unexpected behaviour
+  validations:
+    required: true
