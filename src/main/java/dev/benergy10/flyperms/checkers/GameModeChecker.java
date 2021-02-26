@@ -15,17 +15,23 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
 
     private final FlyPerms plugin;
 
-    public GameModeChecker(FlyPerms plugin) {
+    public GameModeChecker(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return this.plugin.getFPConfig().isCheckGameMode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<GameMode> getAllowed(Player player) {
+    public @NotNull List<GameMode> getAllowed(@NotNull Player player) {
         if (!isEnabled()) {
             return null;
         }
@@ -35,8 +41,11 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<String> getAllowedNames(Player player) {
+    public @NotNull List<String> getAllowedNames(@NotNull Player player) {
         if (!isEnabled()) {
             return null;
         }
@@ -47,13 +56,19 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean hasPerm(Player player) {
+    public Boolean hasPerm(@NotNull Player player) {
         return hasPerm(player, player.getGameMode());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean hasPerm(Player player, String modeName) {
+    public Boolean hasPerm(@NotNull Player player, String modeName) {
         GameMode targetMode;
         try {
             targetMode = GameMode.valueOf(modeName);
@@ -65,8 +80,11 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
         return hasPerm(player, targetMode);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean hasPerm(Player player, GameMode mode) {
+    public Boolean hasPerm(@NotNull Player player, GameMode mode) {
         return isEnabled()
                 ? player.hasPermission(Permissions.ALLOW_GAMEMODE + parseToString(mode))
                 : null;

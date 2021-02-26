@@ -1,5 +1,7 @@
 package dev.benergy10.flyperms.api;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface FPSpeedGroup {
     /**
      * Check if a given speed is in allowed range of this speed group.
@@ -14,7 +16,7 @@ public interface FPSpeedGroup {
      *
      * @return Name of the speed group.
      */
-    String getName();
+    @NotNull String getName();
 
     /**
      * Minimum fly speed allowed for this speed group.

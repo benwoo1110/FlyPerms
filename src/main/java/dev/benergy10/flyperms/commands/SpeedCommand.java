@@ -8,11 +8,12 @@ import dev.benergy10.flyperms.Constants.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 @CommandAlias(Commands.BASE)
 public class SpeedCommand extends FlyPermsCommand {
 
-    public SpeedCommand(FlyPerms plugin) {
+    public SpeedCommand(@NotNull FlyPerms plugin) {
         super(plugin);
     }
 
@@ -20,7 +21,9 @@ public class SpeedCommand extends FlyPermsCommand {
     @CommandPermission(Permissions.CHANGE_SPEED)
     @Syntax("<speed>")
     @Description("Changes fly speed, from -10 to 10.")
-    public void onSpeed(Player player, String speed) {
+    public void onSpeed(@NotNull Player player,
+                        @NotNull String speed) {
+
         changeSpeed(player, player, speed, "your");
     }
 
@@ -29,7 +32,10 @@ public class SpeedCommand extends FlyPermsCommand {
     @CommandCompletion(" @players")
     @Syntax("<speed> [player]")
     @Description("Changes fly speed of another player, from -10 to 10.")
-    public void onSpeedOther(CommandSender sender, String speed, String playerName) {
+    public void onSpeedOther(@NotNull CommandSender sender,
+                             @NotNull String speed,
+                             @NotNull String playerName) {
+
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
             this.messenger.send(sender, MessageKey.ERROR_UNKNOWN_PLAYER, playerName);
@@ -38,7 +44,11 @@ public class SpeedCommand extends FlyPermsCommand {
         changeSpeed(sender, targetPlayer, speed, playerName);
     }
 
-    private void changeSpeed(CommandSender sender, Player targetPlayer, String speed, String name) {
+    private void changeSpeed(@NotNull CommandSender sender,
+                             @NotNull Player targetPlayer,
+                             @NotNull String speed,
+                             @NotNull String name) {
+
         double parsedSpeed;
         try {
             parsedSpeed = Double.parseDouble(speed);

@@ -1,6 +1,7 @@
 package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.flyperms.api.FPSpeedGroup;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@inheritDoc}
@@ -11,11 +12,11 @@ public class SpeedGroup implements FPSpeedGroup {
     private final double lowerLimit;
     private final double upperLimit;
 
-    public SpeedGroup(String name, double limit) {
+    public SpeedGroup(@NotNull String name, double limit) {
         this(name, limit, limit);
     }
 
-    public SpeedGroup(String name, double lowerLimit, double upperLimit) {
+    public SpeedGroup(@NotNull String name, double lowerLimit, double upperLimit) {
         this.name = name.toLowerCase();
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
@@ -31,7 +32,7 @@ public class SpeedGroup implements FPSpeedGroup {
     /**
      * {@inheritDoc}
      */
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 

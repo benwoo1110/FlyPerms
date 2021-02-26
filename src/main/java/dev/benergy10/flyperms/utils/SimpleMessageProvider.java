@@ -7,6 +7,8 @@ import dev.benergy10.flyperms.api.MessageProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.InputStream;
@@ -24,7 +26,7 @@ public class SimpleMessageProvider implements MessageProvider {
     private final Map<String, String> defaultMessagesMap;
     private final Map<String, String> customMessagesMap;
 
-    public SimpleMessageProvider(FlyPerms plugin) {
+    public SimpleMessageProvider(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.defaultMessagesMap = new HashMap<>(MessageKey.values().length);
         this.customMessagesMap = new HashMap<>(MessageKey.values().length);
@@ -32,6 +34,9 @@ public class SimpleMessageProvider implements MessageProvider {
         loadDefault();
     }
 
+    /**
+     *
+     */
     private void loadDefault() {
         InputStream messageFileStream = this.plugin.getResource(MESSAGE_FILENAME);
         if (messageFileStream == null) {
@@ -44,6 +49,9 @@ public class SimpleMessageProvider implements MessageProvider {
         populateMessagesMap(this.defaultMessagesMap, messageYaml);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void load() {
         File messageFile = new File(this.plugin.getDataFolder(), MESSAGE_FILENAME);
         if (!messageFile.exists()) {
@@ -54,7 +62,14 @@ public class SimpleMessageProvider implements MessageProvider {
         populateMessagesMap(this.customMessagesMap, messageYaml);
     }
 
-    private void populateMessagesMap(Map<String, String> messagesMap, YamlConfiguration messageYaml) {
+    /**
+     *
+     * @param messagesMap
+     * @param messageYaml
+     */
+    private void populateMessagesMap(@NotNull Map<String, String> messagesMap,
+                                     @NotNull YamlConfiguration messageYaml) {
+
         messagesMap.clear();
         for (MessageKey messageKey : MessageKey.values()) {
             messagesMap.put(
@@ -65,20 +80,32 @@ public class SimpleMessageProvider implements MessageProvider {
         Logging.debug(String.valueOf(messagesMap));
     }
 
-    public String parseMessage(MessageKey messageKey, Object...replacements) {
+    /**
+     * {@inheritDoc}
+     */
+    public @NotNull String parseMessage(@NotNull MessageKey messageKey,
+                                        @Nullable Object...replacements) {
+
         String message = getMessage(messageKey);
         if (message == null) {
             Logging.warning("No message for key: %s", messageKey);
             return INVALID_MESSAGE;
         }
-        if (message.length() == 0|| replacements == null || replacements.length == 0) {
+        if (message.length() == 0 || replacements == null || replacements.length == 0) {
             return message;
         }
 
         return doReplacements(message, replacements);
     }
 
-    private String doReplacements(String message, Object[] replacements) {
+    /**
+     *
+     * @param message
+     * @param replacements
+     * @return
+     */
+    private @NotNull String doReplacements(@NotNull String message,
+                                           @NotNull Object[] replacements) {
         int index = 1;
         for (Object replacement : replacements) {
             message = message.replace("%" + index++, String.valueOf(replacement));
@@ -86,14 +113,23 @@ public class SimpleMessageProvider implements MessageProvider {
         return message;
     }
 
-    public String getMessage(MessageKey messageKey) {
+    /**
+     * {@inheritDoc}
+     */
+    public @Nullable String getMessage(@NotNull MessageKey messageKey) {
         String message = this.customMessagesMap.get(messageKey.name());
         return (message == null)
                 ? this.defaultMessagesMap.get(messageKey.name())
                 : message;
     }
 
-    public void send(CommandSender sender, MessageKey messageKey, Object...replacements) {
+    /**
+     * {@inheritDoc}
+     */
+    public void send(@NotNull CommandSender sender,
+                     @NotNull MessageKey messageKey,
+                     @Nullable Object...replacements) {
+
         String parsedMessage = parseMessage(messageKey, replacements);
         if (Strings.isNullOrEmpty(parsedMessage)) {
             return;

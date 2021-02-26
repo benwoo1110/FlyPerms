@@ -9,11 +9,12 @@ import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.Constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 @CommandAlias(Commands.BASE)
 public class ReloadCommand extends FlyPermsCommand {
 
-    public ReloadCommand(FlyPerms plugin) {
+    public ReloadCommand(@NotNull FlyPerms plugin) {
         super(plugin);
     }
 

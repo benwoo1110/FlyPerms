@@ -10,6 +10,7 @@ import dev.benergy10.flyperms.checkers.SpeedChecker;
 import dev.benergy10.flyperms.checkers.WorldChecker;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import static dev.benergy10.flyperms.Constants.FlyState.*;
 
@@ -24,7 +25,7 @@ public class CheckManager implements FPCheckManager {
     private final WorldChecker worldChecker;
     private final GameModeChecker gameModeChecker;
 
-    public CheckManager(FlyPerms plugin) {
+    public CheckManager(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.speedChecker = new SpeedChecker(plugin);
         this.worldChecker = new WorldChecker(plugin);
@@ -34,7 +35,8 @@ public class CheckManager implements FPCheckManager {
     /**
      * {@inheritDoc}
      */
-    public FlyState calculateFlyState(Player player) {
+    @NotNull
+    public FlyState calculateFlyState(@NotNull Player player) {
         if (this.plugin.getFPConfig().isIgnoreWorld(player.getWorld())) {
             return IGNORED;
         }
@@ -48,7 +50,7 @@ public class CheckManager implements FPCheckManager {
         return isAllowedToFly(player) ? YES : NO;
     }
 
-    private boolean isAllowedToFly(Player player) {
+    private boolean isAllowedToFly(@NotNull Player player) {
         if (!gameModeChecker.isEnabled() && !worldChecker.isEnabled()) {
             return checkBaseAllow(player);
         }
@@ -57,18 +59,22 @@ public class CheckManager implements FPCheckManager {
                 && runPlayerChecker(player, gameModeChecker);
     }
 
-    private boolean checkBaseAllow(Player player) {
+    private boolean checkBaseAllow(@NotNull Player player) {
         return player.hasPermission(Permissions.ALLOW_BASE);
     }
 
-    private <T> boolean runPlayerChecker(Player player, PlayerChecker<T> checker) {
+    private <T> boolean runPlayerChecker(@NotNull Player player,
+                                         @NotNull PlayerChecker<T> checker) {
+
         return !checker.isEnabled() || checker.hasPerm(player);
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean canChangeSpeedTo(Player player, double speed) {
+    public boolean canChangeSpeedTo(@NotNull Player player,
+                                    double speed) {
+
         return this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .stream()
@@ -78,21 +84,22 @@ public class CheckManager implements FPCheckManager {
     /**
      * {@inheritDoc}
      */
-    public SpeedChecker getSpeedChecker() {
+
+    public @NotNull SpeedChecker getSpeedChecker() {
         return speedChecker;
     }
 
     /**
      * {@inheritDoc}
      */
-    public WorldChecker getWorldChecker() {
+    public @NotNull WorldChecker getWorldChecker() {
         return worldChecker;
     }
 
     /**
      * {@inheritDoc}
      */
-    public GameModeChecker getGameModeChecker() {
+    public @NotNull GameModeChecker getGameModeChecker() {
         return gameModeChecker;
     }
 }

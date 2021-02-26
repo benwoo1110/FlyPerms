@@ -2,6 +2,8 @@ package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.IllegalFormatException;
@@ -16,36 +18,36 @@ public final class Logging {
     private static Logger debugLogger;
     private static boolean doDebug = false;
 
-    public static void setup(FlyPerms plugin) {
+    public static void setup(@NotNull FlyPerms plugin) {
         logger = Logger.getLogger(plugin.getName());
         debugLogger = Logger.getLogger(plugin.getName() + "-debug");
     }
 
-    public static void info(String msg, Object... args) {
+    public static void info(@Nullable Object msg, @Nullable Object... args) {
         logger.info(format(msg, args));
     }
 
-    public static void warning(String msg, Object... args) {
+    public static void warning(@Nullable Object msg, @Nullable Object... args) {
         logger.warning(format(msg, args));
     }
 
-    public static void severe(String msg, Object... args) {
+    public static void severe(@Nullable Object msg, @Nullable Object... args) {
         logger.severe(format(msg, args));
     }
 
-    public static void debug(String msg, Object... args) {
+    public static void debug(@Nullable Object msg, @Nullable Object... args) {
         if (doDebug) {
             debugLogger.info(format(msg, args));
         }
     }
 
-    private static String format(String msg, Object[] args) {
+    private static @Nullable String format(@Nullable Object msg, Object[] args) {
         try {
-            return String.format(msg, args);
+            return String.format(String.valueOf(msg), args);
         }
         catch (IllegalFormatException e) {
             logger.warning("Illegal format in the following message:");
-            return msg;
+            return String.valueOf(msg);
         }
     }
 

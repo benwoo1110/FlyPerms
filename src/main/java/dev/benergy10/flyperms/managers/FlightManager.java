@@ -9,10 +9,8 @@ import dev.benergy10.flyperms.utils.Formatter;
 import dev.benergy10.flyperms.utils.Logging;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import sun.rmi.runtime.Log;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +27,7 @@ public class FlightManager implements FPFlightManager {
 
     private static final int SPEED_MODIFIER = 10;
 
-    public FlightManager(FlyPerms plugin) {
+    public FlightManager(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.messager = plugin.getMessageProvider();
         this. playersToStopFly = new HashSet<>();
@@ -38,7 +36,7 @@ public class FlightManager implements FPFlightManager {
     /**
      * {@inheritDoc}
      */
-    public FlyState applyFlyState(Player player) {
+    public @NotNull FlyState applyFlyState(@NotNull Player player) {
         FlyState state = this.plugin.getCheckManager().calculateFlyState(player);
         modifyFlyAbility(player, state);
         return state;
@@ -50,7 +48,9 @@ public class FlightManager implements FPFlightManager {
      * @param player A bukkit {@link Player} entity.
      * @param state  {@link FlyState} to change to.
      */
-    private void modifyFlyAbility(Player player, FlyState state) {
+    private void modifyFlyAbility(@NotNull Player player,
+                                  @NotNull FlyState state) {
+
         switch (state) {
             case SPECTATOR:
                 if (!player.getAllowFlight()) {
@@ -83,7 +83,7 @@ public class FlightManager implements FPFlightManager {
      *
      * @param player A bukkit {@link Player} entity.
      */
-    private void stopFly(Player player) {
+    private void stopFly(@NotNull Player player) {
         if (this.playersToStopFly.contains(player.getUniqueId())) {
             return;
         }
@@ -119,7 +119,7 @@ public class FlightManager implements FPFlightManager {
      * @param player A bukkit {@link Player} entity.
      * @return Runnable to stop fly for a player.
      */
-    private Runnable stopFlyRunnable(Player player) {
+    private @NotNull Runnable stopFlyRunnable(@NotNull Player player) {
         return () -> {
             Logging.debug("Running scheduled stop fly for " + player.getName());
             if (!player.isOnline()
@@ -141,7 +141,9 @@ public class FlightManager implements FPFlightManager {
     /**
      * {@inheritDoc}
      */
-    public boolean applyFlySpeed(Player player, double speed) {
+    public boolean applyFlySpeed(@NotNull Player player,
+                                 double speed) {
+
         if (!this.plugin.getCheckManager().canChangeSpeedTo(player, speed)) {
             return false;
         }
@@ -153,7 +155,7 @@ public class FlightManager implements FPFlightManager {
     /**
      * {@inheritDoc}
      */
-    public boolean applyAutoFlyInAir(Player player) {
+    public boolean applyAutoFlyInAir(@NotNull Player player) {
         if (this.plugin.getFPConfig().isAutoFlyOnAirTeleport()
                 && player.getAllowFlight()
                 && !player.isFlying()
@@ -167,7 +169,13 @@ public class FlightManager implements FPFlightManager {
         return false;
     }
 
-    private boolean playerInAir(Player player) {
+    /**
+     * Check if player is in air.
+     *
+     * @param player    Target player to check.
+     * @return True if player is in air, otherwise false.
+     */
+    private boolean playerInAir(@NotNull Player player) {
         Location location = player.getLocation();
         World world = location.getWorld();
         if (world == null) {

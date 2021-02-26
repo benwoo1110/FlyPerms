@@ -6,12 +6,12 @@ import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.utils.Formatter;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 public class RootCommand extends FlyPermsCommand {
 
-    public RootCommand(FlyPerms plugin) {
+    public RootCommand(@NotNull FlyPerms plugin) {
         super(plugin);
     }
 

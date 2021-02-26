@@ -9,11 +9,12 @@ import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.Constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 @CommandAlias(Commands.BASE)
 public class ListGroupsCommand extends FlyPermsCommand {
 
-    public ListGroupsCommand(FlyPerms plugin) {
+    public ListGroupsCommand(@NotNull FlyPerms plugin) {
         super(plugin);
     }
 

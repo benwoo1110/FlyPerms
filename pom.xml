@@ -93,6 +93,25 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>se.eris</groupId>
+                <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>instrument</goal>
+                            <goal>tests-instrument</goal>
+                        </goals>
+                        <configuration>
+                            <notNull>
+                                <param>org.jetbrains.annotations.NotNull</param>
+                                <param>javax.validation.constraints.NotNull</param>
+                            </notNull>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -162,6 +181,12 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>20.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

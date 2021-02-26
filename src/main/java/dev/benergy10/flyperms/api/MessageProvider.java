@@ -2,6 +2,8 @@ package dev.benergy10.flyperms.api;
 
 import dev.benergy10.flyperms.Constants.MessageKey;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  *
@@ -19,7 +21,7 @@ public interface MessageProvider {
      * @param replacements  Objects to replace placeholder in message.
      * @return The parsed message.
      */
-    String parseMessage(MessageKey messageKey, Object...replacements);
+    @NotNull String parseMessage(@NotNull MessageKey messageKey, @Nullable Object...replacements);
 
     /**
      * Get the raw message set.
@@ -27,7 +29,7 @@ public interface MessageProvider {
      * @param messageKey    Target message identifier.
      * @return The raw message.
      */
-    String getMessage(MessageKey messageKey);
+    @Nullable String getMessage(@NotNull MessageKey messageKey);
 
     /**
      * Send a message to a {@link CommandSender}.
@@ -36,5 +38,5 @@ public interface MessageProvider {
      * @param messageKey    Target message identifier.
      * @param replacements  Objects to replace placeholder in message.
      */
-    void send(CommandSender sender, MessageKey messageKey, Object...replacements);
+    void send(@NotNull CommandSender sender, @NotNull MessageKey messageKey, @Nullable Object...replacements);
 }

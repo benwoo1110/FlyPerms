@@ -16,13 +16,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 @CommandAlias(Commands.BASE)
 public class SeeAllowedCommand extends FlyPermsCommand {
 
     private final CheckManager checker;
 
-    public SeeAllowedCommand(FlyPerms plugin) {
+    public SeeAllowedCommand(@NotNull FlyPerms plugin) {
         super(plugin);
         checker = this.plugin.getCheckManager();
     }
@@ -30,7 +31,7 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     @Subcommand(Commands.SEE_ALLOWED)
     @CommandPermission(Permissions.SEE_ALLOWED)
     @Description("Displays ability to fly.")
-    public void onSeeAllowedSelf(Player player) {
+    public void onSeeAllowedSelf(@NotNull Player player) {
         showAllowedInfo(player, player);
     }
 
@@ -39,7 +40,9 @@ public class SeeAllowedCommand extends FlyPermsCommand {
     @CommandCompletion("@players")
     @Syntax("[player]")
     @Description("Displays ability to fly for another player.")
-    public void onSeeAllowedOthers(CommandSender sender, String playerName) {
+    public void onSeeAllowedOthers(@NotNull CommandSender sender,
+                                   @NotNull String playerName) {
+
         Player targetPlayer = Bukkit.getPlayer(playerName);
         if (targetPlayer == null) {
             this.messenger.send(sender, MessageKey.ERROR_UNKNOWN_PLAYER, playerName);

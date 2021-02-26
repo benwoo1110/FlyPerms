@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class PermissionTools {
     private final PluginManager pm;
     private final Map<String, Permission> cachedPerms;
 
-    public PermissionTools(FlyPerms plugin) {
+    public PermissionTools(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.pm = plugin.getServer().getPluginManager();
         cachedPerms = new HashMap<>(50);
@@ -49,7 +50,7 @@ public class PermissionTools {
      *
      * @param world A bukkit {@link World}.
      */
-    public void addWorldPerm(World world) {
+    public void addWorldPerm(@NotNull World world) {
         addPerm(new Permission(Permissions.ALLOW_WORLD + world.getName(), PermissionDefault.FALSE));
     }
 
@@ -58,7 +59,7 @@ public class PermissionTools {
      *
      * @param world A bukkit {@link World}.
      */
-    public void removeWorldPerm(World world) {
+    public void removeWorldPerm(@NotNull World world) {
         removePerm(Permissions.ALLOW_WORLD + world.getName());
     }
 
@@ -102,7 +103,7 @@ public class PermissionTools {
      *
      * @param perm The permission node to register.
      */
-    private void addPerm(Permission perm) {
+    private void addPerm(@NotNull Permission perm) {
         this.pm.addPermission(perm);
         cachedPerms.put(perm.getName(), perm);
     }
@@ -112,7 +113,7 @@ public class PermissionTools {
      *
      * @param perm The permission node to unregister.
      */
-    private void removePerm(String perm) {
+    private void removePerm(@NotNull String perm) {
         this.pm.removePermission(cachedPerms.get(perm));
         cachedPerms.remove(perm);
     }

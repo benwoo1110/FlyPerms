@@ -14,12 +14,14 @@ public class FlyStateContextCalculator implements ContextCalculator<Player> {
     private static final String KEY = "flyperms:state";
     private final FlyPerms plugin;
 
-    public FlyStateContextCalculator(FlyPerms plugin) {
+    public FlyStateContextCalculator(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
     }
 
     @Override
-    public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
+    public void calculate(@NotNull Player target,
+                          @NotNull ContextConsumer consumer) {
+
         FlyState state = FlyState.NO; // this.plugin.getCheckManager().calculateFlyState(target);
         consumer.accept(KEY, state.name());
     }

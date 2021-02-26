@@ -9,12 +9,13 @@ import dev.benergy10.flyperms.commands.RootCommand;
 import dev.benergy10.flyperms.commands.SeeAllowedCommand;
 import dev.benergy10.flyperms.commands.SpeedCommand;
 import dev.benergy10.flyperms.commands.UsageCommand;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandManager extends PaperCommandManager {
 
     private final FlyPerms plugin;
 
-    public CommandManager(FlyPerms plugin) {
+    public CommandManager(@NotNull FlyPerms plugin) {
         super(plugin);
         this.plugin = plugin;
 

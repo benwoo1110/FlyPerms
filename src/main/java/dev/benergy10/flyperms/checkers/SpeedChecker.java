@@ -5,6 +5,7 @@ import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.Checker;
 import dev.benergy10.flyperms.utils.SpeedGroup;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,17 +14,23 @@ public class SpeedChecker implements Checker<SpeedGroup> {
 
     private final FlyPerms plugin;
 
-    public SpeedChecker(FlyPerms plugin) {
+    public SpeedChecker(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<SpeedGroup> getAllowed(Player player) {
+    public @NotNull List<SpeedGroup> getAllowed(@NotNull Player player) {
         return this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .stream()
@@ -31,8 +38,11 @@ public class SpeedChecker implements Checker<SpeedGroup> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<String> getAllowedNames(Player player) {
+    public @NotNull List<String> getAllowedNames(@NotNull Player player) {
         return this.plugin.getFPConfig()
                 .getSpeedGroups()
                 .stream()
@@ -41,8 +51,11 @@ public class SpeedChecker implements Checker<SpeedGroup> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean hasPerm(Player player, String groupName) {
+    public Boolean hasPerm(@NotNull Player player, String groupName) {
         SpeedGroup targetGroup = this.plugin.getFPConfig().getSpeedGroupOf(groupName);
         if (targetGroup == null) {
             return null;
@@ -51,8 +64,11 @@ public class SpeedChecker implements Checker<SpeedGroup> {
         return hasPerm(player, targetGroup);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean hasPerm(Player player, SpeedGroup group) {
+    public Boolean hasPerm(@NotNull Player player, SpeedGroup group) {
         if (group == null) {
             return null;
         }

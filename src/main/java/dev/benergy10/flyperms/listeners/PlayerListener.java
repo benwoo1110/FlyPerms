@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,18 +21,18 @@ public class PlayerListener implements Listener {
     private final FlyPerms plugin;
     private final Set<UUID> scheduledPlayers;
 
-    public PlayerListener(FlyPerms plugin) {
+    public PlayerListener(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         scheduledPlayers = new HashSet<>();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void join(PlayerJoinEvent event) {
+    public void join(@NotNull PlayerJoinEvent event) {
         doApplyFly("joined", event.getPlayer(), 2L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void changeGameMode(PlayerGameModeChangeEvent event) {
+    public void changeGameMode(@NotNull PlayerGameModeChangeEvent event) {
         if (event.isCancelled()) {
             return;
         }
@@ -47,7 +48,7 @@ public class PlayerListener implements Listener {
     * We check ignored world here so other plugins can potentially changed fly ability.
      */
     @EventHandler(priority = EventPriority.LOWEST)
-    public void changeWorldIgnoreCheck(PlayerChangedWorldEvent event) {
+    public void changeWorldIgnoreCheck(@NotNull PlayerChangedWorldEvent event) {
         if (!this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
             return;
         }
@@ -58,7 +59,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void changeWorld(PlayerChangedWorldEvent event) {
+    public void changeWorld(@NotNull PlayerChangedWorldEvent event) {
         if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
             return;
         }
@@ -71,7 +72,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void fly(PlayerToggleFlightEvent event) {
+    public void fly(@NotNull PlayerToggleFlightEvent event) {
         Player player = event.getPlayer();
         if (!event.isFlying()) {
             Logging.debug(player.getName() + " stopped flying!");
@@ -97,7 +98,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void teleport(PlayerTeleportEvent event) {
+    public void teleport(@NotNull PlayerTeleportEvent event) {
         if (event.isCancelled()) {
             return;
         }
@@ -127,7 +128,10 @@ public class PlayerListener implements Listener {
         doApplyFly("teleported within the same world '"+ toWorld.getName() + "'", player, 2L);
     }
 
-    private void doApplyFly(String actionInfo, Player player, long delay) {
+    private void doApplyFly(@NotNull String actionInfo,
+                            @NotNull Player player,
+                            long delay) {
+
         if (scheduledPlayers.contains(player.getUniqueId())) {
             return;
         }

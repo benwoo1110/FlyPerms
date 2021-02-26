@@ -3,6 +3,7 @@ package dev.benergy10.flyperms.utils;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPScheduler;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@inheritDoc}
@@ -13,7 +14,7 @@ public class FlyApplyScheduler implements FPScheduler {
 
     private BukkitTask flyCheckTask;
 
-    public FlyApplyScheduler(FlyPerms plugin) {
+    public FlyApplyScheduler(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
     }
 
@@ -30,7 +31,7 @@ public class FlyApplyScheduler implements FPScheduler {
         Logging.info("Started fly check task...");
     }
 
-    private Runnable flyCheckRunnable() {
+    private @NotNull Runnable flyCheckRunnable() {
         return () -> this.plugin.getServer()
                 .getOnlinePlayers()
                 .forEach(p -> this.plugin.getFlightManager().applyFlyState(p.getPlayer()));

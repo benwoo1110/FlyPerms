@@ -12,6 +12,7 @@ import dev.benergy10.flyperms.utils.Formatter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,7 @@ public class InfoCommand extends FlyPermsCommand {
             "bPermissions"      // permissions (unsupported)
     );
 
-    public InfoCommand(FlyPerms plugin) {
+    public InfoCommand(@NotNull FlyPerms plugin) {
         super(plugin);
     }
 

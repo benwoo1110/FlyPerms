@@ -1,18 +1,21 @@
 package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPPlugin;
+import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.flyperms.dependencies.BstatsMetrics;
-import dev.benergy10.flyperms.dependencies.FlyStateContextCalculator;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
 import dev.benergy10.flyperms.listeners.WorldListener;
 import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.managers.CommandManager;
 import dev.benergy10.flyperms.managers.FlightManager;
-import dev.benergy10.flyperms.utils.*;
-import net.luckperms.api.LuckPerms;
+import dev.benergy10.flyperms.utils.FlyApplyScheduler;
+import dev.benergy10.flyperms.utils.Logging;
+import dev.benergy10.flyperms.utils.PermissionTools;
+import dev.benergy10.flyperms.utils.SimpleMessageProvider;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@inheritDoc}
@@ -120,39 +123,42 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
     /**
      * {@inheritDoc}
      */
-    public CommandManager getCommandManager() {
+    public @NotNull CommandManager getCommandManager() {
         return commandManager;
     }
 
     /**
      * {@inheritDoc}
      */
-    public FlyPermsConfig getFPConfig() {
+    public @NotNull FlyPermsConfig getFPConfig() {
         return this.config;
     }
 
     /**
      * {@inheritDoc}
      */
-    public FlyApplyScheduler getFlyApplyScheduler() {
+    public @NotNull FlyApplyScheduler getFlyApplyScheduler() {
         return this.flyApplyScheduler;
     }
 
     /**
      * {@inheritDoc}
      */
-    public FlightManager getFlightManager() {
+    public @NotNull FlightManager getFlightManager() {
         return this.flightManager;
     }
 
     /**
      * {@inheritDoc}
      */
-    public CheckManager getCheckManager() {
+    public @NotNull CheckManager getCheckManager() {
         return this.checkManager;
     }
 
-    public SimpleMessageProvider getMessageProvider() {
+    /**
+     * {@inheritDoc}
+     */
+    public @NotNull MessageProvider getMessageProvider() {
         return messageProvider;
     }
 }

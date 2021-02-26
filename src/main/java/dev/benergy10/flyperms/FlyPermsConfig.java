@@ -5,6 +5,7 @@ import dev.benergy10.flyperms.utils.Logging;
 import dev.benergy10.flyperms.utils.SpeedGroup;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class FlyPermsConfig implements FPConfig {
     private boolean hookLuckPerms;
     private boolean debugMode;
 
-    public FlyPermsConfig(FlyPerms plugin) {
+    public FlyPermsConfig(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.config = this.plugin.getConfig();
         this.speedGroups = new HashMap<>();

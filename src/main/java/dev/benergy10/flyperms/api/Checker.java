@@ -1,6 +1,8 @@
 package dev.benergy10.flyperms.api;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public interface Checker<T> {
      * @param player A bukkit {@link Player} entity.
      * @return A List of object that player has permission. Returns null if not {@link #isEnabled()}.
      */
-    List<T> getAllowed(Player player);
+    @NotNull List<T> getAllowed(@NotNull Player player);
 
     /**
      * String representation of the target checker object {@link T} that a player is allowed.
@@ -31,7 +33,7 @@ public interface Checker<T> {
      * @param player A bukkit {@link Player} entity.
      * @return String representation for a List of object that player has permission. Returns null if not {@link #isEnabled()}.
      */
-    List<String> getAllowedNames(Player player);
+    @NotNull List<String> getAllowedNames(@NotNull Player player);
 
     /**
      * Check if player has permissions to do the relevant actions.
@@ -40,7 +42,7 @@ public interface Checker<T> {
      * @param check  String representation of the object, usually it's name.
      * @return True if player has permission, else false. Returns null if not {@link #isEnabled()}.
      */
-    Boolean hasPerm(Player player, String check);
+    @Nullable Boolean hasPerm(@NotNull Player player, String check);
 
     /**
      * Check if player has permissions to do the relevant actions.
@@ -49,5 +51,5 @@ public interface Checker<T> {
      * @param check  Target object to check for permissions.
      * @return True if player has permission, else false. Returns null if not {@link #isEnabled()}.
      */
-    Boolean hasPerm(Player player, T check);
+     @Nullable Boolean hasPerm(@NotNull Player player, T check);
 }
