@@ -22,3 +22,4 @@ Bstats metrics: https://bstats.org/plugin/bukkit/FlyPerms/8745 </br>
 
 ## License
 GNU GENERAL PUBLIC LICENSE, See [here](LICENSE) for more.
+
