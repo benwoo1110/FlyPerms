@@ -7,33 +7,36 @@ import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
 import dev.benergy10.flyperms.listeners.WorldListener;
 import dev.benergy10.flyperms.managers.CheckManager;
-import dev.benergy10.flyperms.managers.CommandManager;
 import dev.benergy10.flyperms.managers.FlightManager;
+import dev.benergy10.flyperms.utils.CommandTools;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
-import dev.benergy10.flyperms.utils.Logging;
 import dev.benergy10.flyperms.utils.PermissionTools;
 import dev.benergy10.flyperms.utils.SimpleMessageProvider;
+import dev.benergy10.minecrafttools.MinecraftPlugin;
+import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * {@inheritDoc}
  */
-public final class FlyPerms extends JavaPlugin implements FPPlugin {
+public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
     private FlyPermsConfig config;
     private PermissionTools permissionTools;
     private CheckManager checkManager;
     private FlightManager flightManager;
     private FlyApplyScheduler flyApplyScheduler;
-    private CommandManager commandManager;
     private SimpleMessageProvider messageProvider;
 
     @Override
-    public void onEnable() {
-        Logging.setup(this);
-        Logging.showStartUpText(this);
+    public void enable() {
+        Logging.showStartUpText(
+                "§2    ___§3  __",
+                "§2   /__§3  /__)   §aFlyPerms - v" + this.getDescription().getVersion(),
+                "§2  /  §3  /       §bEnabled by - benwoo1110",
+                ""
+        );
         Logging.info("Starting...");
 
         // Init messaging
@@ -47,38 +50,34 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
         this.saveDefaultConfig();
         this.config.loadConfigValues();
 
-        // Init bstats
-        Logging.debug("Setting up bstats...");
-        BstatsMetrics.configureMetrics(this);
-
         // Register events
-        Logging.debug("Registering events...");
+        Logging.info("Registering events...");
         PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new PlayerListener(this), this);
         pm.registerEvents(new WorldListener(this), this);
 
         // Register permission nodes
-        Logging.debug("Registering permissions...");
+        Logging.info("Registering permissions...");
         this.permissionTools = new PermissionTools(this);
         this.permissionTools.registerPerms();
 
         // Register dependencies
-        Logging.debug("Registering dependencies...");
+        Logging.info("Registering dependencies...");
         if (this.config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
         }
         else {
-            Logging.debug("FlyPerms placeholderAPI expansion is not registered!");
+            Logging.info("FlyPerms placeholderAPI expansion is not registered!");
         }
 
         // Init remaining classes
         this.checkManager = new CheckManager(this);
         this.flightManager = new FlightManager(this);
-        this.commandManager = new CommandManager(this);
-
-        // Start scheduler for fly checking
         this.flyApplyScheduler = new FlyApplyScheduler(this);
         this.flyApplyScheduler.start();
+
+        CommandTools.setUp(this);
+        BstatsMetrics.configureMetrics(this);
 
         Logging.info("Started!");
     }
@@ -111,13 +110,6 @@ public final class FlyPerms extends JavaPlugin implements FPPlugin {
 
     public PermissionTools getPermissionTools() {
         return this.permissionTools;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public @NotNull CommandManager getCommandManager() {
-        return commandManager;
     }
 
     /**

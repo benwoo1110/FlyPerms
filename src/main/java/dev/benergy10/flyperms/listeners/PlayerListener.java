@@ -2,7 +2,7 @@ package dev.benergy10.flyperms.listeners;
 
 import dev.benergy10.flyperms.Constants.FlyState;
 import dev.benergy10.flyperms.FlyPerms;
-import dev.benergy10.flyperms.utils.Logging;
+import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

@@ -6,7 +6,7 @@ import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPFlightManager;
 import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.flyperms.utils.Formatter;
-import dev.benergy10.flyperms.utils.Logging;
+import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

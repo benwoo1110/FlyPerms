@@ -1,8 +1,8 @@
 package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPConfig;
-import dev.benergy10.flyperms.utils.Logging;
 import dev.benergy10.flyperms.utils.SpeedGroup;
+import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;

@@ -2,9 +2,9 @@ package dev.benergy10.flyperms.api;
 
 import dev.benergy10.flyperms.FlyPermsConfig;
 import dev.benergy10.flyperms.managers.CheckManager;
-import dev.benergy10.flyperms.managers.CommandManager;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
 import dev.benergy10.flyperms.managers.FlightManager;
+import dev.benergy10.minecrafttools.CommandManager;
 import org.jetbrains.annotations.NotNull;
 
 /**

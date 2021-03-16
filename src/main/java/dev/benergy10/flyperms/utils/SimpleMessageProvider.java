@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.MessageProvider;
+import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
