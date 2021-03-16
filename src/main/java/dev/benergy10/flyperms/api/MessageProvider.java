@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.api;
 
-import dev.benergy10.flyperms.Constants.MessageKey;
+import dev.benergy10.flyperms.constants.MessageKey;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,7 +1,7 @@
 package dev.benergy10.flyperms.managers;
 
-import dev.benergy10.flyperms.Constants.FlyState;
-import dev.benergy10.flyperms.Constants.MessageKey;
+import dev.benergy10.flyperms.constants.FlyState;
+import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPFlightManager;
 import dev.benergy10.flyperms.api.MessageProvider;

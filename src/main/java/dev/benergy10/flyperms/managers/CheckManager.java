@@ -1,7 +1,7 @@
 package dev.benergy10.flyperms.managers;
 
-import dev.benergy10.flyperms.Constants.FlyState;
-import dev.benergy10.flyperms.Constants.Permissions;
+import dev.benergy10.flyperms.constants.FlyState;
+import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPCheckManager;
 import dev.benergy10.flyperms.checkers.GameModeChecker;
@@ -12,7 +12,7 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static dev.benergy10.flyperms.Constants.FlyState.*;
+import static dev.benergy10.flyperms.constants.FlyState.*;
 
 /**
  * {@inheritDoc}

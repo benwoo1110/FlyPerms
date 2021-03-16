@@ -1,4 +1,4 @@
-package dev.benergy10.flyperms.Constants;
+package dev.benergy10.flyperms.constants;
 
 public final class Commands {
     public static final String BASE  = "fp|flyperms|fperms|flypermissions";

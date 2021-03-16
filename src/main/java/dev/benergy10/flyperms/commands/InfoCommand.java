@@ -1,9 +1,9 @@
 package dev.benergy10.flyperms.commands;
 
-import dev.benergy10.flyperms.Constants.MessageKey;
+import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
-import dev.benergy10.flyperms.Constants.Commands;
-import dev.benergy10.flyperms.Constants.Permissions;
+import dev.benergy10.flyperms.constants.Commands;
+import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.utils.Formatter;
 import dev.benergy10.minecrafttools.acf.annotation.CommandAlias;
 import dev.benergy10.minecrafttools.acf.annotation.CommandPermission;

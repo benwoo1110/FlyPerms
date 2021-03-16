@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.checkers;
 
-import dev.benergy10.flyperms.Constants.Permissions;
+import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.Checker;
 import dev.benergy10.flyperms.utils.SpeedGroup;

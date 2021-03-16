@@ -1,4 +1,4 @@
-package dev.benergy10.flyperms.Constants;
+package dev.benergy10.flyperms.constants;
 
 import org.bukkit.ChatColor;
 

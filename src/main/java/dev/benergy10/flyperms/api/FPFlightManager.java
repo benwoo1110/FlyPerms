@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.api;
 
-import dev.benergy10.flyperms.Constants.FlyState;
+import dev.benergy10.flyperms.constants.FlyState;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

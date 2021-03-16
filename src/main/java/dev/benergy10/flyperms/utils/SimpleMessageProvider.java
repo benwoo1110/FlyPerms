@@ -1,7 +1,7 @@
 package dev.benergy10.flyperms.utils;
 
 import com.google.common.base.Strings;
-import dev.benergy10.flyperms.Constants.MessageKey;
+import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.minecrafttools.utils.Logging;

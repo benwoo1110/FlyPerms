@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.api;
 
-import dev.benergy10.flyperms.Constants.FlyState;
+import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.checkers.GameModeChecker;
 import dev.benergy10.flyperms.checkers.SpeedChecker;
 import dev.benergy10.flyperms.checkers.WorldChecker;
