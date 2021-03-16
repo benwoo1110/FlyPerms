@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.checkers;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.PlayerChecker;
@@ -7,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ public class WorldChecker implements PlayerChecker<World> {
      */
     @Override
     public boolean isEnabled() {
-        return this.plugin.getFPConfig().isCheckWorld();
+        return this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_WORLD);
     }
 
     /**
@@ -32,12 +34,11 @@ public class WorldChecker implements PlayerChecker<World> {
     @Override
     public @NotNull List<World> getAllowed(@NotNull Player player) {
         if (!isEnabled()) {
-            return null;
+            return Collections.emptyList();
         }
-
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world) && hasPerm(player, world))
+                .filter(world -> !this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(world.getName()) && hasPerm(player, world))
                 .collect(Collectors.toList());
     }
 
@@ -47,12 +48,11 @@ public class WorldChecker implements PlayerChecker<World> {
     @Override
     public @NotNull List<String> getAllowedNames(@NotNull Player player) {
         if (!isEnabled()) {
-            return null;
+            return Collections.emptyList();
         }
-
         return this.plugin.getServer().getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world) && hasPerm(player, world))
+                .filter(world -> !this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(world.getName()) && hasPerm(player, world))
                 .map(World::getName)
                 .collect(Collectors.toList());
     }

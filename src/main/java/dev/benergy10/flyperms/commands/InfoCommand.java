@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.commands;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.constants.Commands;
@@ -53,9 +54,9 @@ public class InfoCommand extends FlyPermsCommand {
                 this.messenger.send(sender, MessageKey.INFO_PLUGIN_UNSUPPORTED, versionPlugin.getName(), versionPlugin.getDescription().getVersion());
             }
         }
-        this.messenger.send(sender, MessageKey.INFO_CHECK_WORLD, Formatter.parseBoolean(this.plugin.getFPConfig().isCheckWorld()));
-        this.messenger.send(sender, MessageKey.INFO_CHECK_GAMEMODE, Formatter.parseBoolean(this.plugin.getFPConfig().isCheckGameMode()));
-        this.messenger.send(sender, MessageKey.INFO_ALLOW_CREATIVE, Formatter.parseBoolean(this.plugin.getFPConfig().isAllowCreative()));
-        this.messenger.send(sender, MessageKey.INFO_DISABLED_WORLDS, Formatter.parseList(this.plugin.getFPConfig().getIgnoreWorlds(), ChatColor.RED));
+        this.messenger.send(sender, MessageKey.INFO_CHECK_WORLD, Formatter.parseBoolean(this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_WORLD)));
+        this.messenger.send(sender, MessageKey.INFO_CHECK_GAMEMODE, Formatter.parseBoolean(this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_GAMEMODE)));
+        this.messenger.send(sender, MessageKey.INFO_ALLOW_CREATIVE, Formatter.parseBoolean(this.plugin.getFPConfig().getValue(ConfigOptions.ALLOW_IN_CREATIVE)));
+        this.messenger.send(sender, MessageKey.INFO_DISABLED_WORLDS, Formatter.parseList(this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS), ChatColor.RED));
     }
 }

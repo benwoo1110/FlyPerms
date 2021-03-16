@@ -1,5 +1,6 @@
-package dev.benergy10.flyperms;
+package dev.benergy10.flyperms.configuration;
 
+import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPConfig;
 import dev.benergy10.flyperms.utils.SpeedGroup;
 import dev.benergy10.minecrafttools.utils.Logging;

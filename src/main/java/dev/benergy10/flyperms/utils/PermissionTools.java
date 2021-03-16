@@ -1,6 +1,7 @@
 package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.flyperms.FlyPerms;
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.Permissions;
 import org.bukkit.GameMode;
 import org.bukkit.World;
@@ -68,7 +69,7 @@ public class PermissionTools {
      */
     private void registerSpeedGroupPerms() {
         this.plugin.getFPConfig()
-                .getSpeedGroups()
+                .getValue(ConfigOptions.SPEED_GROUPS)
                 .forEach(group -> addPerm(new Permission(Permissions.SPEED_GROUP + group.getName(), PermissionDefault.FALSE)));
     }
 
@@ -76,7 +77,7 @@ public class PermissionTools {
      * Register all permissions for {@link GameMode}.
      */
     private void registerGameModePerms() {
-        if (!this.plugin.getFPConfig().isCheckGameMode()) {
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_GAMEMODE)) {
             return;
         }
         Arrays.stream(GameMode.values())
@@ -88,13 +89,13 @@ public class PermissionTools {
      * Register all permissions for all loaded {@link World}.
      */
     private void registerWorldPerms() {
-        if (!this.plugin.getFPConfig().isCheckWorld()) {
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_WORLD)) {
             return;
         }
         this.plugin.getServer()
                 .getWorlds()
                 .stream()
-                .filter(world -> !this.plugin.getFPConfig().isIgnoreWorld(world))
+                .filter(world -> !this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(world.getName()))
                 .forEach(this::addWorldPerm);
     }
 

@@ -2,6 +2,7 @@ package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.FPScheduler;
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +28,7 @@ public class FlyApplyScheduler implements FPScheduler {
                 this.plugin,
                 flyCheckRunnable(),
                 0L,
-                Formatter.millisecondsToTicks(this.plugin.getFPConfig().getCheckInterval())
+                Formatter.millisecondsToTicks(this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_INTERVAL))
         );
         Logging.info("Started fly check task...");
     }

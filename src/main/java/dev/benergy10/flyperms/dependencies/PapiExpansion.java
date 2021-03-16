@@ -1,13 +1,17 @@
 package dev.benergy10.flyperms.dependencies;
 
 import dev.benergy10.flyperms.FlyPerms;
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.utils.Formatter;
+import dev.benergy10.flyperms.utils.SpeedGroup;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.Collectors;
 
 /**
  * This class will be registered through the register-method in the
@@ -142,7 +146,9 @@ public class PapiExpansion extends PlaceholderExpansion {
         }
 
         if (identifier.equals("list_speedgroups")) {
-            return Formatter.parseList(this.plugin.getFPConfig().getSpeedGroupNames(), ChatColor.WHITE);
+            return Formatter.parseList(this.plugin.getFPConfig().getValue(ConfigOptions.SPEED_GROUPS).stream()
+                    .map(SpeedGroup::getName)
+                    .collect(Collectors.toList()), ChatColor.WHITE);
         }
 
         return null;

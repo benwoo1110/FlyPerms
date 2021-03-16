@@ -1,6 +1,8 @@
 package dev.benergy10.flyperms.listeners;
 
 import dev.benergy10.flyperms.FlyPerms;
+import dev.benergy10.flyperms.configuration.ConfigOptions;
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,17 +20,19 @@ public class WorldListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void worldLoaded(@NotNull WorldLoadEvent event) {
-        if (this.plugin.getFPConfig().isIgnoreWorld(event.getWorld())) {
+        World world = event.getWorld();
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(world.getName())) {
             return;
         }
-        this.plugin.getPermissionTools().addWorldPerm(event.getWorld());
+        this.plugin.getPermissionTools().addWorldPerm(world);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void worldUnloaded(@NotNull WorldUnloadEvent event) {
-        if (event.isCancelled() || this.plugin.getFPConfig().isIgnoreWorld(event.getWorld())) {
+        World world = event.getWorld();
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(world.getName())) {
             return;
         }
-        this.plugin.getPermissionTools().removeWorldPerm(event.getWorld());
+        this.plugin.getPermissionTools().removeWorldPerm(world);
     }
 }

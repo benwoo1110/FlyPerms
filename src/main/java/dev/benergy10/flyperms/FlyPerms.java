@@ -2,6 +2,8 @@ package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPPlugin;
 import dev.benergy10.flyperms.api.MessageProvider;
+import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.configuration.FlyPermsConfig;
 import dev.benergy10.flyperms.dependencies.BstatsMetrics;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
@@ -13,6 +15,8 @@ import dev.benergy10.flyperms.utils.FlyApplyScheduler;
 import dev.benergy10.flyperms.utils.PermissionTools;
 import dev.benergy10.flyperms.utils.SimpleMessageProvider;
 import dev.benergy10.minecrafttools.MinecraftPlugin;
+import dev.benergy10.minecrafttools.configs.CommentedYamlFile;
+import dev.benergy10.minecrafttools.configs.YamlFile;
 import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
-    private FlyPermsConfig config;
+    private YamlFile config;
     private PermissionTools permissionTools;
     private CheckManager checkManager;
     private FlightManager flightManager;
@@ -39,16 +43,14 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
         );
         Logging.info("Starting...");
 
+        // Get config
+        Logging.info("Setting up config...");
+        this.config = new CommentedYamlFile(this.getConfigFile(), ConfigOptions.getOptions(), ConfigOptions.header());
+
         // Init messaging
         Logging.info("Setting up messaging...");
         this.messageProvider = new SimpleMessageProvider(this);
         this.messageProvider.load();
-
-        // Get config
-        Logging.info("Setting up config...");
-        this.config = new FlyPermsConfig(this);
-        this.saveDefaultConfig();
-        this.config.loadConfigValues();
 
         // Register events
         Logging.info("Registering events...");
@@ -63,7 +65,7 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
         // Register dependencies
         Logging.info("Registering dependencies...");
-        if (this.config.isHookPapi() && pm.getPlugin("PlaceholderAPI") != null) {
+        if (this.config.getValue(ConfigOptions.PAPI_HOOK) && pm.getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
         }
         else {
@@ -89,7 +91,7 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
         this.flyApplyScheduler.stop();
         this.permissionTools.removeAllPerms();
 
-        if (!this.config.reloadConfigValues()) {
+        if (!this.config.reload()) {
             return false;
         }
         this.messageProvider.load();
@@ -114,8 +116,9 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
     /**
      * {@inheritDoc}
+     * @return
      */
-    public @NotNull FlyPermsConfig getFPConfig() {
+    public @NotNull YamlFile getFPConfig() {
         return this.config;
     }
 

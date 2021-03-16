@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.checkers;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.Checker;
@@ -32,7 +33,7 @@ public class SpeedChecker implements Checker<SpeedGroup> {
     @Override
     public @NotNull List<SpeedGroup> getAllowed(@NotNull Player player) {
         return this.plugin.getFPConfig()
-                .getSpeedGroups()
+                .getValue(ConfigOptions.SPEED_GROUPS)
                 .stream()
                 .filter(group -> hasPerm(player, group))
                 .collect(Collectors.toList());
@@ -44,7 +45,7 @@ public class SpeedChecker implements Checker<SpeedGroup> {
     @Override
     public @NotNull List<String> getAllowedNames(@NotNull Player player) {
         return this.plugin.getFPConfig()
-                .getSpeedGroups()
+                .getValue(ConfigOptions.SPEED_GROUPS)
                 .stream()
                 .filter(group -> hasPerm(player, group))
                 .map(SpeedGroup::getName)
@@ -56,11 +57,14 @@ public class SpeedChecker implements Checker<SpeedGroup> {
      */
     @Override
     public Boolean hasPerm(@NotNull Player player, String groupName) {
-        SpeedGroup targetGroup = this.plugin.getFPConfig().getSpeedGroupOf(groupName);
+        SpeedGroup targetGroup = this.plugin.getFPConfig().getValue(ConfigOptions.SPEED_GROUPS).stream()
+                .filter(speedGroup -> speedGroup.getName().equalsIgnoreCase(groupName))
+                .findFirst()
+                .orElse(null);
+
         if (targetGroup == null) {
             return null;
         }
-
         return hasPerm(player, targetGroup);
     }
 

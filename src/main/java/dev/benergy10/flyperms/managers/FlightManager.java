@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.managers;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
@@ -98,7 +99,7 @@ public class FlightManager implements FPFlightManager {
 
         this.playersToStopFly.add(player.getUniqueId());
 
-        int coolDown = this.plugin.getFPConfig().getCoolDown();
+        int coolDown = this.plugin.getFPConfig().getValue(ConfigOptions.COOLDOWN);
         if (coolDown <= 0) {
             stopFlyRunnable(player).run();
             return;
@@ -156,7 +157,7 @@ public class FlightManager implements FPFlightManager {
      * {@inheritDoc}
      */
     public boolean applyAutoFlyInAir(@NotNull Player player) {
-        if (this.plugin.getFPConfig().isAutoFlyOnAirTeleport()
+        if (this.plugin.getFPConfig().getValue(ConfigOptions.FLY_ON_AIR_TELEPORT)
                 && player.getAllowFlight()
                 && !player.isFlying()
                 && playerInAir(player)) {

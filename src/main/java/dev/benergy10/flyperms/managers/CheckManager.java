@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.managers;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
@@ -37,13 +38,13 @@ public class CheckManager implements FPCheckManager {
      */
     @NotNull
     public FlyState calculateFlyState(@NotNull Player player) {
-        if (this.plugin.getFPConfig().isIgnoreWorld(player.getWorld())) {
+        if (this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(player.getWorld().getName())) {
             return IGNORED;
         }
         if (player.getGameMode().equals(GameMode.SPECTATOR)) {
             return SPECTATOR;
         }
-        if (this.plugin.getFPConfig().isAllowCreative() && player.getGameMode().equals(GameMode.CREATIVE)) {
+        if (this.plugin.getFPConfig().getValue(ConfigOptions.ALLOW_IN_CREATIVE) && player.getGameMode().equals(GameMode.CREATIVE)) {
             return CREATIVE_BYPASS;
         }
 
@@ -76,7 +77,7 @@ public class CheckManager implements FPCheckManager {
                                     double speed) {
 
         return this.plugin.getFPConfig()
-                .getSpeedGroups()
+                .getValue(ConfigOptions.SPEED_GROUPS)
                 .stream()
                 .anyMatch(group -> speedChecker.hasPerm(player, group) && group.isInRange(speed));
     }

@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.checkers;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.PlayerChecker;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,7 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
      */
     @Override
     public boolean isEnabled() {
-        return this.plugin.getFPConfig().isCheckGameMode();
+        return this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_GAMEMODE);
     }
 
     /**
@@ -33,7 +35,7 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
     @Override
     public @NotNull List<GameMode> getAllowed(@NotNull Player player) {
         if (!isEnabled()) {
-            return null;
+            return Collections.emptyList();
         }
 
         return Arrays.stream(GameMode.values())
@@ -47,7 +49,7 @@ public class GameModeChecker implements PlayerChecker<GameMode> {
     @Override
     public @NotNull List<String> getAllowedNames(@NotNull Player player) {
         if (!isEnabled()) {
-            return null;
+            return Collections.emptyList();
         }
 
         return Arrays.stream(GameMode.values())

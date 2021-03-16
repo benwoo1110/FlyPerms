@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.listeners;
 
+import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.minecrafttools.utils.Logging;
@@ -37,8 +38,8 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        if (this.plugin.getFPConfig().isResetSpeedOnGameModeChange()) {
-            event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
+        if (this.plugin.getFPConfig().getValue(ConfigOptions.RESET_SPEED_GAMEMODE)) {
+            event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getValue(ConfigOptions.SPEED_RESET_VALUE) / 10));
         }
 
         doApplyFly("changed gamemode to " + event.getNewGameMode(), event.getPlayer(),2L);
@@ -49,26 +50,24 @@ public class PlayerListener implements Listener {
      */
     @EventHandler(priority = EventPriority.LOWEST)
     public void changeWorldIgnoreCheck(@NotNull PlayerChangedWorldEvent event) {
-        if (!this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
+        Player player = event.getPlayer();
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(player.getWorld().getName())) {
             return;
         }
-        
-        Player player = event.getPlayer();
         player.setAllowFlight(false);
         Logging.debug("Flight check ignored for %s at world %s.", player.getName(), player.getWorld().getName());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeWorld(@NotNull PlayerChangedWorldEvent event) {
-        if (this.plugin.getFPConfig().isIgnoreWorld(event.getPlayer().getWorld())) {
+        Player player = event.getPlayer();
+        if (!this.plugin.getFPConfig().getValue(ConfigOptions.IGNORE_WORLDS).contains(player.getWorld().getName())) {
             return;
         }
-
-        if (this.plugin.getFPConfig().isResetSpeedOnWorldChange()) {
-            event.getPlayer().setFlySpeed((float) (this.plugin.getFPConfig().getResetSpeedValue() / 10));
+        if (this.plugin.getFPConfig().getValue(ConfigOptions.RESET_SPEED_WORLD)) {
+            player.setFlySpeed((float) (this.plugin.getFPConfig().getValue(ConfigOptions.SPEED_RESET_VALUE) / 10));
         }
-
-        doApplyFly("changed world to '" + event.getPlayer().getWorld().getName() + "'", event.getPlayer(), 2L);
+        doApplyFly("changed world to '" + player.getWorld().getName() + "'", player, 2L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -1,10 +1,10 @@
 package dev.benergy10.flyperms.api;
 
-import dev.benergy10.flyperms.FlyPermsConfig;
 import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.utils.FlyApplyScheduler;
 import dev.benergy10.flyperms.managers.FlightManager;
 import dev.benergy10.minecrafttools.CommandManager;
+import dev.benergy10.minecrafttools.configs.YamlFile;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -30,7 +30,7 @@ public interface FPPlugin {
      *
      * @return {@link FPConfig}.
      */
-    @NotNull FlyPermsConfig getFPConfig();
+    @NotNull YamlFile getFPConfig();
 
     /**
      * Gets scheduler class that is used to
