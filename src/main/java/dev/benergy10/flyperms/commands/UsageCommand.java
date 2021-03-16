@@ -1,11 +1,16 @@
 package dev.benergy10.flyperms.commands;
 
-import co.aikar.commands.CommandHelp;
-import co.aikar.commands.HelpEntry;
-import co.aikar.commands.annotation.*;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;
+import dev.benergy10.minecrafttools.acf.CommandHelp;
+import dev.benergy10.minecrafttools.acf.HelpEntry;
+import dev.benergy10.minecrafttools.acf.annotation.CommandAlias;
+import dev.benergy10.minecrafttools.acf.annotation.CommandPermission;
+import dev.benergy10.minecrafttools.acf.annotation.Description;
+import dev.benergy10.minecrafttools.acf.annotation.HelpCommand;
+import dev.benergy10.minecrafttools.acf.annotation.Subcommand;
+import dev.benergy10.minecrafttools.acf.annotation.Syntax;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

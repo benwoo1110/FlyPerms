@@ -1,11 +1,11 @@
 package dev.benergy10.flyperms.commands;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.Description;
 import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.utils.Formatter;
+import dev.benergy10.minecrafttools.acf.annotation.CommandAlias;
+import dev.benergy10.minecrafttools.acf.annotation.Description;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 

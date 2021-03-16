@@ -1,6 +1,5 @@
 package dev.benergy10.flyperms.managers;
 
-import co.aikar.commands.PaperCommandManager;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.commands.InfoCommand;
 import dev.benergy10.flyperms.commands.ListGroupsCommand;
@@ -9,6 +8,7 @@ import dev.benergy10.flyperms.commands.RootCommand;
 import dev.benergy10.flyperms.commands.SeeAllowedCommand;
 import dev.benergy10.flyperms.commands.SpeedCommand;
 import dev.benergy10.flyperms.commands.UsageCommand;
+import dev.benergy10.minecrafttools.acf.PaperCommandManager;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandManager extends PaperCommandManager {

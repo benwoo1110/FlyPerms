@@ -90,12 +90,8 @@
                     <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>dev.benergy10.flyperms.acf</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>dev.benergy10.flyperms.locales</shadedPattern>
+                            <pattern>dev.benergy10.minecrafttools</pattern>
+                            <shadedPattern>dev.benergy10.flyperms.minecrafttools</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
@@ -187,9 +183,18 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>benergy10</id>
+            <url>http://repo.benergy10.dev/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>dev.benergy10.minecrafttools</groupId>
+            <artifactId>MinecraftTools</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -206,11 +211,6 @@
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.4</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.aikar</groupId>
-            <artifactId>acf-paper</artifactId>
-            <version>0.5.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

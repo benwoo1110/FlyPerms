@@ -1,17 +1,17 @@
 package dev.benergy10.flyperms.commands;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandCompletion;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
 import dev.benergy10.flyperms.Constants.MessageKey;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.Constants.Commands;
 import dev.benergy10.flyperms.Constants.Permissions;
 import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.utils.Formatter;
+import dev.benergy10.minecrafttools.acf.annotation.CommandAlias;
+import dev.benergy10.minecrafttools.acf.annotation.CommandCompletion;
+import dev.benergy10.minecrafttools.acf.annotation.CommandPermission;
+import dev.benergy10.minecrafttools.acf.annotation.Description;
+import dev.benergy10.minecrafttools.acf.annotation.Subcommand;
+import dev.benergy10.minecrafttools.acf.annotation.Syntax;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
