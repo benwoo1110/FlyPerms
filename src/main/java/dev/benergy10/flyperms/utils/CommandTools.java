@@ -8,7 +8,7 @@ import dev.benergy10.flyperms.commands.RootCommand;
 import dev.benergy10.flyperms.commands.SeeAllowedCommand;
 import dev.benergy10.flyperms.commands.SpeedCommand;
 import dev.benergy10.flyperms.commands.UsageCommand;
-import dev.benergy10.minecrafttools.CommandManager;
+import dev.benergy10.minecrafttools.commands.CommandManager;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTools {

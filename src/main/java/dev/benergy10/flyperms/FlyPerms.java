@@ -3,7 +3,6 @@ package dev.benergy10.flyperms;
 import dev.benergy10.flyperms.api.FPPlugin;
 import dev.benergy10.flyperms.api.MessageProvider;
 import dev.benergy10.flyperms.configuration.ConfigOptions;
-import dev.benergy10.flyperms.configuration.FlyPermsConfig;
 import dev.benergy10.flyperms.dependencies.BstatsMetrics;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
@@ -20,6 +19,7 @@ import dev.benergy10.minecrafttools.configs.YamlFile;
 import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 /**
  * {@inheritDoc}
