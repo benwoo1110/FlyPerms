@@ -1,7 +1,7 @@
 package dev.benergy10.flyperms.dependencies;
 
 import dev.benergy10.flyperms.FlyPerms;
-import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.managers.CheckManager;
 import dev.benergy10.flyperms.utils.Formatter;
 import dev.benergy10.flyperms.utils.SpeedGroup;

@@ -1,12 +1,14 @@
-package dev.benergy10.flyperms.configuration;
+package dev.benergy10.flyperms.utils;
 
-import dev.benergy10.flyperms.utils.SpeedGroup;
 import dev.benergy10.minecrafttools.configs.ConfigOption;
 import dev.benergy10.minecrafttools.configs.ConfigOptionHandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConfigOptions {
 
@@ -91,21 +93,41 @@ public class ConfigOptions {
             .comment("Permission to give users the speed group is 'flyperms.speedgroup.<groupname>', which will give them access to the")
             .comment("range of speed as defined.")
             .comment("Command to change speed is '/fp speed <speed>'.")
-            .defaultValue(new ArrayList<>())
-//            .defaultValue(Arrays.asList(
-//                    new SpeedGroup("default", 0, 2),
-//                    new SpeedGroup("special", 0, 5),
-//                    new SpeedGroup("admin", -10, 10)
-//            ))
+            .defaultValue(Arrays.asList(
+                    new SpeedGroup("default", 0, 2),
+                    new SpeedGroup("special", 0, 5),
+                    new SpeedGroup("admin", -10, 10)
+            ))
             .handler(new ConfigOptionHandler<List<SpeedGroup>>() {
                 @Override
                 public Object serialize(List<SpeedGroup> speedGroups) {
-                    return new ArrayList<>();
+                    Map<String, List<Double>> speedData = new LinkedHashMap<>();
+                    for (SpeedGroup group : speedGroups) {
+                        List<Double> speedRange = new ArrayList<Double>() {{
+                            add(group.getLowerLimit());
+                            if (group.getLowerLimit() != group.getUpperLimit()) {
+                                add(group.getUpperLimit());
+                            }
+                        }};
+                        speedData.put(group.getName(), speedRange);
+                    }
+                    return speedData;
                 }
 
                 @Override
                 public List<SpeedGroup> deserialize(Object obj) {
-                    return new ArrayList<>();
+                    Map<String, List<Double>> speedData = (Map<String, List<Double>>) obj;
+                    List<SpeedGroup> speedGroups = new ArrayList<>();
+                    for (Map.Entry<String, List<Double>> groupEntry : speedData.entrySet()) {
+                        if (groupEntry.getValue().size() == 1) {
+                            speedGroups.add(new SpeedGroup(
+                                    groupEntry.getKey(), groupEntry.getValue().get(0)));
+                            continue;
+                        }
+                        speedGroups.add(new SpeedGroup(
+                                groupEntry.getKey(), groupEntry.getValue().get(0), groupEntry.getValue().get(1)));
+                    }
+                    return speedGroups;
                 }
             })
             .register(ConfigOptions::register);

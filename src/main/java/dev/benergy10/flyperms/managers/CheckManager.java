@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.managers;
 
-import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.constants.Permissions;
 import dev.benergy10.flyperms.FlyPerms;

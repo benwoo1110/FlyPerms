@@ -2,7 +2,7 @@ package dev.benergy10.flyperms;
 
 import dev.benergy10.flyperms.api.FPPlugin;
 import dev.benergy10.flyperms.api.MessageProvider;
-import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.dependencies.BstatsMetrics;
 import dev.benergy10.flyperms.dependencies.PapiExpansion;
 import dev.benergy10.flyperms.listeners.PlayerListener;
@@ -19,7 +19,6 @@ import dev.benergy10.minecrafttools.configs.YamlFile;
 import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 /**
  * {@inheritDoc}
@@ -63,15 +62,6 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
         this.permissionTools = new PermissionTools(this);
         this.permissionTools.registerPerms();
 
-        // Register dependencies
-        Logging.info("Registering dependencies...");
-        if (this.config.getValue(ConfigOptions.PAPI_HOOK) && pm.getPlugin("PlaceholderAPI") != null) {
-            new PapiExpansion(this).register();
-        }
-        else {
-            Logging.info("FlyPerms placeholderAPI expansion is not registered!");
-        }
-
         // Init remaining classes
         this.checkManager = new CheckManager(this);
         this.flightManager = new FlightManager(this);
@@ -80,6 +70,15 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
         CommandTools.setUp(this);
         BstatsMetrics.configureMetrics(this);
+
+        // Register dependencies
+        Logging.info("Registering dependencies...");
+        if (this.config.getValue(ConfigOptions.PAPI_HOOK) && pm.getPlugin("PlaceholderAPI") != null) {
+            new PapiExpansion(this).register();
+        }
+        else {
+            Logging.info("FlyPerms placeholderAPI expansion is not registered!");
+        }
 
         Logging.info("Started!");
     }

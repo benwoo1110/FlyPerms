@@ -28,7 +28,7 @@ public interface FPPlugin {
     /**
      * Gets class where all to config options are stored.
      *
-     * @return {@link FPConfig}.
+     * @return {@link YamlFile}.
      */
     @NotNull YamlFile getFPConfig();
 

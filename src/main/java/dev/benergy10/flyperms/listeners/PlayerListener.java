@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.listeners;
 
-import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.minecrafttools.utils.Logging;

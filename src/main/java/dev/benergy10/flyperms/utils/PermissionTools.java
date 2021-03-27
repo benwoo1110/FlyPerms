@@ -1,7 +1,6 @@
 package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.flyperms.FlyPerms;
-import dev.benergy10.flyperms.configuration.ConfigOptions;
 import dev.benergy10.flyperms.constants.Permissions;
 import org.bukkit.GameMode;
 import org.bukkit.World;

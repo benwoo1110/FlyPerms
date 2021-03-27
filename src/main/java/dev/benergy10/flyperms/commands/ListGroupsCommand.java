@@ -1,6 +1,6 @@
 package dev.benergy10.flyperms.commands;
 
-import dev.benergy10.flyperms.configuration.ConfigOptions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.constants.Commands;
 import dev.benergy10.flyperms.constants.MessageKey;
 import dev.benergy10.flyperms.constants.Permissions;
