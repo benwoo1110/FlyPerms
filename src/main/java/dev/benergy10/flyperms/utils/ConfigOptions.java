@@ -4,7 +4,6 @@ import dev.benergy10.minecrafttools.configs.ConfigOption;
 import dev.benergy10.minecrafttools.configs.ConfigOptionHandler;
 import dev.benergy10.minecrafttools.utils.Logging;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.ArrayList;
@@ -29,7 +28,8 @@ public class ConfigOptions {
                 "+----------+",
                 "Github repo: https://github.com/benwoo1110/FlyPerms",
                 "Discord: https://discord.gg/Be59ehc",
-                "Spigot: https://www.spigotmc.org/resources/flyperms-1-8-1-16.83432/"
+                "Spigot: https://www.spigotmc.org/resources/flyperms-1-8-1-16.83432/",
+                "Paypal: https://paypal.me/benergy10"
         };
     }
 
