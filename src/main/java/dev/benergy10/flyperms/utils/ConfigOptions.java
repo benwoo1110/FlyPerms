@@ -2,6 +2,10 @@ package dev.benergy10.flyperms.utils;
 
 import dev.benergy10.minecrafttools.configs.ConfigOption;
 import dev.benergy10.minecrafttools.configs.ConfigOptionHandler;
+import dev.benergy10.minecrafttools.utils.Logging;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,7 +102,13 @@ public class ConfigOptions {
                     new SpeedGroup("special", 0, 5),
                     new SpeedGroup("admin", -10, 10)
             ))
-            .handler(new ConfigOptionHandler<List<SpeedGroup>>() {
+            .handler(new ConfigOptionHandler<List<SpeedGroup>, Map<String, Object>>() {
+                @Override
+                public Map<String, Object> getData(YamlConfiguration config, String path) {
+                    ConfigurationSection configurationSection = config.getConfigurationSection(path);
+                    return configurationSection.getValues(false);
+                }
+
                 @Override
                 public Object serialize(List<SpeedGroup> speedGroups) {
                     Map<String, List<Double>> speedData = new LinkedHashMap<>();
@@ -115,19 +125,34 @@ public class ConfigOptions {
                 }
 
                 @Override
-                public List<SpeedGroup> deserialize(Object obj) {
-                    Map<String, List<Double>> speedData = (Map<String, List<Double>>) obj;
+                public List<SpeedGroup> deserialize(Map<String, Object> data) {
                     List<SpeedGroup> speedGroups = new ArrayList<>();
-                    for (Map.Entry<String, List<Double>> groupEntry : speedData.entrySet()) {
-                        if (groupEntry.getValue().size() == 1) {
-                            speedGroups.add(new SpeedGroup(
-                                    groupEntry.getKey(), groupEntry.getValue().get(0)));
+                    for (Object rawGroupName : data.keySet()) {
+                        List<Double> speedValue;
+                        try {
+                            speedValue = (List<Double>) data.get(rawGroupName);
+                        }
+                        catch (ClassCastException e) {
+                            Logging.warning("Invalid speed group " + rawGroupName + ". Please check for config!");
                             continue;
                         }
-                        speedGroups.add(new SpeedGroup(
-                                groupEntry.getKey(), groupEntry.getValue().get(0), groupEntry.getValue().get(1)));
+                        if (!validateSpeedValue(speedValue)) {
+                            Logging.warning("Invalid speed group " + rawGroupName + ". Please check for config!");
+                            continue;
+                        }
+                        String groupName = String.valueOf(rawGroupName);
+                        if (speedValue.size() == 2) {
+                            speedGroups.add(new SpeedGroup(groupName, speedValue.get(0), speedValue.get(1)));
+                        }
+                        else if (speedValue.size() == 1) {
+                            speedGroups.add(new SpeedGroup(groupName, speedValue.get(0)));
+                        }
                     }
                     return speedGroups;
+                }
+
+                private boolean validateSpeedValue(List<Double> speedValue) {
+                    return speedValue != null && ((speedValue.size() == 2 && speedValue.get(0) <= speedValue.get(1)) || speedValue.size() == 1);
                 }
             })
             .register(ConfigOptions::register);
