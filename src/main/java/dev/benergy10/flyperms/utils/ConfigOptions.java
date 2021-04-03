@@ -207,5 +207,9 @@ public class ConfigOptions {
             .comment("")
             .comment("Used for development and troubleshooting purposes.")
             .defaultValue(false)
+            .setConsumer(value -> {
+                Logging.doDebugLog(value);
+                Logging.debug("Debug mode enabled");
+            })
             .register(ConfigOptions::register);
 }
