@@ -34,6 +34,4 @@ public class CommandTools {
         cm.registerCommand(new ListGroupsCommand(this.plugin));
         cm.registerCommand(new UsageCommand(this.plugin));
     }
-
-
 }
