@@ -1,5 +1,6 @@
 package dev.benergy10.flyperms.managers;
 
+import dev.benergy10.flyperms.checkers.WorldGuardChecker;
 import dev.benergy10.flyperms.utils.ConfigOptions;
 import dev.benergy10.flyperms.constants.FlyState;
 import dev.benergy10.flyperms.constants.Permissions;
@@ -25,12 +26,14 @@ public class CheckManager implements FPCheckManager {
     private final SpeedChecker speedChecker;
     private final WorldChecker worldChecker;
     private final GameModeChecker gameModeChecker;
+    private final WorldGuardChecker worldGuardChecker;
 
     public CheckManager(@NotNull FlyPerms plugin) {
         this.plugin = plugin;
         this.speedChecker = new SpeedChecker(plugin);
         this.worldChecker = new WorldChecker(plugin);
         this.gameModeChecker = new GameModeChecker(plugin);
+        this.worldGuardChecker = new WorldGuardChecker(plugin);
     }
 
     /**
