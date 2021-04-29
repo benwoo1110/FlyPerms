@@ -115,7 +115,6 @@ public final class FlyPerms extends MinecraftPlugin implements FPPlugin {
 
     /**
      * {@inheritDoc}
-     * @return
      */
     public @NotNull YamlFile getFPConfig() {
         return this.config;
