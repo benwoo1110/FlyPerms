@@ -55,12 +55,15 @@ public class CheckManager implements FPCheckManager {
     }
 
     private boolean isAllowedToFly(@NotNull Player player) {
-        if (!gameModeChecker.isEnabled() && !worldChecker.isEnabled()) {
+        if (!gameModeChecker.isEnabled()
+                && !worldChecker.isEnabled()
+                && !worldGuardChecker.isEnabled()) {
             return checkBaseAllow(player);
         }
 
         return runPlayerChecker(player, worldChecker)
-                && runPlayerChecker(player, gameModeChecker);
+                && runPlayerChecker(player, gameModeChecker)
+                && runPlayerChecker(player, worldGuardChecker);
     }
 
     private boolean checkBaseAllow(@NotNull Player player) {
