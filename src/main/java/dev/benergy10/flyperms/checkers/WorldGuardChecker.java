@@ -9,17 +9,24 @@ import org.codemc.worldguardwrapper.region.IWrappedRegion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class WorldGuardChecker implements PlayerChecker<IWrappedRegion> {
 
     private final FlyPerms plugin;
-    private final WorldGuardWrapper worldGuard;
+    private WorldGuardWrapper worldGuard;
 
     public WorldGuardChecker(FlyPerms plugin) {
         this.plugin = plugin;
-        this.worldGuard = WorldGuardWrapper.getInstance();
+        try {
+            this.worldGuard = WorldGuardWrapper.getInstance();
+        }
+        catch (NoClassDefFoundError e) {
+            // Ignore
+        }
     }
 
     @Override
@@ -29,27 +36,28 @@ public class WorldGuardChecker implements PlayerChecker<IWrappedRegion> {
 
     @Override
     public @NotNull List<IWrappedRegion> getAllowed(@NotNull Player player) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public @NotNull List<String> getAllowedNames(@NotNull Player player) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public @Nullable Boolean hasPerm(@NotNull Player player, String check) {
         Optional<IWrappedRegion> region = this.worldGuard.getRegion(player.getWorld(), check);
-        return region.isPresent() && player.hasPermission(Permissions.ALLOW_REGION + region.get().getId());
+        return region.map(iWrappedRegion -> hasPerm(player, iWrappedRegion)).orElse(null);
     }
 
     @Override
     public @Nullable Boolean hasPerm(@NotNull Player player, IWrappedRegion check) {
-        return null;
+        return player.hasPermission(Permissions.ALLOW_WORLDGUARD + check.getId());
     }
 
     @Override
     public @Nullable Boolean hasPerm(@NotNull Player player) {
-        return null;
+        Set<IWrappedRegion> regions = this.worldGuard.getRegions(player.getLocation());
+        return regions.stream().anyMatch(region -> hasPerm(player, region));
     }
 }

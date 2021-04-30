@@ -5,7 +5,7 @@ public final class Permissions {
     public static final String ALLOW_BASE = "flyperms.allow";
     public static final String ALLOW_WORLD = "flyperms.allow.world.";
     public static final String ALLOW_GAMEMODE = "flyperms.allow.gamemode.";
-    public static final String ALLOW_REGION = "flyperms.allow.region.";
+    public static final String ALLOW_WORLDGUARD = "flyperms.allow.worldguard.";
     // speed
     public static final String SPEED_GROUP = "flyperms.speedgroup.";
     // commands
