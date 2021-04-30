@@ -55,6 +55,14 @@ public class ConfigOptions {
             .defaultValue(false)
             .register(ConfigOptions::register);
 
+    public static final ConfigOption<Boolean> CHECK_WORLDGUARD = new ConfigOption.Builder<Boolean>()
+            .path("check-for-worldguard-region")
+            .comment("")
+            .comment("If enabled, players will need flyperms.allow.worldguard.REGIONNAME permission node to fly.")
+            .comment("WorldGuard plugin with regions setup will need to installed on your server for this to work.")
+            .defaultValue(false)
+            .register(ConfigOptions::register);
+
     public static final ConfigOption<Boolean> ALLOW_IN_CREATIVE = new ConfigOption.Builder<Boolean>()
             .path("always-allow-in-creative")
             .comment("")

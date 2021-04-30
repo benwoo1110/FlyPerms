@@ -3,6 +3,7 @@ package dev.benergy10.flyperms.checkers;
 import dev.benergy10.flyperms.FlyPerms;
 import dev.benergy10.flyperms.api.PlayerChecker;
 import dev.benergy10.flyperms.constants.Permissions;
+import dev.benergy10.flyperms.utils.ConfigOptions;
 import org.bukkit.entity.Player;
 import org.codemc.worldguardwrapper.WorldGuardWrapper;
 import org.codemc.worldguardwrapper.region.IWrappedRegion;
@@ -31,7 +32,7 @@ public class WorldGuardChecker implements PlayerChecker<IWrappedRegion> {
 
     @Override
     public boolean isEnabled() {
-        return this.worldGuard != null;
+        return this.worldGuard != null && this.plugin.getFPConfig().getValue(ConfigOptions.CHECK_WORLDGUARD);
     }
 
     @Override
