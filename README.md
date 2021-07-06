@@ -18,15 +18,14 @@
 * WorldGuard Support!
 
 ## Support
-For Support please join the FlyPerms Discord Server:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discord:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Open an issue:</p>
+<a href="https://discord.gg/Be59ehc"/> <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" width="100" height="100" /> <a href="https://github.com/benwoo1110/FlyPerms/issues"><img src="https://img.icons8.com/material-outlined/72/github.png" width="100" height="100" />
 
-[![DiscordIcon](https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg)](https://discord.gg/Be59ehc)
+## Downloads
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snapshots:</p>
 
-or open an issue here:
+<a href="https://www.spigotmc.org/resources/flyperms.83432/"/> <img src="https://static.spigotmc.org/img/spigot.png" width="100" height="100" /> <a href="https://ci.benergy10.dev/job/FlyPerms/"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" width="100" height="100" />
 
-[![GithubIcon](https://img.icons8.com/material-outlined/72/github.png)](https://github.com/benwoo1110/FlyPerms/issues)
-## Download
-[![SpigotIcon](https://static.spigotmc.org/img/spigot.png)](https://www.spigotmc.org/resources/flyperms.83432/)
 ## Bstats
 [![BstatsBigGraph](https://bstats.org/signatures/bukkit/FlyPerms.svg)](https://bstats.org/plugin/bukkit/FlyPerms/8745)
 
