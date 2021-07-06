@@ -22,7 +22,7 @@
 <a href="https://discord.gg/Be59ehc"/> <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" width="100" height="100" /> <a href="https://github.com/benwoo1110/FlyPerms/issues"><img src="https://img.icons8.com/material-outlined/72/github.png" width="100" height="100" />
 
 ## Downloads
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snapshots:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snapshots:</p>
 
 <a href="https://www.spigotmc.org/resources/flyperms.83432/"/> <img src="https://static.spigotmc.org/img/spigot.png" width="100" height="100" /> <a href="https://ci.benergy10.dev/job/FlyPerms/"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" width="100" height="100" />
 
