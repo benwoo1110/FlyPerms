@@ -6,7 +6,7 @@
 
     <groupId>dev.benergy10.flyperms</groupId>
     <artifactId>FlyPerms</artifactId>
-    <version>2.2.1-SNAPSHOT</version>
+    <version>2.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>FlyPerms</name>
@@ -35,7 +35,7 @@
             <!-- Always create javadoc jar. -->
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
@@ -173,15 +173,15 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
+            <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
-            <version>7.0.4</version>
+            <version>7.0.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -193,7 +193,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>20.1.0</version>
+            <version>21.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -201,11 +201,11 @@
     <distributionManagement>
         <repository>
             <id>benergy10</id>
-            <url>https://repo.benergy10.dev/repository/minecraft/</url>
+            <url>http://repo.benergy10.dev/repository/minecraft/</url>
         </repository>
         <snapshotRepository>
             <id>benergy10</id>
-            <url>https://repo.benergy10.dev/repository/minecraft-snapshots/</url>
+            <url>http://repo.benergy10.dev/repository/minecraft-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
