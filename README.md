@@ -2,6 +2,9 @@
 
 ![Plugin-Version](https://img.shields.io/spiget/version/83432?label=version)
 ![MC-version](https://img.shields.io/badge/minecraft-java%20edition%201.8.8%2B-blueviolet)
+![Java](https://img.shields.io/badge/java-version%208%2B%20-orange)
+![Downloads](https://img.shields.io/spiget/downloads/83432?label=downloads)
+![Rating](https://img.shields.io/spiget/rating/83432?label=rating)
 [![License](https://img.shields.io/github/license/benwoo1110/FlyPerms)](LICENSE)
 
 ### Have you ever wanted a plugin where players can fly based on permission and not just a command toggle? This is the plugin for you!
@@ -18,14 +21,14 @@
 * WorldGuard Support!
 
 ## Support
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discord:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Open an issue:</p>
-<a href="https://discord.gg/Be59ehc"/> <img src="/.github/Icons/Discord.svg" width="100" height="100" /> 
-<a href="https://github.com/benwoo1110/FlyPerms/issues"><img src="/.github/Icons/Github.png" width="100" height="100" />
+| <a href="https://discord.gg/Be59ehc"/> <img src="/.github/Icons/Discord.svg" width="100" height="100" /> | <a href="https://github.com/benwoo1110/FlyPerms/issues"><img src="/.github/Icons/Github.png" width="80" height="80" /> |
+| :-: | :-: |
+| **Discord** | **Github Issues** |
 
 ## Downloads
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snapshots:</p>
-<a href="https://www.spigotmc.org/resources/flyperms.83432/"/> <img src="/.github/Icons/Spigot.png" width="100" height="90" />
-  <a href="https://ci.benergy10.dev/job/FlyPerms/"><img src="/.github/Icons/Jenkins.svg" width="95" height="100" />
+| <a href="https://www.spigotmc.org/resources/flyperms.83432/"/><img src="/.github/Icons/Spigot.png" width="100" height="90" /> | <a href="https://ci.benergy10.dev/job/FlyPerms/"><img src="/.github/Icons/Jenkins.svg" width="90" height="105" />
+| :-: | :-: |
+| **Stable** | **Snapshots** |
 
 ## Bstats
 [![BstatsBigGraph](https://bstats.org/signatures/bukkit/FlyPerms.svg)](https://bstats.org/plugin/bukkit/FlyPerms/8745)
