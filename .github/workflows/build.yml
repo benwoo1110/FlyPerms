@@ -1,7 +1,7 @@
 name: Maven CI/CD
 
 on:
- push:
+  push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
@@ -18,11 +18,14 @@ jobs:
       with:
         java-version: 16
 
-    - name: Build project with Maven
+    - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - uses: actions/upload-artifact@v2
-    - name: Upload artifacts
+    - name: Staging
+      run: mkdir staging && cp target/*.jar staging
+
+    - name: Artifact output
+      uses: actions/upload-artifact@v2
       with:
-        name: build-artifacts
-        path: targets/*.jar
+        name: FlyPerms-build
+        path: staging
