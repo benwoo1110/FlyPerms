@@ -21,7 +21,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Staging
+    - name: Staging artifact
       run: mkdir staging && cp target/*.jar staging
 
     - name: Artifact output
