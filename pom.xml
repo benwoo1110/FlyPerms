@@ -149,7 +149,7 @@
         </repository>
         <repository>
             <id>benergy10</id>
-            <url>http://repo.benergy10.dev/repository/maven-public/</url>
+            <url>https://repo.benergy10.dev/repository/maven-public/</url>
         </repository>
     </repositories>
 
