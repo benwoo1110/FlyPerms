@@ -23,7 +23,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.7.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -149,7 +149,7 @@
         </repository>
         <repository>
             <id>benergy10</id>
-            <url>https://repo.benergy10.dev/repository/maven-public/</url>
+            <url>http://repo.benergy10.dev/repository/maven-public/</url>
         </repository>
     </repositories>
 
