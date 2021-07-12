@@ -19,7 +19,7 @@ jobs:
         java-version: 16
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
 
     - name: Staging artifact
       run: mkdir staging && cp target/*.jar staging
