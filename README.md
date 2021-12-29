@@ -1,8 +1,8 @@
 ![FlyPerms](resource/FlyPerms.png)
 
 ![Plugin-Version](https://img.shields.io/spiget/version/83432?label=version)
-![MC-version](https://img.shields.io/badge/minecraft-java%20edition%201.8.8%2B-blueviolet)
-![Java](https://img.shields.io/badge/java-version%208%2B%20-orange)
+![MC-version](https://img.shields.io/badge/minecraft-java%20edition%201.16.5%2B-blueviolet)
+![Java](https://img.shields.io/badge/java-version%2016%2B%20-orange)
 ![Downloads](https://img.shields.io/spiget/downloads/83432?label=downloads)
 ![Rating](https://img.shields.io/spiget/rating/83432?label=rating)
 [![License](https://img.shields.io/github/license/benwoo1110/FlyPerms)](LICENSE)
@@ -17,7 +17,7 @@
 * Able to disable this plugin per world!
 * Change your fly speed with speed groups!
 * Supports all modern permission plugins (Recommended [LuckPerms](https://luckperms.net/download))
-* Supports 1.8.8 servers and later!
+* Supports 1.16.5 servers and later! (For 1.8-1.15 use [Version 2.2.0](https://www.spigotmc.org/resources/flyperms-1-8-1-17.83432/download?version=391913))
 * WorldGuard Support!
 
 ## Support
